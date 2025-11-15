@@ -3962,3 +3962,48 @@ class Ui_Nugget(object):
         self.addAllBtn.setText(QCoreApplication.translate("Nugget", u"Toggle All \"Add to Device\"", None))
     # retranslateUi
 
+
+
+    def setupUI(self, Nugget):
+        Nugget.setObjectName("Nugget")
+        Nugget.resize(1000, 620)
+        Nugget.setStyleSheet("""
+            background-color: #F3F3F7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: #1c1c1e;
+        """)
+        # Add main vertical layout
+        self.mainlayout = QVBoxLayout(Nugget)
+        self.mainlayout.setSpacing(10)
+        self.mainlayout.setContentsMargins(15, 15, 15, 15)
+
+        # Add header label
+        self.headerLabel = QLabel("Apple Intelligence Control Panel", Nugget)
+        self.headerLabel.setStyleSheet("font-size: 24px; font-weight: 600; margin-bottom: 8px;")
+        self.mainlayout.addWidget(self.headerLabel)
+
+        # Add example controls layout
+        self.controlsLayout = QHBoxLayout()
+
+        self.enableAIChk = QCheckBox("Enable Apple Intelligence", Nugget)
+        self.enableAIChk.setChecked(False)
+        self.enableAIChk.setEnabled(True)
+        self.controlsLayout.addWidget(self.enableAIChk)
+
+        self.spoofedModelDrp = QComboBox(Nugget)
+        self.spoofedModelDrp.addItems(["iPhone 15 Pro", "iPhone 16", "iPhone 16 Pro Max", "iPhone 14", "iPhone 14 Plus"])
+        self.controlsLayout.addWidget(self.spoofedModelDrp)
+
+        self.mainlayout.addLayout(self.controlsLayout)
+
+        # Add Apply and Restore buttons
+        self.applyBtn = QToolButton(Nugget)
+        self.applyBtn.setText("Apply Settings")
+        self.applyBtn.setStyleSheet("background-color: #007AFF; color: white; border-radius: 12px; padding: 10px 24px;")
+        self.mainlayout.addWidget(self.applyBtn)
+
+        self.restoreBtn = QToolButton(Nugget)
+        self.restoreBtn.setText("Restore Defaults")
+        self.restoreBtn.setStyleSheet("background-color: #DDDDDD; color: black; border-radius: 12px; padding: 10px 24px;")
+        self.mainlayout.addWidget(self.restoreBtn)
+    
