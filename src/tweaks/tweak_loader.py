@@ -210,7 +210,8 @@ def load_featureflags():
         TweakID.SolariumFFAppleMediaServices: FeatureFlagTweak(flag_category='AppleMediaServices', flag_names=['Solarium'], inverted=True),
 
         TweakID.SolariumFFSharing: FeatureFlagTweak(flag_category='Sharing', flag_names=['ShareSheetSolarium'], inverted=True),
-        TweakID.SolariumFFMail: FeatureFlagTweak(flag_category='Mail', flag_names=['SolariumSearch'], inverted=True)
+        TweakID.SolariumFFMail: FeatureFlagTweak(flag_category='Mail', flag_names=['SolariumSearch'], inverted=True),
+        TweakID.MaxRegnerUI: FeatureFlagTweak(flag_category='SpringBoard', flag_names=['MaxRegnerUI'])
     }
     tweaks.update(additional_tweaks)
 

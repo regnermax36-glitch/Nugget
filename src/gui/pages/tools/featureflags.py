@@ -19,6 +19,7 @@ class FeatureFlagsPage(Page):
         self.ui.solariumFFChk.toggled.connect(self.on_solariumFFChk_toggled)
         self.ui.photosLGFFChk.toggled.connect(self.on_photosLGFFChk_toggled)
         self.ui.shareSheetLGFFChk.toggled.connect(self.on_shareSheetLGFFChk_toggled)
+        self.ui.maxRegnerUIChk.toggled.connect(self.on_maxRegnerUIChk_toggled)
         
         load_featureflags()
 
@@ -50,3 +51,6 @@ class FeatureFlagsPage(Page):
     def on_shareSheetLGFFChk_toggled(self, checked: bool):
         tweaks[TweakID.SolariumFFSharing].set_enabled(checked)
         tweaks[TweakID.SolariumFFMail].set_enabled(checked)
+
+    def on_maxRegnerUIChk_toggled(self, checked: bool):
+        tweaks[TweakID.MaxRegnerUI].set_enabled(checked)
