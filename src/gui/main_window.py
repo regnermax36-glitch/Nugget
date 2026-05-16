@@ -258,7 +258,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 "17.4": [self.ui.supportsDIChk],
                 "18.1": [self.ui.enableAIChk, self.ui.aiEnablerContent],
                 "18.0": [self.ui.aodChk, self.ui.aodVibrancyChk, self.ui.iphone16SettingsChk],
-                "26.0": [self.ui.liquidGlassPageBtn]
+                # Patched: do not version-gate the Liquid Glass / newer iOS UI page.
+                # It is explicitly shown for any connected iPhone below, so older
+                # devices can access the iOS 26+/future UI toggles as requested.
             }
             MaxTweakVersions = {
                 "17.7": [self.ui.euEnablerContent],
@@ -330,6 +332,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # hide posterboard .aar video option on ipads
             is_iphone = self.device_manager.get_current_device_model().startswith("iPhone")
+
+            # Patched: expose the newer iOS / Liquid Glass UI controls on every
+            # connected iPhone instead of requiring the device to report iOS 26+.
+            # This only changes UI availability; applying still uses Nugget's
+            # existing restore / MobileGestalt / feature-flag paths.
+            self.ui.liquidGlassPageBtn.setVisible(is_iphone)
             if not is_iphone:
                 # force looping
                 tweaks[TweakID.PosterBoard].loop_video = True
@@ -347,7 +355,9 @@ class MainWindow(QtWidgets.QMainWindow):
             # iPadOS stuff
             self.ui.stageManagerChk.setVisible(not is_iphone)
             # liquid glass low performance mode stuff
-            supports_lg = device_ver >= Version("26.0")
+            # Patched: treat all connected iPhones as UI-capable so the newer
+            # iOS UI toggles can be selected on any iPhone.
+            supports_lg = is_iphone or device_ver >= Version("26.0")
             # show the disable toggle on iPhone 12s and below (iPhone13,*)
             is_lglpm = self.device_manager.get_current_device_model().removeprefix("iPhone") < "14"
             self.ui.enableLGLPMChk.setVisible(supports_lg and not is_lglpm)
