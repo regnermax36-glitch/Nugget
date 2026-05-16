@@ -2795,6 +2795,19 @@ what you are doing.</string>
                   </widget>
                  </item>
                  <item>
+                  <widget class="QCheckBox" name="maxRegnerUIChk">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="toolTip">
+                    <string>Redesigning colors icons and features to ios 27</string>
+                   </property>
+                   <property name="text">
+                    <string>Enable MaxRegnerUI</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QCheckBox" name="clockAnimChk">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>

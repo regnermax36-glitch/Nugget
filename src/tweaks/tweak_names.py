@@ -59,6 +59,7 @@ class TweakID(Enum):
     SolariumFFSharing = auto()
     SolariumFFMail = auto()
     KioskMode = auto()
+    MaxRegnerUI = auto()
 
     # springboard
     LockScreenFootnote = auto()

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.3
+## Created by: Qt User Interface Compiler version 6.11.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -1525,6 +1525,12 @@ class Ui_Nugget(object):
         self.kioskModeChk.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.verticalLayout_13.addWidget(self.kioskModeChk)
+
+        self.maxRegnerUIChk = QCheckBox(self.featureFlagsPageContent)
+        self.maxRegnerUIChk.setObjectName(u"maxRegnerUIChk")
+        self.maxRegnerUIChk.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+
+        self.verticalLayout_13.addWidget(self.maxRegnerUIChk)
 
         self.clockAnimChk = QCheckBox(self.featureFlagsPageContent)
         self.clockAnimChk.setObjectName(u"clockAnimChk")
@@ -6152,6 +6158,10 @@ class Ui_Nugget(object):
         self.photosLGFFChk.setText(QCoreApplication.translate("Nugget", u"Disable Liquid Glass in Documents Camera", None))
         self.shareSheetLGFFChk.setText(QCoreApplication.translate("Nugget", u"Disable Liquid Glass in Share Sheet", None))
         self.kioskModeChk.setText(QCoreApplication.translate("Nugget", u"Enable Kiosk Mode", None))
+#if QT_CONFIG(tooltip)
+        self.maxRegnerUIChk.setToolTip(QCoreApplication.translate("Nugget", u"Redesigning colors icons and features to ios 27", None))
+#endif // QT_CONFIG(tooltip)
+        self.maxRegnerUIChk.setText(QCoreApplication.translate("Nugget", u"Enable MaxRegnerUI", None))
 #if QT_CONFIG(tooltip)
         self.clockAnimChk.setToolTip(QCoreApplication.translate("Nugget", u"Enables an animation when the lock screen clock changes time or style.", None))
 #endif // QT_CONFIG(tooltip)
