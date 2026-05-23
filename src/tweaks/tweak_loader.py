@@ -523,6 +523,8 @@ def load_ios27():
         TweakID.AudioHapticsSync:       BasicPlistTweak(GP, 'SBAudioHapticsSyncEnabled'),
     }
     tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
@@ -562,6 +564,8 @@ def load_maxos_ui():
         TweakID.UIKitFFDynamicColorAdaptation:FeatureFlagTweak('UIKit', ['DynamicColorAdaptation']),
     }
     tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
@@ -608,6 +612,8 @@ def load_maxos_apps():
         TweakID.SafariFFReaderModeV2:       FeatureFlagTweak('MobileSafari', ['ReaderModeV2']),
     }
     tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
@@ -644,6 +650,8 @@ def load_maxos_system():
         TweakID.PerfFFUltraLowLatencyInput: FeatureFlagTweak('SpringBoard',     ['UltraLowLatencyInput']),
     }
     tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
@@ -664,31 +672,299 @@ def load_maxos_exclusive():
         TweakID.MaxOSDynamicIslandPro:     FeatureFlagTweak('SpringBoard',   ['DynamicIslandPro']),
     }
     tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_haptics_ar():
+    """CoreHaptics, ARKit, Vision, CoreML feature flags."""
+    if TweakID.HapticsPatternPlayback in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.HapticsPatternPlayback:     FeatureFlagTweak('CoreHaptics',  ['PatternPlayback']),
+        TweakID.HapticsAdvancedComposition: FeatureFlagTweak('CoreHaptics',  ['AdvancedComposition']),
+        TweakID.HapticsSyncedPlayback:      FeatureFlagTweak('CoreHaptics',  ['SyncedPlayback']),
+        TweakID.HapticsAdaptiveTriggers:    FeatureFlagTweak('CoreHaptics',  ['AdaptiveTriggers']),
+        TweakID.HapticsProEffectsEngine:    FeatureFlagTweak('CoreHaptics',  ['ProEffectsEngine']),
+        TweakID.ARKitWorldTrackingV3:       FeatureFlagTweak('ARKit',        ['WorldTrackingV3']),
+        TweakID.ARKitFaceTrackingPro:       FeatureFlagTweak('ARKit',        ['FaceTrackingPro']),
+        TweakID.ARKitObjectScanningPro:     FeatureFlagTweak('ARKit',        ['ObjectScanningPro']),
+        TweakID.ARKitGeospatialV2:          FeatureFlagTweak('ARKit',        ['GeospatialV2']),
+        TweakID.ARKitOcclusionV2:           FeatureFlagTweak('ARKit',        ['OcclusionV2']),
+        TweakID.VisionLiveTextV3:           FeatureFlagTweak('Vision',       ['LiveTextV3']),
+        TweakID.VisionDocumentScannerPro:   FeatureFlagTweak('Vision',       ['DocumentScannerPro']),
+        TweakID.VisionSubjectLiftV2:        FeatureFlagTweak('Vision',       ['SubjectLiftV2']),
+        TweakID.VisionStyleTransferV2:      FeatureFlagTweak('Vision',       ['StyleTransferV2']),
+        TweakID.VisionPersonSegV2:          FeatureFlagTweak('Vision',       ['PersonSegmentationV2']),
+        TweakID.CoreMLOnDeviceV2:           FeatureFlagTweak('CoreML',       ['OnDeviceInferenceV2']),
+        TweakID.CoreMLNeuralMaxUtil:        FeatureFlagTweak('CoreML',       ['NeuralEngineMaxUtilization']),
+        TweakID.CoreMLAdaptiveInference:    FeatureFlagTweak('CoreML',       ['AdaptiveInference']),
+        TweakID.CoreMLPrivateCompute:       FeatureFlagTweak('CoreML',       ['PrivateCloudCompute']),
+        TweakID.CoreMLStreamingInference:   FeatureFlagTweak('CoreML',       ['StreamingInference']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_connectivity():
+    """Network, Bluetooth, Location feature flags."""
+    if TweakID.NetHTTP3Default in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.NetHTTP3Default:            FeatureFlagTweak('Network',      ['HTTP3Default']),
+        TweakID.NetQUICEnabled:             FeatureFlagTweak('Network',      ['QUICEnabled']),
+        TweakID.NetAdaptiveQoS:             FeatureFlagTweak('Network',      ['AdaptiveQoS']),
+        TweakID.NetPrivacyProxyV2:          FeatureFlagTweak('Network',      ['PrivacyProxyV2']),
+        TweakID.NetLowDataModeV2:           FeatureFlagTweak('Network',      ['LowDataModeV2']),
+        TweakID.BLEEnhancedScanning:        FeatureFlagTweak('Bluetooth',    ['EnhancedScanning']),
+        TweakID.BLELeAudioCodecs:           FeatureFlagTweak('Bluetooth',    ['LEAudioCodecs']),
+        TweakID.BTCompanionMode:            FeatureFlagTweak('Bluetooth',    ['CompanionMode']),
+        TweakID.BTPersonalHotspotV2:        FeatureFlagTweak('Bluetooth',    ['PersonalHotspotV2']),
+        TweakID.LocPrecisionV2:             FeatureFlagTweak('CoreLocation', ['PreciseLocationV2']),
+        TweakID.LocOfflineGeocoding:        FeatureFlagTweak('CoreLocation', ['OfflineGeocoding']),
+        TweakID.LocBackgroundOptimization:  FeatureFlagTweak('CoreLocation', ['BackgroundOptimization']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_cloud_health():
+    """CloudKit, iCloud, HealthKit feature flags."""
+    if TweakID.CloudKitEncryptionV2 in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.CloudKitEncryptionV2:       FeatureFlagTweak('CloudKit',     ['EncryptionV2']),
+        TweakID.CloudKitSyncPriorityV2:     FeatureFlagTweak('CloudKit',     ['SyncPriorityV2']),
+        TweakID.iCloudDriveV2:              FeatureFlagTweak('iCloud',       ['DriveV2']),
+        TweakID.iCloudKeyValueV2:           FeatureFlagTweak('iCloud',       ['KeyValueStoreV2']),
+        TweakID.HealthMentalHealthV2:       FeatureFlagTweak('HealthKit',    ['MentalHealthV2']),
+        TweakID.HealthSleepV3:              FeatureFlagTweak('HealthKit',    ['SleepV3']),
+        TweakID.HealthInsightsV2:           FeatureFlagTweak('HealthKit',    ['InsightsV2']),
+        TweakID.HealthCyclingV2:            FeatureFlagTweak('HealthKit',    ['CyclingV2']),
+        TweakID.HealthVisionV2:             FeatureFlagTweak('HealthKit',    ['VisionHealthV2']),
+        TweakID.HealthWorkoutV3:            FeatureFlagTweak('HealthKit',    ['WorkoutV3']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_wallet_home_focus():
+    """Wallet, HomeKit, Focus, ScreenTime feature flags."""
+    if TweakID.WalletCompanionPasses in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.WalletCompanionPasses:      FeatureFlagTweak('Wallet',       ['CompanionPasses']),
+        TweakID.WalletApplePayV3:           FeatureFlagTweak('Wallet',       ['ApplePayV3']),
+        TweakID.WalletOrdersV2:             FeatureFlagTweak('Wallet',       ['OrdersV2']),
+        TweakID.WalletIDVerification:       FeatureFlagTweak('Wallet',       ['IDVerification']),
+        TweakID.HomeKitMatterV2:            FeatureFlagTweak('HomeKit',      ['MatterV2']),
+        TweakID.HomeKitAutomationV3:        FeatureFlagTweak('HomeKit',      ['AutomationV3']),
+        TweakID.HomeKitEnergyV2:            FeatureFlagTweak('HomeKit',      ['EnergyManagementV2']),
+        TweakID.HomeKitCameraV2:            FeatureFlagTweak('HomeKit',      ['CameraStreamingV2']),
+        TweakID.FocusContextV2:             FeatureFlagTweak('Focus',        ['ContextAwarenessV2']),
+        TweakID.FocusFiltersV2Extended:     FeatureFlagTweak('Focus',        ['FiltersV2Extended']),
+        TweakID.FocusInsightsV2:            FeatureFlagTweak('Focus',        ['InsightsV2']),
+        TweakID.ScreenTimeV3:               FeatureFlagTweak('ScreenTime',   ['ScreenTimeV3']),
+        TweakID.ScreenTimeCommunicationV2:  FeatureFlagTweak('ScreenTime',   ['CommunicationLimitsV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_privacy_shortcuts_org():
+    """Privacy, Shortcuts, Calendar, Contacts feature flags."""
+    if TweakID.PrivacyAppReportV2 in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.PrivacyAppReportV2:         FeatureFlagTweak('Privacy',      ['AppReportV2']),
+        TweakID.PrivacyLocationV2:          FeatureFlagTweak('Privacy',      ['LocationServicesV2']),
+        TweakID.PrivacyTrackingV2:          FeatureFlagTweak('Privacy',      ['TrackingTransparencyV2']),
+        TweakID.PrivacySensorV2:            FeatureFlagTweak('Privacy',      ['SensorAccessV2']),
+        TweakID.PrivacyDataBrokerV2:        FeatureFlagTweak('Privacy',      ['DataBrokerProtectionV2']),
+        TweakID.ShortcutsV3:                FeatureFlagTweak('Shortcuts',    ['ShortcutsV3']),
+        TweakID.ShortcutsAutomationsV2:     FeatureFlagTweak('Shortcuts',    ['AutomationsV2']),
+        TweakID.ShortcutsAIActions:         FeatureFlagTweak('Shortcuts',    ['AIActions']),
+        TweakID.ShortcutsAppIntentsV2:      FeatureFlagTweak('Shortcuts',    ['AppIntentsV2']),
+        TweakID.CalSuggestionsV2:           FeatureFlagTweak('Calendar',     ['SuggestionsV2']),
+        TweakID.CalSmartScheduling:         FeatureFlagTweak('Calendar',     ['SmartScheduling']),
+        TweakID.CalInsightsV2:              FeatureFlagTweak('Calendar',     ['InsightsV2']),
+        TweakID.CalSharedCalendarV2:        FeatureFlagTweak('Calendar',     ['SharedCalendarV2']),
+        TweakID.ContactsSuggestionsV2:      FeatureFlagTweak('Contacts',     ['SuggestionsV2']),
+        TweakID.ContactsUnifiedViewV2:      FeatureFlagTweak('Contacts',     ['UnifiedViewV2']),
+        TweakID.ContactsSmartGroupV2:       FeatureFlagTweak('Contacts',     ['SmartGroupV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_reminders_files():
+    """Reminders, Notes, Files feature flags."""
+    if TweakID.RemindersSuggestionsV2 in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.RemindersSuggestionsV2:     FeatureFlagTweak('Reminders',    ['SuggestionsV2']),
+        TweakID.RemindersCollaborationV2:   FeatureFlagTweak('Reminders',    ['CollaborationV2']),
+        TweakID.RemindersSmartListsV2:      FeatureFlagTweak('Reminders',    ['SmartListsV2']),
+        TweakID.NotesCollaborationV2:       FeatureFlagTweak('Notes',        ['CollaborationV2']),
+        TweakID.NotesSearchV2:              FeatureFlagTweak('Notes',        ['SearchV2']),
+        TweakID.NotesTemplatesV2:           FeatureFlagTweak('Notes',        ['TemplatesV2']),
+        TweakID.FilesTaggingV2:             FeatureFlagTweak('Files',        ['TaggingV2']),
+        TweakID.FilesSharingV2:             FeatureFlagTweak('Files',        ['SharingV2']),
+        TweakID.FilesQuickLookV2:           FeatureFlagTweak('Files',        ['QuickLookV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_gaming_media():
+    """GameKit, Metal, RealityKit, Media feature flags."""
+    if TweakID.GameCenterV3 in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.GameCenterV3:               FeatureFlagTweak('GameKit',      ['GameCenterV3']),
+        TweakID.GameMultiplayerV2:          FeatureFlagTweak('GameKit',      ['MultiplayerV2']),
+        TweakID.MetalRayTracingV2:          FeatureFlagTweak('Metal',        ['RayTracingV2']),
+        TweakID.MetalMLAcceleration:        FeatureFlagTweak('Metal',        ['MLAcceleration']),
+        TweakID.RealityKitV3:               FeatureFlagTweak('RealityKit',   ['RealityKitV3']),
+        TweakID.SpatialComputingV2:         FeatureFlagTweak('RealityKit',   ['SpatialComputingV2']),
+        TweakID.MediaTVFloatingPlayer:      FeatureFlagTweak('TVUIKit',      ['FloatingPlayer']),
+        TweakID.MediaMusicLosslessDefault:  FeatureFlagTweak('Music',        ['LosslessDefault']),
+        TweakID.MediaMusicSpatialDefault:   FeatureFlagTweak('Music',        ['SpatialDefault']),
+        TweakID.MediaPodcastsTranscriptV2:  FeatureFlagTweak('Podcasts',     ['TranscriptV2']),
+        TweakID.MediaFitnessGroupWorkoutV2: FeatureFlagTweak('Fitness',      ['GroupWorkoutV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_extended_apps():
+    """Extended per-app flags: Maps, Safari, Messages, FaceTime, Photos, Camera."""
+    if TweakID.MapsImmersiveViewV2 in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.MapsImmersiveViewV2:        FeatureFlagTweak('Maps',         ['ImmersiveViewV2']),
+        TweakID.MapsLookAroundV2:           FeatureFlagTweak('Maps',         ['LookAroundV2']),
+        TweakID.MapsFlyoverV2:              FeatureFlagTweak('Maps',         ['FlyoverV2']),
+        TweakID.MapsTransitV2:              FeatureFlagTweak('Maps',         ['TransitV2']),
+        TweakID.MapsGuidesV2:               FeatureFlagTweak('Maps',         ['GuidesV2']),
+        TweakID.SafariWebCodecAV1:          FeatureFlagTweak('MobileSafari', ['AV1Codec']),
+        TweakID.SafariPasskeysFull:         FeatureFlagTweak('MobileSafari', ['PasskeysFullSupport']),
+        TweakID.SafariAdBlockingV2:         FeatureFlagTweak('MobileSafari', ['AdBlockingV2']),
+        TweakID.SafariTranslationV2:        FeatureFlagTweak('MobileSafari', ['TranslationV2']),
+        TweakID.SafariWebExtensionsV2:      FeatureFlagTweak('MobileSafari', ['WebExtensionsV2']),
+        TweakID.MsgReactionsV2:             FeatureFlagTweak('Messages',     ['ReactionsV2']),
+        TweakID.MsgStickerPacksV2:          FeatureFlagTweak('Messages',     ['StickerPacksV2']),
+        TweakID.MsgSharePlayV2:             FeatureFlagTweak('Messages',     ['SharePlayV2']),
+        TweakID.MsgGroupFocusSync:          FeatureFlagTweak('Messages',     ['GroupFocusSync']),
+        TweakID.MsgCheckInV2:               FeatureFlagTweak('Messages',     ['CheckInV2']),
+        TweakID.FTHandoffCallsV2:           FeatureFlagTweak('FaceTime',     ['HandoffCallsV2']),
+        TweakID.FTVideoMessageV2:           FeatureFlagTweak('FaceTime',     ['VideoMessageV2']),
+        TweakID.FTSpatialFaceTime:          FeatureFlagTweak('FaceTime',     ['SpatialFaceTime']),
+        TweakID.FTGroupCallsV2:             FeatureFlagTweak('FaceTime',     ['GroupCallsV2']),
+        TweakID.FTPortraitModeCall:         FeatureFlagTweak('FaceTime',     ['PortraitModeCall']),
+        TweakID.PhotosSharedLibraryV2:      FeatureFlagTweak('Photos',       ['SharedLibraryV2']),
+        TweakID.PhotosCleanUpV2:            FeatureFlagTweak('Photos',       ['CleanUpV2']),
+        TweakID.PhotosMemoryMovieV2:        FeatureFlagTweak('Photos',       ['MemoryMovieV2']),
+        TweakID.PhotosHDRMax:               FeatureFlagTweak('Photos',       ['HDRMax']),
+        TweakID.PhotosPortraitLightsV2:     FeatureFlagTweak('Photos',       ['PortraitLightsV2']),
+        TweakID.CameraStudioLightV2:        FeatureFlagTweak('Camera',       ['StudioLightV2']),
+        TweakID.CameraActionModeV2:         FeatureFlagTweak('Camera',       ['ActionModeV2']),
+        TweakID.CameraPhotonicEngineV2:     FeatureFlagTweak('Camera',       ['PhotonicEngineV2']),
+        TweakID.CameraVideoV3:              FeatureFlagTweak('Camera',       ['VideoV3']),
+        TweakID.CameraFrontVideoV2:         FeatureFlagTweak('Camera',       ['FrontVideoV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_system_core():
+    """System core managed-preference & feature-flag overrides."""
+    if TweakID.SysCoreProMotion in tweaks:
+        return
+    GP = FileLocation.globalPreferences
+    S  = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.SysCoreProMotion:      BasicPlistTweak(S,  'SBProMotionEnabled'),
+        TweakID.SysCoreAnimSpeed:      BasicPlistTweak(GP, 'UIAnimationDragCoefficient', value=0.35),
+        TweakID.SysCoreScrollVelocity: FeatureFlagTweak('UIKit',        ['ScrollVelocityBoost']),
+        TweakID.SysCoreMTLOverlay:     BasicPlistTweak(GP, 'MTOverlayEnabled'),
+        TweakID.SysCoreHideCarrier:    BasicPlistTweak(S,  'SBHideCarrierText'),
+        TweakID.SysCoreDevSettings:    BasicPlistTweak(S,  'SBShowDeveloperSettings'),
+        TweakID.SysCoreAlwaysAOD:      BasicPlistTweak(S,  'SBAlwaysOnDisplayEnabled'),
+        TweakID.SysCoreNightShiftMax:  FeatureFlagTweak('CoreDisplay',  ['NightShiftMaxBrightness']),
+        TweakID.SysCoreAutoRotate:     BasicPlistTweak(S,  'SBDisableAutoRotation', value=False),
+        TweakID.SysCoreHDRVideo:       FeatureFlagTweak('AVFoundation', ['HDRVideoDefault']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
 # maxregnerOS Mode: curated set of the highest-impact tweaks for maximum visual effect
 MAXREGNEROS_MODE_IDS = frozenset([
+    # Liquid Glass per-app
     TweakID.SolariumFFMessages, TweakID.SolariumFFMaps, TweakID.SolariumFFSafari,
     TweakID.SolariumFFControlCenter, TweakID.SolariumFFNotifications, TweakID.SolariumFFWidgets,
     TweakID.SolariumFFMusic, TweakID.SolariumFFPhone, TweakID.SolariumFFCalendar,
     TweakID.SolariumFFNotes, TweakID.SolariumFFSpotlight,
     TweakID.SBShowBatteryPercentageAlways, TweakID.SBAlwaysGlassHeaders,
     TweakID.SBExpandedDynamicIsland, TweakID.SBAlwaysShowClockDI,
+    TweakID.SolariumHighContrast, TweakID.SolariumMaxBlur,
+    # SpringBoard & UIKit
     TweakID.SBFFGlassFolders, TweakID.SBFFAppSwitcherV2, TweakID.SBFFLiveActivitiesPersistent,
     TweakID.SBFFAdaptiveGrid, TweakID.SBFFGlassIconShimmer, TweakID.SBFFDynamicBackground,
     TweakID.UIKitFFGlassSheets, TweakID.UIKitFFPillButtons, TweakID.UIKitFFGlassAlerts,
     TweakID.UIKitFFRubberBandPhysics, TweakID.UIKitFFCardLayouts,
+    # Lock Screen & Notifications
     TweakID.LockFFDepthEffectClock, TweakID.LockFFLiveWeatherBG, TweakID.LockFFAlwaysOnDisplayV2,
     TweakID.LockFFWidgetsV2,
     TweakID.NotifFFGlassNotifications, TweakID.NotifFFStackedBanners,
+    # Widgets & Live Activities
     TweakID.WidgetFFInteractiveWidgets, TweakID.WidgetFFAnimatedWidgets,
     TweakID.LiveActFFGlassPresentation, TweakID.LiveActFFPersistentMode,
+    # Audio
     TweakID.AudioSpatialDefault, TweakID.AudioPersonalizedSpatial, TweakID.AudioEnhancedSpeaker,
+    # maxregnerOS Exclusive
     TweakID.MaxOSGlassEverywhere, TweakID.MaxOSFluidMotionEngine,
     TweakID.MaxOSHyperSmoothScrolling, TweakID.MaxOSProDisplayRendering,
     TweakID.MaxOSProHapticsEngine, TweakID.MaxOSDynamicIslandPro,
-    TweakID.SolariumHighContrast, TweakID.SolariumMaxBlur,
+    # Haptics & AR
+    TweakID.HapticsAdaptiveTriggers, TweakID.HapticsProEffectsEngine,
+    TweakID.ARKitWorldTrackingV3, TweakID.VisionLiveTextV3, TweakID.CoreMLOnDeviceV2,
+    # Connectivity
+    TweakID.NetHTTP3Default, TweakID.BLELeAudioCodecs, TweakID.LocPrecisionV2,
+    # Health & Cloud
+    TweakID.HealthSleepV3, TweakID.HealthWorkoutV3, TweakID.CloudKitEncryptionV2,
+    # Wallet & Home
+    TweakID.WalletApplePayV3, TweakID.HomeKitMatterV2, TweakID.FocusContextV2,
+    # Privacy & Shortcuts
+    TweakID.PrivacyTrackingV2, TweakID.ShortcutsAIActions,
+    # Gaming & Media
+    TweakID.MetalRayTracingV2, TweakID.RealityKitV3,
+    TweakID.MediaMusicSpatialDefault, TweakID.MediaMusicLosslessDefault,
+    # Extended Apps
+    TweakID.MapsImmersiveViewV2, TweakID.FTSpatialFaceTime,
+    TweakID.PhotosHDRMax, TweakID.CameraPhotonicEngineV2, TweakID.SafariPasskeysFull,
+    # System Core
+    TweakID.SysCoreProMotion, TweakID.SysCoreAnimSpeed, TweakID.SysCoreMTLOverlay,
 ])
 
 
