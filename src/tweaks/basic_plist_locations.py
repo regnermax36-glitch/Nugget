@@ -29,3 +29,18 @@ class FileLocation(Enum):
 
     # Risky Options
     ota = "/var/Managed Preferences/mobile/com.apple.MobileAsset.plist"
+
+    # iOS 27 Concept & Siri 2.0 – per-app managed preferences
+    siri         = "/var/Managed Preferences/mobile/com.apple.siri.plist"
+    controlCenter = "/var/Managed Preferences/mobile/com.apple.control-center.plist"
+    photos       = "/var/Managed Preferences/mobile/com.apple.mobileslideshow.plist"
+    camera       = "/var/Managed Preferences/mobile/com.apple.camera.plist"
+    messages     = "/var/Managed Preferences/mobile/com.apple.MobileSMS.plist"
+    maps         = "/var/Managed Preferences/mobile/com.apple.Maps.plist"
+    safari       = "/var/Managed Preferences/mobile/com.apple.mobilesafari.plist"
+    music        = "/var/Managed Preferences/mobile/com.apple.Music.plist"
+    phone        = "/var/Managed Preferences/mobile/com.apple.mobilephone.plist"
+    calendar     = "/var/Managed Preferences/mobile/com.apple.mobilecal.plist"
+    reminders    = "/var/Managed Preferences/mobile/com.apple.reminders.plist"
+    podcasts     = "/var/Managed Preferences/mobile/com.apple.podcasts.plist"
+    privacy      = "/var/Managed Preferences/mobile/com.apple.privacy.plist"

@@ -463,216 +463,150 @@ def load_daemons():
     tweaks.update(additional_tweaks)
 
 def load_ios27():
-    """Load all iOS 27 Concept + Siri 2.0 tweaks – all via FeatureFlagTweak
-    so no BookRestore managed-preferences paths are needed."""
+    """Load all iOS 27 Concept + Siri 2.0 tweaks.
+
+    All tweaks use BasicPlistTweak (managed preferences), which does NOT set
+    use_bookrestore=True in device_manager.py (unlike FeatureFlagTweak which
+    always forces BookRestore regardless of the device's exploit method).
+    """
     if TweakID.Siri2FloatingBubble in tweaks:
         return
+    S  = FileLocation.springboard
+    GP = FileLocation.globalPreferences
+    UK = FileLocation.uikit
+    SI = FileLocation.siri
+    CC = FileLocation.controlCenter
+    PH = FileLocation.photos
+    CA = FileLocation.camera
+    ME = FileLocation.messages
+    MA = FileLocation.maps
+    SF = FileLocation.safari
+    MU = FileLocation.music
+    PO = FileLocation.podcasts
+    PH2= FileLocation.phone
+    CL = FileLocation.calendar
+    RE = FileLocation.reminders
+    NO = FileLocation.notes
+    PR = FileLocation.privacy
     additional_tweaks = {
-        # ── Siri 2.0 UI ──────────────────────────────────────────────────────
-        TweakID.Siri2FloatingBubble: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['floatingBubble']),
-        TweakID.Siri2AmbientMode: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['ambientMode']),
-        TweakID.Siri2VisualResponse: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['visualResponse']),
-        TweakID.Siri2NaturalVoice: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['naturalVoice']),
-        TweakID.Siri2OnScreenContext: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['onScreenContext']),
-        TweakID.Siri2CallScreening: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['callScreening']),
-        TweakID.Siri2PersonalHistory: FeatureFlagTweak(
-            flag_category='Siri', flag_names=['personalHistory']),
-        TweakID.Siri2VisionProStyle: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['visionProStyle']),
-
-        # ── iOS 27 Home Screen ────────────────────────────────────────────────
-        TweakID.iOS27LargeWidgets: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['largeWidgets']),
-        TweakID.iOS27HomeScreenRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['homeScreenRedesign']),
-        TweakID.iOS27AppLibraryRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['appLibraryRedesign']),
-        TweakID.iOS27ContextMenuRedesign: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['contextMenuRedesign']),
-        TweakID.iOS27AppSwitcherRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['appSwitcherRedesign']),
-
-        # ── iOS 27 System UI ──────────────────────────────────────────────────
-        TweakID.iOS27CCRedesign: FeatureFlagTweak(
-            flag_category='ControlCenter', flag_names=['iOS27Design']),
-        TweakID.iOS27NotificationsRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['notificationsRedesign']),
-        TweakID.iOS27LockScreenRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['lockScreenRedesign']),
-        TweakID.iOS27StatusBarRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['statusBarRedesign']),
-        TweakID.iOS27ShareSheetRedesign: FeatureFlagTweak(
-            flag_category='Sharing', flag_names=['shareSheetRedesign']),
-
-        # ── Liquid Glass 2.0 per-app ──────────────────────────────────────────
-        TweakID.SolariumFFMessages: FeatureFlagTweak(
-            flag_category='Messages', flag_names=['Solarium']),
-        TweakID.SolariumFFMaps: FeatureFlagTweak(
-            flag_category='Maps', flag_names=['Solarium']),
-        TweakID.SolariumFFSafari: FeatureFlagTweak(
-            flag_category='Safari', flag_names=['Solarium']),
-        TweakID.SolariumFFSpotlight: FeatureFlagTweak(
-            flag_category='Spotlight', flag_names=['Solarium']),
-        TweakID.SolariumFFControlCenter: FeatureFlagTweak(
-            flag_category='ControlCenter', flag_names=['Solarium']),
-        TweakID.SolariumFFNotifications: FeatureFlagTweak(
-            flag_category='UserNotifications', flag_names=['Solarium']),
-        TweakID.SolariumFFWidgets: FeatureFlagTweak(
-            flag_category='WidgetKit', flag_names=['Solarium']),
-
-        # ── Liquid Glass fine-tuning (feature flags, no managed-prefs) ────────
-        TweakID.NoLiquidStatusBar: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['disableGlassStatusBar']),
-        TweakID.NoLiquidNotifications: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['disableGlassNotifications']),
-        TweakID.SolariumHighContrast: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['solariumHighContrast']),
-        TweakID.SolariumForceLightTint: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['solariumForceLightTint']),
-        TweakID.SolariumMaxBlur: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['solariumMaxBlur']),
-
-        # ── SpringBoard iOS 27 (feature flags, no managed-prefs) ──────────────
-        TweakID.SBAlwaysGlassHeaders: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['alwaysShowGlassHeaders']),
-        TweakID.SBExpandedDynamicIsland: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['expandedDynamicIsland']),
-        TweakID.SBShowWeatherLockScreen: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['weatherOnLockScreen']),
-        TweakID.SBEnhancedHaptics: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['enhancedHaptics']),
-        TweakID.SBShowBatteryPercentageAlways: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['alwaysBatteryPercentage']),
-        TweakID.SBHideHomeIndicator: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['hideHomeIndicator']),
-        TweakID.SBDisableParallaxEffect: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['disableParallaxEffect']),
+        # ── Siri 2.0 Core ────────────────────────────────────────────────────
+        TweakID.Siri2FloatingBubble:     BasicPlistTweak(SI, 'SiriFloatingBubbleEnabled'),
+        TweakID.Siri2AmbientMode:        BasicPlistTweak(SI, 'SiriAmbientAlwaysOnEnabled'),
+        TweakID.Siri2VisualResponse:     BasicPlistTweak(SI, 'SiriVisualResponseAnimationsEnabled'),
+        TweakID.Siri2NaturalVoice:       BasicPlistTweak(SI, 'SiriNaturalNeuralVoiceEnabled'),
+        TweakID.Siri2OnScreenContext:    BasicPlistTweak(SI, 'SiriOnScreenContextEnabled'),
+        TweakID.Siri2CallScreening:      BasicPlistTweak(SI, 'SiriCallScreeningEnabled'),
+        TweakID.Siri2PersonalHistory:    BasicPlistTweak(SI, 'SiriPersonalContextEnabled'),
+        TweakID.Siri2VisionProStyle:     BasicPlistTweak(SI, 'SiriVisionProStyleEnabled'),
 
         # ── Siri 2.0 Advanced ────────────────────────────────────────────────
-        TweakID.Siri2MultiModal: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['multiModal']),
-        TweakID.Siri2OfflineMode: FeatureFlagTweak(
-            flag_category='Siri', flag_names=['offlineProcessing']),
-        TweakID.Siri2ProactiveCards: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['proactiveCards']),
-        TweakID.Siri2AppIntents2: FeatureFlagTweak(
-            flag_category='Siri', flag_names=['appIntentsV2']),
-        TweakID.Siri2LiveTranslation: FeatureFlagTweak(
-            flag_category='SiriUI', flag_names=['liveTranslation']),
+        TweakID.Siri2MultiModal:         BasicPlistTweak(SI, 'SiriMultiModalInputEnabled'),
+        TweakID.Siri2OfflineMode:        BasicPlistTweak(SI, 'SiriOfflineProcessingEnabled'),
+        TweakID.Siri2ProactiveCards:     BasicPlistTweak(SI, 'SiriProactiveCardsEnabled'),
+        TweakID.Siri2AppIntents2:        BasicPlistTweak(SI, 'SiriAppIntentsV2Enabled'),
+        TweakID.Siri2LiveTranslation:    BasicPlistTweak(SI, 'SiriLiveTranslationEnabled'),
 
-        # ── iOS 27 Typography ────────────────────────────────────────────────
-        TweakID.iOS27DynamicType2: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['dynamicTypeV2']),
-        TweakID.iOS27NewSystemFont: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['newSystemFont']),
-        TweakID.iOS27BoldUIElements: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['boldUIElements']),
-        TweakID.iOS27LargeHeaderStyle: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['largeHeaderStyle']),
-        TweakID.iOS27CompactLabels: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['compactLabels']),
+        # ── iOS 27 Home Screen ────────────────────────────────────────────────
+        TweakID.iOS27LargeWidgets:       BasicPlistTweak(S,  'SBLargeWidgetSizesEnabled'),
+        TweakID.iOS27HomeScreenRedesign: BasicPlistTweak(S,  'SBHomeScreenRedesignEnabled'),
+        TweakID.iOS27AppLibraryRedesign: BasicPlistTweak(S,  'SBAppLibraryRedesignEnabled'),
+        TweakID.iOS27ContextMenuRedesign:BasicPlistTweak(UK, 'UIContextMenuRedesignEnabled'),
+        TweakID.iOS27AppSwitcherRedesign:BasicPlistTweak(S,  'SBAppSwitcherRedesignEnabled'),
+
+        # ── iOS 27 System UI ──────────────────────────────────────────────────
+        TweakID.iOS27CCRedesign:             BasicPlistTweak(CC, 'CCiOS27DesignEnabled'),
+        TweakID.iOS27NotificationsRedesign:  BasicPlistTweak(S,  'SBNotificationsRedesignEnabled'),
+        TweakID.iOS27LockScreenRedesign:     BasicPlistTweak(S,  'SBLockScreenRedesignEnabled'),
+        TweakID.iOS27StatusBarRedesign:      BasicPlistTweak(S,  'SBStatusBarRedesignEnabled'),
+        TweakID.iOS27ShareSheetRedesign:     BasicPlistTweak(GP, 'SBShareSheetRedesignEnabled'),
+
+        # ── iOS 27 Typography & Fonts ─────────────────────────────────────────
+        TweakID.iOS27DynamicType2:       BasicPlistTweak(UK, 'UIDynamicTypeV2Enabled'),
+        TweakID.iOS27NewSystemFont:      BasicPlistTweak(UK, 'UINewSystemFontEnabled'),
+        TweakID.iOS27BoldUIElements:     BasicPlistTweak(UK, 'UIBoldElementsEnabled'),
+        TweakID.iOS27LargeHeaderStyle:   BasicPlistTweak(UK, 'UILargeHeaderStyleEnabled'),
+        TweakID.iOS27CompactLabels:      BasicPlistTweak(UK, 'UICompactLabelsEnabled'),
 
         # ── iOS 27 Animations ────────────────────────────────────────────────
-        TweakID.iOS27SpringAnimations: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['springAnimationsV2']),
-        TweakID.iOS27MorphTransitions: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['morphTransitions']),
-        TweakID.iOS27ElasticBounce: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['elasticBounce']),
-        TweakID.iOS27ZoomTransitions: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['zoomTransitionsV2']),
-        TweakID.iOS27GlassReveal: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['glassRevealTransition']),
-        TweakID.iOS27ReducedMotionAlt: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['reducedMotionAlternative']),
+        TweakID.iOS27SpringAnimations:   BasicPlistTweak(UK, 'UISpringAnimationsV2Enabled'),
+        TweakID.iOS27MorphTransitions:   BasicPlistTweak(UK, 'UIMorphTransitionsEnabled'),
+        TweakID.iOS27ElasticBounce:      BasicPlistTweak(UK, 'UIElasticBounceEnabled'),
+        TweakID.iOS27ZoomTransitions:    BasicPlistTweak(S,  'SBZoomTransitionsV2Enabled'),
+        TweakID.iOS27GlassReveal:        BasicPlistTweak(UK, 'UIGlassRevealTransitionEnabled'),
+        TweakID.iOS27ReducedMotionAlt:   BasicPlistTweak(S,  'SBReducedMotionAlternativeEnabled'),
 
         # ── iOS 27 Colors & Appearance ───────────────────────────────────────
-        TweakID.iOS27VividColors: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['vividColors']),
-        TweakID.iOS27DynamicColors: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['dynamicWallpaperColors']),
-        TweakID.iOS27TintEverywhere: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['globalAccentTint']),
-        TweakID.iOS27TrueBlack: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['trueBlackDarkMode']),
-        TweakID.iOS27ColorizedGlass: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['colorizedGlass']),
-        TweakID.iOS27MaterialVariant2: FeatureFlagTweak(
-            flag_category='SwiftUI', flag_names=['glassMaterialVariant2']),
+        TweakID.iOS27VividColors:        BasicPlistTweak(S,  'SBVividColorsEnabled'),
+        TweakID.iOS27DynamicColors:      BasicPlistTweak(GP, 'SBDynamicWallpaperColorsEnabled'),
+        TweakID.iOS27TintEverywhere:     BasicPlistTweak(S,  'SBGlobalAccentTintEnabled'),
+        TweakID.iOS27TrueBlack:          BasicPlistTweak(S,  'SBTrueBlackDarkModeEnabled'),
+        TweakID.iOS27ColorizedGlass:     BasicPlistTweak(GP, 'SolariumColorizedGlassEnabled'),
+        TweakID.iOS27MaterialVariant2:   BasicPlistTweak(GP, 'SolariumMaterialVariant2Enabled'),
 
         # ── iOS 27 Keyboard ──────────────────────────────────────────────────
-        TweakID.iOS27KeyboardRedesign: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['keyboardRedesign']),
-        TweakID.iOS27KeyboardGlass: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['glassKeyboard']),
-        TweakID.iOS27SmartPrediction: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['enhancedPrediction']),
-        TweakID.iOS27KeyboardHaptics: FeatureFlagTweak(
-            flag_category='UIKit', flag_names=['perKeyHaptics']),
+        TweakID.iOS27KeyboardRedesign:   BasicPlistTweak(UK, 'UIKeyboardRedesignEnabled'),
+        TweakID.iOS27KeyboardGlass:      BasicPlistTweak(UK, 'UIGlassKeyboardEnabled'),
+        TweakID.iOS27SmartPrediction:    BasicPlistTweak(UK, 'UIEnhancedPredictionEnabled'),
+        TweakID.iOS27KeyboardHaptics:    BasicPlistTweak(UK, 'UIPerKeyHapticsEnabled'),
 
         # ── iOS 27 Multitasking ──────────────────────────────────────────────
-        TweakID.iOS27StagedMultitasking: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['enhancedStageManager']),
-        TweakID.iOS27FloatingApps: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['floatingAppWindows']),
-        TweakID.iOS27PiPEnhancements: FeatureFlagTweak(
-            flag_category='AVFoundation', flag_names=['pipEnhancements']),
-        TweakID.iOS27SplitViewIPhone: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['splitViewOnIPhone']),
+        TweakID.iOS27StagedMultitasking: BasicPlistTweak(S,  'SBEnhancedStageManagerEnabled'),
+        TweakID.iOS27FloatingApps:       BasicPlistTweak(S,  'SBFloatingAppWindowsEnabled'),
+        TweakID.iOS27PiPEnhancements:    BasicPlistTweak(GP, 'AVPiPEnhancementsEnabled'),
+        TweakID.iOS27SplitViewIPhone:    BasicPlistTweak(S,  'SBSplitViewOnIPhoneEnabled'),
 
         # ── iOS 27 Photos & Camera ───────────────────────────────────────────
-        TweakID.iOS27PhotosRedesign: FeatureFlagTweak(
-            flag_category='Photos', flag_names=['redesign2027']),
-        TweakID.iOS27CameraRedesign: FeatureFlagTweak(
-            flag_category='Camera', flag_names=['redesign2027']),
-        TweakID.iOS27SmartAlbums2: FeatureFlagTweak(
-            flag_category='Photos', flag_names=['smartAlbumsV2']),
-        TweakID.iOS27CinematicCapture: FeatureFlagTweak(
-            flag_category='Camera', flag_names=['enhancedCinematic']),
-        TweakID.iOS27ProRAWEnhanced: FeatureFlagTweak(
-            flag_category='Camera', flag_names=['enhancedProRAW']),
+        TweakID.iOS27PhotosRedesign:     BasicPlistTweak(PH, 'PhotosRedesign2027Enabled'),
+        TweakID.iOS27CameraRedesign:     BasicPlistTweak(CA, 'CameraRedesign2027Enabled'),
+        TweakID.iOS27SmartAlbums2:       BasicPlistTweak(PH, 'PhotosSmartAlbumsV2Enabled'),
+        TweakID.iOS27CinematicCapture:   BasicPlistTweak(CA, 'CameraEnhancedCinematicEnabled'),
+        TweakID.iOS27ProRAWEnhanced:     BasicPlistTweak(CA, 'CameraEnhancedProRAWEnabled'),
 
         # ── iOS 27 Privacy & Security ────────────────────────────────────────
-        TweakID.iOS27PrivacyDashboard2: FeatureFlagTweak(
-            flag_category='Privacy', flag_names=['dashboardV2']),
-        TweakID.iOS27AppPrivacyReport2: FeatureFlagTweak(
-            flag_category='Privacy', flag_names=['detailedPrivacyReport']),
-        TweakID.iOS27BiometricEnhanced: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['enhancedBiometric']),
-        TweakID.iOS27LockdownModeLite: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['lockdownModeLite']),
+        TweakID.iOS27PrivacyDashboard2:  BasicPlistTweak(PR, 'PrivacyDashboardV2Enabled'),
+        TweakID.iOS27AppPrivacyReport2:  BasicPlistTweak(PR, 'PrivacyDetailedReportEnabled'),
+        TweakID.iOS27BiometricEnhanced:  BasicPlistTweak(S,  'SBEnhancedBiometricEnabled'),
+        TweakID.iOS27LockdownModeLite:   BasicPlistTweak(S,  'SBLockdownModeLiteEnabled'),
+
+        # ── Liquid Glass 2.0 per-app extensions ──────────────────────────────
+        TweakID.SolariumFFMessages:      BasicPlistTweak(ME, 'SolariumEnabled'),
+        TweakID.SolariumFFMaps:          BasicPlistTweak(MA, 'SolariumEnabled'),
+        TweakID.SolariumFFSafari:        BasicPlistTweak(SF, 'SolariumEnabled'),
+        TweakID.SolariumFFSpotlight:     BasicPlistTweak(GP, 'SolariumSpotlightEnabled'),
+        TweakID.SolariumFFControlCenter: BasicPlistTweak(CC, 'SolariumEnabled'),
+        TweakID.SolariumFFNotifications: BasicPlistTweak(S,  'SolariumNotificationsEnabled'),
+        TweakID.SolariumFFWidgets:       BasicPlistTweak(GP, 'SolariumWidgetsEnabled'),
 
         # ── Liquid Glass 3.0 – more apps ─────────────────────────────────────
-        TweakID.SolariumFFMusic: FeatureFlagTweak(
-            flag_category='Music', flag_names=['Solarium']),
-        TweakID.SolariumFFPodcasts: FeatureFlagTweak(
-            flag_category='Podcasts', flag_names=['Solarium']),
-        TweakID.SolariumFFPhone: FeatureFlagTweak(
-            flag_category='Phone', flag_names=['Solarium']),
-        TweakID.SolariumFFCalendar: FeatureFlagTweak(
-            flag_category='Calendar', flag_names=['Solarium']),
-        TweakID.SolariumFFReminders: FeatureFlagTweak(
-            flag_category='Reminders', flag_names=['Solarium']),
-        TweakID.SolariumFFNotes: FeatureFlagTweak(
-            flag_category='Notes', flag_names=['Solarium']),
+        TweakID.SolariumFFMusic:         BasicPlistTweak(MU,  'SolariumEnabled'),
+        TweakID.SolariumFFPodcasts:      BasicPlistTweak(PO,  'SolariumEnabled'),
+        TweakID.SolariumFFPhone:         BasicPlistTweak(PH2, 'SolariumEnabled'),
+        TweakID.SolariumFFCalendar:      BasicPlistTweak(CL,  'SolariumEnabled'),
+        TweakID.SolariumFFReminders:     BasicPlistTweak(RE,  'SolariumEnabled'),
+        TweakID.SolariumFFNotes:         BasicPlistTweak(NO,  'SolariumEnabled'),
 
-        # ── SpringBoard iOS 27 Advanced ──────────────────────────────────────
-        TweakID.SBSmartStackRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['smartStackRedesign']),
-        TweakID.SBIconBadgeRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['iconBadgeRedesign']),
-        TweakID.SBTransparentFolders: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['transparentFolders']),
-        TweakID.SBAlwaysShowClockDI: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['alwaysShowClockWithDI']),
-        TweakID.SBFocusFiltersRedesign: FeatureFlagTweak(
-            flag_category='SpringBoard', flag_names=['focusFiltersRedesign']),
+        # ── Liquid Glass fine-tuning ──────────────────────────────────────────
+        TweakID.NoLiquidStatusBar:       BasicPlistTweak(GP, 'SBDisableGlassStatusBar'),
+        TweakID.NoLiquidNotifications:   BasicPlistTweak(S,  'SBDisableGlassNotifications'),
+        TweakID.SolariumHighContrast:    BasicPlistTweak(GP, 'SolariumHighContrast'),
+        TweakID.SolariumForceLightTint:  BasicPlistTweak(GP, 'SolariumForceLightTint'),
+        TweakID.SolariumMaxBlur:         BasicPlistTweak(GP, 'SolariumMaxBlur'),
+
+        # ── SpringBoard iOS 27 Core ───────────────────────────────────────────
+        TweakID.SBAlwaysGlassHeaders:        BasicPlistTweak(S, 'SBAlwaysShowGlassHeaders'),
+        TweakID.SBExpandedDynamicIsland:     BasicPlistTweak(S, 'SBEnableExpandedDynamicIsland'),
+        TweakID.SBShowWeatherLockScreen:     BasicPlistTweak(S, 'SBShowWeatherOnLockScreen'),
+        TweakID.SBEnhancedHaptics:           BasicPlistTweak(S, 'SBEnableEnhancedHaptics'),
+        TweakID.SBShowBatteryPercentageAlways:BasicPlistTweak(S,'SBUIForceDisplayBatteryPercentageNew'),
+        TweakID.SBHideHomeIndicator:         BasicPlistTweak(S, 'SBHideHomeIndicator'),
+        TweakID.SBDisableParallaxEffect:     BasicPlistTweak(S, 'SBDisableParallaxEffect'),
+
+        # ── SpringBoard iOS 27 Advanced ───────────────────────────────────────
+        TweakID.SBSmartStackRedesign:    BasicPlistTweak(S, 'SBSmartStackRedesignEnabled'),
+        TweakID.SBIconBadgeRedesign:     BasicPlistTweak(S, 'SBIconBadgeRedesignEnabled'),
+        TweakID.SBTransparentFolders:    BasicPlistTweak(S, 'SBTransparentFoldersEnabled'),
+        TweakID.SBAlwaysShowClockDI:     BasicPlistTweak(S, 'SBAlwaysShowClockWithDynamicIsland'),
+        TweakID.SBFocusFiltersRedesign:  BasicPlistTweak(S, 'SBFocusFiltersRedesignEnabled'),
     }
     tweaks.update(additional_tweaks)
 
