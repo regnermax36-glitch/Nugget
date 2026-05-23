@@ -599,8 +599,6 @@ class DeviceManager:
                 tweak = tweaks[tweak_name]
                 if isinstance(tweak, FeatureFlagTweak):
                     flag_plist = tweak.apply_tweak(flag_plist)
-                    if tweak.enabled:
-                        use_bookrestore = True
                 elif isinstance(tweak, PasscodeThemeTweak):
                     # must use bookrestore
                     passcode_files = tweak.apply_tweak()
@@ -669,7 +667,7 @@ class DeviceManager:
                 self.concat_file(
                     contents=plistlib.dumps(flag_plist),
                     path=FileLocation.featureflags.value,
-                    files_to_restore=files_to_restore, use_bookrestore=True
+                    files_to_restore=files_to_restore, use_bookrestore=use_bookrestore
                 )
             self.add_skip_setup(files_to_restore, uses_domains and (not use_bookrestore or self.pref_manager.bookrestore_apply_mode == BookRestoreApplyMethod.Restore))
             if gestalt_data != None and use_bookrestore:
