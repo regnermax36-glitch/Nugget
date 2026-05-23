@@ -39,7 +39,7 @@ class Page(Enum):
             "Miscellaneous",
             "Apply",
             "Settings",
-            "maxregnerOS",
+            "mROS",
         ]
         return name_map[self.value]
 

@@ -918,6 +918,70 @@ def load_maxos_system_core():
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
+def load_mros_kernel():
+    """mROS kernel layer — XNU, IOKit, Darwin feature flags."""
+    if TweakID.KernelThreadPriorityBoost in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.KernelThreadPriorityBoost:  FeatureFlagTweak('XNU',     ['ThreadPriorityBoost']),
+        TweakID.KernelMemoryCompression:    FeatureFlagTweak('XNU',     ['MemoryCompressionV2']),
+        TweakID.KernelIOSchedulerV2:        FeatureFlagTweak('IOKit',   ['IOSchedulerV2']),
+        TweakID.KernelThermalGovernorV2:    FeatureFlagTweak('IOKit',   ['ThermalGovernorV2']),
+        TweakID.KernelCPUGovernorPerf:      FeatureFlagTweak('XNU',     ['CPUGovernorPerformance']),
+        TweakID.KernelNetworkStackV2:       FeatureFlagTweak('Darwin',  ['NetworkStackV2']),
+        TweakID.KernelSecureMemoryV2:       FeatureFlagTweak('XNU',     ['SecureMemoryV2']),
+        TweakID.KernelIRQBalancing:         FeatureFlagTweak('IOKit',   ['IRQBalancing']),
+        TweakID.KernelZRAMEnabled:          FeatureFlagTweak('XNU',     ['ZRAMEnabled']),
+        TweakID.KernelVMPressureOpt:        FeatureFlagTweak('XNU',     ['VMPressureOptimization']),
+        TweakID.KernelFileSystemCache:      FeatureFlagTweak('Darwin',  ['FileSystemCacheV2']),
+        TweakID.KernelDiskSchedulerV2:      FeatureFlagTweak('IOKit',   ['DiskSchedulerV2']),
+        TweakID.KernelGraphicsDriverV2:     FeatureFlagTweak('IOKit',   ['GraphicsDriverV2']),
+        TweakID.KernelAudioDriverV2:        FeatureFlagTweak('IOKit',   ['AudioDriverV2']),
+        TweakID.KernelUSBStackV2:           FeatureFlagTweak('IOKit',   ['USBStackV2']),
+        TweakID.KernelPowerManagementV2:    FeatureFlagTweak('IOKit',   ['PowerManagementV2']),
+        TweakID.KernelSecureEnclaveV2:      FeatureFlagTweak('XNU',     ['SecureEnclaveV2']),
+        TweakID.KernelCryptoEngineV2:       FeatureFlagTweak('Darwin',  ['CryptoEngineV2']),
+        TweakID.KernelSandboxV2:            FeatureFlagTweak('Darwin',  ['SandboxV2']),
+        TweakID.KernelSignalHandlerV2:      FeatureFlagTweak('XNU',     ['SignalHandlerV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_exclusive_v2():
+    """mROS exclusive features — beyond any phone."""
+    if TweakID.MROSHolographicUI in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.MROSHolographicUI:      FeatureFlagTweak('SpringBoard',  ['HolographicDepthUI']),
+        TweakID.MROSNeuralDisplay:      FeatureFlagTweak('CoreDisplay',  ['NeuralDisplayOptimization']),
+        TweakID.MROSQuantumSync:        FeatureFlagTweak('UIKit',        ['QuantumSyncRenderer']),
+        TweakID.MROSBioMetricAura:      FeatureFlagTweak('BiometricKit', ['AuraDisplay']),
+        TweakID.MROSChronoEngine:       FeatureFlagTweak('SpringBoard',  ['ChronoTimeAwareUI']),
+        TweakID.MROSAdaptiveCortex:     FeatureFlagTweak('CoreML',       ['AdaptiveCortexV2']),
+        TweakID.MROSProximityAura:      FeatureFlagTweak('SpringBoard',  ['ProximityAuraMorph']),
+        TweakID.MROSRetinalTrack:       FeatureFlagTweak('ARKit',        ['RetinalTracking']),
+        TweakID.MROSAmbientEngine:      FeatureFlagTweak('SpringBoard',  ['AmbientComputingMode']),
+        TweakID.MROSHyperThread:        FeatureFlagTweak('UIKit',        ['HyperThreadedRendering']),
+        TweakID.MROSCrystalClear:       FeatureFlagTweak('SpringBoard',  ['CrystalClearGlass']),
+        TweakID.MROSQuantumHaptics:     FeatureFlagTweak('CoreHaptics',  ['QuantumHapticPatterns']),
+        TweakID.MROSNeuralKernel:       FeatureFlagTweak('XNU',          ['NeuralKernelOptimizer']),
+        TweakID.MROSCognitiveUI:        FeatureFlagTweak('UIKit',        ['CognitiveComputingUI']),
+        TweakID.MROSDeepFusion:         FeatureFlagTweak('CoreImage',    ['DeepFusionRendering']),
+        TweakID.MROSSilverLining:       FeatureFlagTweak('SpringBoard',  ['SilverLiningEffect']),
+        TweakID.MROSMorphicUI:          FeatureFlagTweak('UIKit',        ['MorphicInterfaceSystem']),
+        TweakID.MROSEchoEngine:         FeatureFlagTweak('CoreHaptics',  ['EchoResonanceHaptics']),
+        TweakID.MROSDimensionalShift:   FeatureFlagTweak('UIKit',        ['DimensionalShiftAnim']),
+        TweakID.MROSHyperCore:          FeatureFlagTweak('XNU',          ['HyperCoreScheduler']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
 # maxregnerOS Mode: curated set of the highest-impact tweaks for maximum visual effect
 MAXREGNEROS_MODE_IDS = frozenset([
     # Liquid Glass per-app
@@ -965,6 +1029,16 @@ MAXREGNEROS_MODE_IDS = frozenset([
     TweakID.PhotosHDRMax, TweakID.CameraPhotonicEngineV2, TweakID.SafariPasskeysFull,
     # System Core
     TweakID.SysCoreProMotion, TweakID.SysCoreAnimSpeed, TweakID.SysCoreMTLOverlay,
+    # mROS Kernel
+    TweakID.KernelThreadPriorityBoost, TweakID.KernelCPUGovernorPerf,
+    TweakID.KernelMemoryCompression, TweakID.KernelIOSchedulerV2,
+    TweakID.KernelGraphicsDriverV2, TweakID.KernelAudioDriverV2,
+    TweakID.KernelThermalGovernorV2, TweakID.KernelSecureEnclaveV2,
+    # mROS Exclusive V2
+    TweakID.MROSHolographicUI, TweakID.MROSNeuralDisplay, TweakID.MROSQuantumSync,
+    TweakID.MROSCrystalClear, TweakID.MROSDeepFusion, TweakID.MROSMorphicUI,
+    TweakID.MROSChronoEngine, TweakID.MROSAdaptiveCortex, TweakID.MROSHyperCore,
+    TweakID.MROSQuantumHaptics, TweakID.MROSDimensionalShift,
 ])
 
 

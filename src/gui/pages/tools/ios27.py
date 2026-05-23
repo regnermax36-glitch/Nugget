@@ -12,6 +12,7 @@ from src.tweaks.tweak_loader import (
     load_maxos_cloud_health, load_maxos_wallet_home_focus,
     load_maxos_privacy_shortcuts_org, load_maxos_reminders_files,
     load_maxos_gaming_media, load_maxos_extended_apps, load_maxos_system_core,
+    load_mros_kernel, load_mros_exclusive_v2,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -90,18 +91,18 @@ class iOS27Page(Page):
     def _build_ui(self, L: QVBoxLayout):
 
         # ── Brand header ─────────────────────────────────────────────────────
-        brand = QLabel("maxregnerOS")
+        brand = QLabel("mROS")
         brand.setStyleSheet(
-            "font-size:26px;font-weight:900;color:#7eb8f7;"
-            "letter-spacing:2px;margin-bottom:2px;")
-        sub = QLabel("System-wide Beast Mode  ·  All Pre-Enabled  ·  No BookRestore")
+            "font-size:32px;font-weight:900;color:#7eb8f7;"
+            "letter-spacing:4px;margin-bottom:2px;")
+        sub = QLabel("maxregnerOS  ·  Beyond Any Phone  ·  All Pre-Enabled  ·  No BookRestore")
         sub.setStyleSheet("font-size:11px;color:#555;margin-bottom:8px;")
         L.addWidget(brand)
         L.addWidget(sub)
 
         # ── Action buttons ───────────────────────────────────────────────────
         row = QHBoxLayout()
-        b_all  = _btn("⚡ maxregnerOS Mode", "#1a5fb4","#2a6ebb","#0f3a7a")
+        b_all  = _btn("⚡ mROS Beast Mode", "#1a5fb4","#2a6ebb","#0f3a7a")
         b_on   = _btn("Enable All",          "#2d6a2d","#3d8a3d","#1f4f1f")
         b_off  = _btn("Disable All",         "#555",   "#666",   "#444"  )
         b_all.clicked.connect(self._maxregneros_mode)
@@ -553,6 +554,80 @@ class iOS27Page(Page):
             "HDR Video Default",
             "Default all video playback to HDR (AVFoundation.HDRVideoDefault)."))
 
+        # ── mROS Kernel Layer ─────────────────────────────────────────────────
+        L.addWidget(_hdr("⚙ mROS Kernel Layer — XNU / IOKit / Darwin"))
+        L.addWidget(_div())
+        for tid, name, flag in [
+            (TweakID.KernelThreadPriorityBoost, "Thread Priority Boost",        "XNU.ThreadPriorityBoost"),
+            (TweakID.KernelMemoryCompression,   "Memory Compression V2",        "XNU.MemoryCompressionV2"),
+            (TweakID.KernelIOSchedulerV2,       "I/O Scheduler V2",             "IOKit.IOSchedulerV2"),
+            (TweakID.KernelThermalGovernorV2,   "Thermal Governor V2",          "IOKit.ThermalGovernorV2"),
+            (TweakID.KernelCPUGovernorPerf,     "CPU Governor Performance",     "XNU.CPUGovernorPerformance"),
+            (TweakID.KernelNetworkStackV2,      "Network Stack V2",             "Darwin.NetworkStackV2"),
+            (TweakID.KernelSecureMemoryV2,      "Secure Memory V2",             "XNU.SecureMemoryV2"),
+            (TweakID.KernelIRQBalancing,        "IRQ Balancing",                "IOKit.IRQBalancing"),
+            (TweakID.KernelZRAMEnabled,         "ZRAM Swap Compression",        "XNU.ZRAMEnabled"),
+            (TweakID.KernelVMPressureOpt,       "VM Pressure Optimization",     "XNU.VMPressureOptimization"),
+            (TweakID.KernelFileSystemCache,     "File System Cache V2",         "Darwin.FileSystemCacheV2"),
+            (TweakID.KernelDiskSchedulerV2,     "Disk Scheduler V2",            "IOKit.DiskSchedulerV2"),
+            (TweakID.KernelGraphicsDriverV2,    "Graphics Driver V2",           "IOKit.GraphicsDriverV2"),
+            (TweakID.KernelAudioDriverV2,       "Audio Driver V2",              "IOKit.AudioDriverV2"),
+            (TweakID.KernelUSBStackV2,          "USB Stack V2",                 "IOKit.USBStackV2"),
+            (TweakID.KernelPowerManagementV2,   "Power Management V2",          "IOKit.PowerManagementV2"),
+            (TweakID.KernelSecureEnclaveV2,     "Secure Enclave V2",            "XNU.SecureEnclaveV2"),
+            (TweakID.KernelCryptoEngineV2,      "Crypto Engine V2",             "Darwin.CryptoEngineV2"),
+            (TweakID.KernelSandboxV2,           "Sandbox V2",                   "Darwin.SandboxV2"),
+            (TweakID.KernelSignalHandlerV2,     "Signal Handler V2",            "XNU.SignalHandlerV2"),
+        ]:
+            L.addWidget(_row(tid, name, f"mROS kernel flag: {flag}"))
+
+        # ── mROS Exclusive V2 ─────────────────────────────────────────────────
+        L.addWidget(_hdr("✦✦ mROS Exclusive — Beyond Any Phone"))
+        L.addWidget(_div())
+        for tid, name, desc in [
+            (TweakID.MROSHolographicUI,     "Holographic Depth UI",
+             "Full holographic depth layering across all SpringBoard surfaces (SpringBoard.HolographicDepthUI)."),
+            (TweakID.MROSNeuralDisplay,     "Neural Display Optimization",
+             "AI-driven per-frame display tuning — colour, brightness, sharpness (CoreDisplay.NeuralDisplayOptimization)."),
+            (TweakID.MROSQuantumSync,       "Quantum Sync Renderer",
+             "Frame-perfect synchronised rendering pipeline (UIKit.QuantumSyncRenderer)."),
+            (TweakID.MROSBioMetricAura,     "BiometricKit Aura Display",
+             "Biometric-ambient reactive display effects (BiometricKit.AuraDisplay)."),
+            (TweakID.MROSChronoEngine,      "Chrono Time-Aware UI",
+             "Time-of-day adaptive UI morphing engine (SpringBoard.ChronoTimeAwareUI)."),
+            (TweakID.MROSAdaptiveCortex,    "Adaptive Cortex V2",
+             "On-device adaptive AI reshapes UI based on usage patterns (CoreML.AdaptiveCortexV2)."),
+            (TweakID.MROSProximityAura,     "Proximity Aura Morph",
+             "UI elements morph in response to proximity sensor data (SpringBoard.ProximityAuraMorph)."),
+            (TweakID.MROSRetinalTrack,      "Retinal Tracking",
+             "Eye-tracking UI adaptation layer via ARKit (ARKit.RetinalTracking)."),
+            (TweakID.MROSAmbientEngine,     "Ambient Computing Mode",
+             "Full ambient computing presence — always-on context layer (SpringBoard.AmbientComputingMode)."),
+            (TweakID.MROSHyperThread,       "Hyper-Threaded Rendering",
+             "Parallel-threaded UI composition pipeline (UIKit.HyperThreadedRendering)."),
+            (TweakID.MROSCrystalClear,      "Crystal Clear Glass",
+             "Next-gen ultra-transparent glass rendering mode (SpringBoard.CrystalClearGlass)."),
+            (TweakID.MROSQuantumHaptics,    "Quantum Haptic Patterns",
+             "Sub-millisecond haptic pattern quantisation (CoreHaptics.QuantumHapticPatterns)."),
+            (TweakID.MROSNeuralKernel,      "Neural Kernel Optimizer",
+             "Neural-network driven kernel task scheduler (XNU.NeuralKernelOptimizer)."),
+            (TweakID.MROSCognitiveUI,       "Cognitive Computing UI",
+             "Cognitive-layer UI prediction and pre-rendering (UIKit.CognitiveComputingUI)."),
+            (TweakID.MROSDeepFusion,        "Deep Fusion Rendering",
+             "Multi-frame deep fusion compositor for all UI surfaces (CoreImage.DeepFusionRendering)."),
+            (TweakID.MROSSilverLining,      "Silver Lining Effect",
+             "Metallic silver-lining edge highlight on all panels (SpringBoard.SilverLiningEffect)."),
+            (TweakID.MROSMorphicUI,         "Morphic Interface System",
+             "Fluid interface morphing between all UI states (UIKit.MorphicInterfaceSystem)."),
+            (TweakID.MROSEchoEngine,        "Echo Resonance Haptics",
+             "Resonance-echo layered haptic feedback engine (CoreHaptics.EchoResonanceHaptics)."),
+            (TweakID.MROSDimensionalShift,  "Dimensional Shift Animation",
+             "3D dimensional-shift transition animations across the OS (UIKit.DimensionalShiftAnim)."),
+            (TweakID.MROSHyperCore,         "HyperCore Scheduler",
+             "Hyper-optimised XNU task scheduling for maximum throughput (XNU.HyperCoreScheduler)."),
+        ]:
+            L.addWidget(_row(tid, name, desc))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -596,5 +671,7 @@ class iOS27Page(Page):
         load_maxos_gaming_media()
         load_maxos_extended_apps()
         load_maxos_system_core()
+        load_mros_kernel()
+        load_mros_exclusive_v2()
         # sync checkboxes with pre-enabled state
         self._sync_checkboxes()
