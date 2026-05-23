@@ -32,3 +32,6 @@ class FileLocation(Enum):
 
     # Siri managed preferences (real Apple MDM domain)
     siri = "/var/Managed Preferences/mobile/com.apple.siri.plist"
+
+    # Accessibility managed preferences (real Apple MDM domain)
+    accessibility = "/var/Managed Preferences/mobile/com.apple.Accessibility.plist"

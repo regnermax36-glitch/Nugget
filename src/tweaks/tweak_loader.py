@@ -462,6 +462,11 @@ def load_daemons():
     }
     tweaks.update(additional_tweaks)
 
+# Tracks every TweakID loaded by the iOS 27 / LG+Siri+A11y page so the
+# "Enable All" button knows what to enable without hard-coding the list twice.
+_page_tweak_ids: set = set()
+
+
 def load_ios27():
     if TweakID.SolariumFFMessages in tweaks:
         return
@@ -506,8 +511,59 @@ def load_ios27():
         TweakID.SBAlwaysGlassHeaders:          BasicPlistTweak(S, 'SBAlwaysShowGlassGroupHeaders'),
         TweakID.SBExpandedDynamicIsland:       BasicPlistTweak(S, 'SBEnableExpandedDynamicIslandPersistent'),
         TweakID.SBAlwaysShowClockDI:           BasicPlistTweak(S, 'SBShowClockWithDynamicIsland'),
+
+        # ── Audio Processing (FeatureFlagTweak → Global.plist) ────────────────
+        TweakID.AudioSpatialDefault:    FeatureFlagTweak('CoreAudio',      ['SpatialAudioProcessing']),
+        TweakID.AudioEnhancedSpeaker:   FeatureFlagTweak('AVFoundation',   ['EnhancedSpeakerOutput']),
+        TweakID.AudioPersonalizedSpatial: FeatureFlagTweak('AVFoundation', ['PersonalizedSpatialAudio']),
+        TweakID.AudioBackgroundSounds:  FeatureFlagTweak('Accessibility',  ['BackgroundSounds']),
+        TweakID.AudioHeadphoneAccom:    FeatureFlagTweak('Accessibility',  ['HeadphoneAccommodations']),
+        TweakID.AudioLoudnessNorm:      FeatureFlagTweak('AVFoundation',   ['LoudnessNormalization']),
+        TweakID.AudioSoundEffectsEnabled: BasicPlistTweak(GP, 'SBSoundEffectsEnabled'),
+        TweakID.AudioHapticsSync:       BasicPlistTweak(GP, 'SBAudioHapticsSyncEnabled'),
     }
     tweaks.update(additional_tweaks)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_accessibility():
+    if TweakID.A11yReduceMotion in tweaks:
+        return
+    A = FileLocation.accessibility
+    additional_tweaks = {
+        TweakID.A11yReduceMotion:       BasicPlistTweak(A, 'ReduceMotionEnabled'),
+        TweakID.A11yReduceTransparency: BasicPlistTweak(A, 'ReduceTransparencyEnabled'),
+        TweakID.A11yIncreaseContrast:   BasicPlistTweak(A, 'IncreaseContrastEnabled'),
+        TweakID.A11yDifferentiateColors:BasicPlistTweak(A, 'DifferentiateWithoutColor'),
+        TweakID.A11yBoldText:           BasicPlistTweak(A, 'BoldTextEnabled'),
+        TweakID.A11yGrayscale:          BasicPlistTweak(A, 'GrayscaleEnabled'),
+        TweakID.A11yClassicInvert:      BasicPlistTweak(A, 'InvertColorsEnabled'),
+        TweakID.A11yEnhancedContrast:   BasicPlistTweak(A, 'EnhancedBackgroundContrastEnabled'),
+        TweakID.A11yAssistiveTouch:     BasicPlistTweak(A, 'AssistiveTouchEnabled'),
+        TweakID.A11yClosedCaptions:     BasicPlistTweak(A, 'ClosedCaptionEnabled'),
+        TweakID.A11ySpeakSelection:     BasicPlistTweak(A, 'SpeakSelectionEnabled'),
+        TweakID.A11ySpeakAutoCorrect:   BasicPlistTweak(A, 'SpeakAutoCorrectEnabled'),
+        TweakID.A11ySpeakScreen:        BasicPlistTweak(A, 'SpeakScreenEnabled'),
+        TweakID.A11yVoiceOver:          BasicPlistTweak(A, 'VoiceOverTouchEnabled'),
+        TweakID.A11yZoom:               BasicPlistTweak(A, 'ZoomTouchEnabled'),
+        TweakID.A11yOnOffLabels:        BasicPlistTweak(A, 'OnOffSwitchLabelsEnabled'),
+        TweakID.A11yButtonShapes:       BasicPlistTweak(A, 'ButtonShapesEnabled'),
+        TweakID.A11yStickyKeys:         BasicPlistTweak(A, 'StickyKeysEnabled'),
+        TweakID.A11ySlowKeys:           BasicPlistTweak(A, 'SlowKeysEnabled'),
+        TweakID.A11yMouseKeys:          BasicPlistTweak(A, 'MouseKeysEnabled'),
+        TweakID.A11ySwitchControl:      BasicPlistTweak(A, 'SwitchControlEnabled'),
+        TweakID.A11yGuidedAccess:       BasicPlistTweak(A, 'GuidedAccessEnabled'),
+        TweakID.A11yRTT:                BasicPlistTweak(A, 'RTTEnabled'),
+        TweakID.A11yLEDFlash:           BasicPlistTweak(A, 'LEDFlashEnabled'),
+        TweakID.A11yMonoAudio:          BasicPlistTweak(A, 'MonoAudioEnabled'),
+        TweakID.A11yReduceWhitePoint:   BasicPlistTweak(A, 'ReduceWhitePointEnabled'),
+        TweakID.A11yAutoAccessibility:  BasicPlistTweak(A, 'AutoAccessibilityEnabled'),
+        TweakID.A11yHoverText:          BasicPlistTweak(A, 'HoverTextEnabled'),
+        TweakID.A11yLargePointer:       BasicPlistTweak(A, 'LargePointerEnabled'),
+        TweakID.A11yFullKeyboardAccess: BasicPlistTweak(A, 'FullKeyboardAccessEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    _page_tweak_ids.update(additional_tweaks.keys())
 
 
 def load_all_tweaks(version: str):
