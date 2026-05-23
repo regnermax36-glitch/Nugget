@@ -526,44 +526,170 @@ def load_ios27():
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
-def load_accessibility():
-    if TweakID.A11yReduceMotion in tweaks:
+def load_maxos_ui():
+    """SpringBoard & UIKit feature flags — maxregnerOS UI layer."""
+    if TweakID.SBFFFloatingDock in tweaks:
         return
-    A = FileLocation.accessibility
     additional_tweaks = {
-        TweakID.A11yReduceMotion:       BasicPlistTweak(A, 'ReduceMotionEnabled'),
-        TweakID.A11yReduceTransparency: BasicPlistTweak(A, 'ReduceTransparencyEnabled'),
-        TweakID.A11yIncreaseContrast:   BasicPlistTweak(A, 'IncreaseContrastEnabled'),
-        TweakID.A11yDifferentiateColors:BasicPlistTweak(A, 'DifferentiateWithoutColor'),
-        TweakID.A11yBoldText:           BasicPlistTweak(A, 'BoldTextEnabled'),
-        TweakID.A11yGrayscale:          BasicPlistTweak(A, 'GrayscaleEnabled'),
-        TweakID.A11yClassicInvert:      BasicPlistTweak(A, 'InvertColorsEnabled'),
-        TweakID.A11yEnhancedContrast:   BasicPlistTweak(A, 'EnhancedBackgroundContrastEnabled'),
-        TweakID.A11yAssistiveTouch:     BasicPlistTweak(A, 'AssistiveTouchEnabled'),
-        TweakID.A11yClosedCaptions:     BasicPlistTweak(A, 'ClosedCaptionEnabled'),
-        TweakID.A11ySpeakSelection:     BasicPlistTweak(A, 'SpeakSelectionEnabled'),
-        TweakID.A11ySpeakAutoCorrect:   BasicPlistTweak(A, 'SpeakAutoCorrectEnabled'),
-        TweakID.A11ySpeakScreen:        BasicPlistTweak(A, 'SpeakScreenEnabled'),
-        TweakID.A11yVoiceOver:          BasicPlistTweak(A, 'VoiceOverTouchEnabled'),
-        TweakID.A11yZoom:               BasicPlistTweak(A, 'ZoomTouchEnabled'),
-        TweakID.A11yOnOffLabels:        BasicPlistTweak(A, 'OnOffSwitchLabelsEnabled'),
-        TweakID.A11yButtonShapes:       BasicPlistTweak(A, 'ButtonShapesEnabled'),
-        TweakID.A11yStickyKeys:         BasicPlistTweak(A, 'StickyKeysEnabled'),
-        TweakID.A11ySlowKeys:           BasicPlistTweak(A, 'SlowKeysEnabled'),
-        TweakID.A11yMouseKeys:          BasicPlistTweak(A, 'MouseKeysEnabled'),
-        TweakID.A11ySwitchControl:      BasicPlistTweak(A, 'SwitchControlEnabled'),
-        TweakID.A11yGuidedAccess:       BasicPlistTweak(A, 'GuidedAccessEnabled'),
-        TweakID.A11yRTT:                BasicPlistTweak(A, 'RTTEnabled'),
-        TweakID.A11yLEDFlash:           BasicPlistTweak(A, 'LEDFlashEnabled'),
-        TweakID.A11yMonoAudio:          BasicPlistTweak(A, 'MonoAudioEnabled'),
-        TweakID.A11yReduceWhitePoint:   BasicPlistTweak(A, 'ReduceWhitePointEnabled'),
-        TweakID.A11yAutoAccessibility:  BasicPlistTweak(A, 'AutoAccessibilityEnabled'),
-        TweakID.A11yHoverText:          BasicPlistTweak(A, 'HoverTextEnabled'),
-        TweakID.A11yLargePointer:       BasicPlistTweak(A, 'LargePointerEnabled'),
-        TweakID.A11yFullKeyboardAccess: BasicPlistTweak(A, 'FullKeyboardAccessEnabled'),
+        # SpringBoard UI feature flags
+        TweakID.SBFFFloatingDock:             FeatureFlagTweak('SpringBoard', ['FloatingDock']),
+        TweakID.SBFFDenseHomeScreen:          FeatureFlagTweak('SpringBoard', ['DenseHomeScreen']),
+        TweakID.SBFFAppSwitcherV2:            FeatureFlagTweak('SpringBoard', ['EnhancedAppSwitcher']),
+        TweakID.SBFFGlassFolders:             FeatureFlagTweak('SpringBoard', ['LiquidGlassFolders']),
+        TweakID.SBFFLiveActivitiesPersistent: FeatureFlagTweak('SpringBoard', ['PersistentLiveActivities']),
+        TweakID.SBFFAdaptiveGrid:             FeatureFlagTweak('SpringBoard', ['HomeScreenAdaptiveGrid']),
+        TweakID.SBFFContextWidgets:           FeatureFlagTweak('SpringBoard', ['ContextualWidgets']),
+        TweakID.SBFFProximityAnimations:      FeatureFlagTweak('SpringBoard', ['ProximityBasedAnimations']),
+        TweakID.SBFFLargeWidgetGrid:          FeatureFlagTweak('SpringBoard', ['LargeWidgetGridSize']),
+        TweakID.SBFFDynamicBackground:        FeatureFlagTweak('SpringBoard', ['DynamicBackgroundAdaptation']),
+        TweakID.SBFFGlassIconShimmer:         FeatureFlagTweak('SpringBoard', ['GlassIconShimmer']),
+        TweakID.SBFFPageIndicatorRedesign:    FeatureFlagTweak('SpringBoard', ['PageIndicatorRedesign']),
+        TweakID.SBFFEnhancedAppLibrary:       FeatureFlagTweak('SpringBoard', ['EnhancedAppLibrarySearch']),
+        TweakID.SBFFGlassSectionDividers:     FeatureFlagTweak('SpringBoard', ['GlassSectionDividers']),
+        TweakID.SBFFDebugUIOverlay:           FeatureFlagTweak('SpringBoard', ['UIDebugOverlay']),
+        # UIKit feature flags
+        TweakID.UIKitFFGlassSheets:           FeatureFlagTweak('UIKit', ['GlassBottomSheets']),
+        TweakID.UIKitFFPillButtons:           FeatureFlagTweak('UIKit', ['PillShapedButtons']),
+        TweakID.UIKitFFLargeNavHeaders:       FeatureFlagTweak('UIKit', ['LargeNavigationHeaders']),
+        TweakID.UIKitFFSwipeBackV2:           FeatureFlagTweak('UIKit', ['SwipeBackGestureV2']),
+        TweakID.UIKitFFFloatingMenus:         FeatureFlagTweak('UIKit', ['FloatingMenuPresentations']),
+        TweakID.UIKitFFCardLayouts:           FeatureFlagTweak('UIKit', ['AdaptiveCardLayouts']),
+        TweakID.UIKitFFRubberBandPhysics:     FeatureFlagTweak('UIKit', ['RubberBandScrollPhysics']),
+        TweakID.UIKitFFGlassAlerts:           FeatureFlagTweak('UIKit', ['GlassAlertViews']),
+        TweakID.UIKitFFCompactProgress:       FeatureFlagTweak('UIKit', ['CompactProgressIndicators']),
+        TweakID.UIKitFFHapticKeyboard:        FeatureFlagTweak('UIKit', ['HapticKeyboardFeedback']),
+        TweakID.UIKitFFEnhancedTextRendering: FeatureFlagTweak('UIKit', ['EnhancedTextRendering']),
+        TweakID.UIKitFFDynamicColorAdaptation:FeatureFlagTweak('UIKit', ['DynamicColorAdaptation']),
     }
     tweaks.update(additional_tweaks)
     _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_apps():
+    """Per-app feature flags: Photos, Camera, Messages, FaceTime, Maps, Safari."""
+    if TweakID.PhotosFFEnhancedEditing in tweaks:
+        return
+    additional_tweaks = {
+        # Photos
+        TweakID.PhotosFFEnhancedEditing:    FeatureFlagTweak('Photos',    ['EnhancedEditing']),
+        TweakID.PhotosFFAIAlbums:           FeatureFlagTweak('Photos',    ['AISmartAlbums']),
+        TweakID.PhotosFFMemoriesV2:         FeatureFlagTweak('Photos',    ['MemoriesV2']),
+        TweakID.PhotosFFImprovedSearch:     FeatureFlagTweak('Photos',    ['ImprovedSearch']),
+        # Camera
+        TweakID.CameraFFProResVideo:        FeatureFlagTweak('Camera',    ['ProResVideoEnabled']),
+        TweakID.CameraFFMacroPro:           FeatureFlagTweak('Camera',    ['MacroPro']),
+        TweakID.CameraFFNightModePortrait:  FeatureFlagTweak('Camera',    ['NightModePortrait']),
+        TweakID.CameraFFProRAWMax:          FeatureFlagTweak('Camera',    ['ProRAWMax']),
+        TweakID.CameraFFCinematicV2:        FeatureFlagTweak('Camera',    ['CinematicModeV2']),
+        TweakID.CameraFFQuantumHDR:         FeatureFlagTweak('Camera',    ['QuantumHDR']),
+        # Messages
+        TweakID.MsgFFEnhancedSearch:        FeatureFlagTweak('Messages',  ['EnhancedSearch']),
+        TweakID.MsgFFEffectsV2:             FeatureFlagTweak('Messages',  ['EffectsV2']),
+        TweakID.MsgFFCollaborativeSharing:  FeatureFlagTweak('Messages',  ['CollaborativeSharing']),
+        TweakID.MsgFFRichLinksV2:           FeatureFlagTweak('Messages',  ['RichLinksV2']),
+        # FaceTime
+        TweakID.FaceTimeFFPersonSegmentation: FeatureFlagTweak('FaceTime',['PersonSegmentation']),
+        TweakID.FaceTimeFFReactionAnimations: FeatureFlagTweak('FaceTime',['ReactionAnimations']),
+        TweakID.FaceTimeFFSharedPlaybackV2: FeatureFlagTweak('FaceTime',  ['SharedPlaybackV2']),
+        TweakID.FaceTimeFFSpatialAudioCall: FeatureFlagTweak('FaceTime',  ['SpatialAudioCall']),
+        # Maps
+        TweakID.MapsFFImmersiveView:        FeatureFlagTweak('Maps',      ['ImmersiveView']),
+        TweakID.MapsFFARWalkDirections:     FeatureFlagTweak('Maps',      ['ARWalkDirections']),
+        TweakID.MapsFFOfflineEnhanced:      FeatureFlagTweak('Maps',      ['OfflineMapsEnhanced']),
+        TweakID.MapsFFRealtimeTrafficV2:    FeatureFlagTweak('Maps',      ['RealtimeTrafficV2']),
+        TweakID.MapsFF3DPlaceCards:         FeatureFlagTweak('Maps',      ['PlaceCards3D']),
+        TweakID.MapsFFElevationData:        FeatureFlagTweak('Maps',      ['ElevationData']),
+        # Safari
+        TweakID.SafariFFEnhancedPrivacy:    FeatureFlagTweak('MobileSafari', ['EnhancedPrivacyMode']),
+        TweakID.SafariFFTabGroupsV2:        FeatureFlagTweak('MobileSafari', ['TabGroupsV2']),
+        TweakID.SafariFFWebExtensionsAPI:   FeatureFlagTweak('MobileSafari', ['WebExtensionsAPI']),
+        TweakID.SafariFFStartPageRedesign:  FeatureFlagTweak('MobileSafari', ['StartPageRedesign']),
+        TweakID.SafariFFFloatingAddressBar: FeatureFlagTweak('MobileSafari', ['FloatingAddressBar']),
+        TweakID.SafariFFReaderModeV2:       FeatureFlagTweak('MobileSafari', ['ReaderModeV2']),
+    }
+    tweaks.update(additional_tweaks)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_system():
+    """Widgets, Live Activities, Lock Screen, Notifications, Performance flags."""
+    if TweakID.WidgetFFInteractiveWidgets in tweaks:
+        return
+    additional_tweaks = {
+        # Widgets & Live Activities
+        TweakID.WidgetFFInteractiveWidgets: FeatureFlagTweak('WidgetKit',       ['InteractiveWidgets']),
+        TweakID.WidgetFFLargeFormat:        FeatureFlagTweak('WidgetKit',       ['LargeWidgetFormat']),
+        TweakID.WidgetFFAnimatedWidgets:    FeatureFlagTweak('WidgetKit',       ['AnimatedWidgets']),
+        TweakID.LiveActFFPersistentMode:    FeatureFlagTweak('LiveActivities',  ['PersistentMode']),
+        TweakID.LiveActFFGlassPresentation: FeatureFlagTweak('LiveActivities',  ['GlassPresentation']),
+        TweakID.LiveActFFStandbyV2:         FeatureFlagTweak('LiveActivities',  ['StandbyModeV2']),
+        # Lock Screen
+        TweakID.LockFFWidgetsV2:            FeatureFlagTweak('SpringBoard',     ['LockScreenWidgetsV2']),
+        TweakID.LockFFDepthEffectClock:     FeatureFlagTweak('SpringBoard',     ['DepthEffectClock']),
+        TweakID.LockFFLiveWeatherBG:        FeatureFlagTweak('SpringBoard',     ['LiveWeatherBackground']),
+        TweakID.LockFFAlwaysOnDisplayV2:    FeatureFlagTweak('SpringBoard',     ['AlwaysOnDisplayV2']),
+        # Notifications
+        TweakID.NotifFFStackedBanners:      FeatureFlagTweak('UserNotificationsUI', ['StackedBanners']),
+        TweakID.NotifFFGlassNotifications:  FeatureFlagTweak('UserNotificationsUI', ['GlassNotifications']),
+        TweakID.NotifFFQuickRepliesV2:      FeatureFlagTweak('UserNotificationsUI', ['QuickRepliesV2']),
+        TweakID.NotifFFSummaryV2:           FeatureFlagTweak('UserNotificationsUI', ['NotificationSummaryV2']),
+        # Performance
+        TweakID.PerfFFEnhancedLowPower:     FeatureFlagTweak('SpringBoard',     ['EnhancedLowPowerMode']),
+        TweakID.PerfFFBackgroundRefreshV2:  FeatureFlagTweak('SpringBoard',     ['BackgroundRefreshV2']),
+        TweakID.PerfFFLowLatencyAudio:      FeatureFlagTweak('CoreAudio',       ['LowLatencyProcessing']),
+        TweakID.PerfFFHardwareAcceleration: FeatureFlagTweak('AVFoundation',    ['HardwareAcceleration']),
+        TweakID.PerfFFThermalStatusUI:      FeatureFlagTweak('SpringBoard',     ['ThermalStatusUI']),
+        TweakID.PerfFFMemoryPressureMonitor:FeatureFlagTweak('SpringBoard',     ['MemoryPressureMonitor']),
+        TweakID.PerfFFProcessPriorityBoost: FeatureFlagTweak('SpringBoard',     ['ProcessPriorityBoost']),
+        TweakID.PerfFFUltraLowLatencyInput: FeatureFlagTweak('SpringBoard',     ['UltraLowLatencyInput']),
+    }
+    tweaks.update(additional_tweaks)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_maxos_exclusive():
+    """maxregnerOS signature feature flags."""
+    if TweakID.MaxOSGlassEverywhere in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.MaxOSGlassEverywhere:      FeatureFlagTweak('SpringBoard',   ['GlassEverywhere']),
+        TweakID.MaxOSFluidMotionEngine:    FeatureFlagTweak('UIKit',         ['FluidMotionEngine']),
+        TweakID.MaxOSNeuralEngineBoost:    FeatureFlagTweak('CoreML',        ['EnhancedNeuralEngine']),
+        TweakID.MaxOSProDisplayRendering:  FeatureFlagTweak('CoreGraphics',  ['ProDisplayRendering']),
+        TweakID.MaxOSHyperSmoothScrolling: FeatureFlagTweak('UIKit',         ['HyperSmoothScrolling']),
+        TweakID.MaxOSChromaticAberration:  FeatureFlagTweak('CoreImage',     ['ChromaticAberrationEffect']),
+        TweakID.MaxOSDepthSensingV2:       FeatureFlagTweak('ARKit',         ['DepthSensingV2']),
+        TweakID.MaxOSAmbientIntelligence:  FeatureFlagTweak('Siri',          ['AmbientIntelligence']),
+        TweakID.MaxOSProHapticsEngine:     FeatureFlagTweak('CoreHaptics',   ['ProHapticsEngine']),
+        TweakID.MaxOSDynamicIslandPro:     FeatureFlagTweak('SpringBoard',   ['DynamicIslandPro']),
+    }
+    tweaks.update(additional_tweaks)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+# maxregnerOS Mode: curated set of the highest-impact tweaks for maximum visual effect
+MAXREGNEROS_MODE_IDS = frozenset([
+    TweakID.SolariumFFMessages, TweakID.SolariumFFMaps, TweakID.SolariumFFSafari,
+    TweakID.SolariumFFControlCenter, TweakID.SolariumFFNotifications, TweakID.SolariumFFWidgets,
+    TweakID.SolariumFFMusic, TweakID.SolariumFFPhone, TweakID.SolariumFFCalendar,
+    TweakID.SolariumFFNotes, TweakID.SolariumFFSpotlight,
+    TweakID.SBShowBatteryPercentageAlways, TweakID.SBAlwaysGlassHeaders,
+    TweakID.SBExpandedDynamicIsland, TweakID.SBAlwaysShowClockDI,
+    TweakID.SBFFGlassFolders, TweakID.SBFFAppSwitcherV2, TweakID.SBFFLiveActivitiesPersistent,
+    TweakID.SBFFAdaptiveGrid, TweakID.SBFFGlassIconShimmer, TweakID.SBFFDynamicBackground,
+    TweakID.UIKitFFGlassSheets, TweakID.UIKitFFPillButtons, TweakID.UIKitFFGlassAlerts,
+    TweakID.UIKitFFRubberBandPhysics, TweakID.UIKitFFCardLayouts,
+    TweakID.LockFFDepthEffectClock, TweakID.LockFFLiveWeatherBG, TweakID.LockFFAlwaysOnDisplayV2,
+    TweakID.LockFFWidgetsV2,
+    TweakID.NotifFFGlassNotifications, TweakID.NotifFFStackedBanners,
+    TweakID.WidgetFFInteractiveWidgets, TweakID.WidgetFFAnimatedWidgets,
+    TweakID.LiveActFFGlassPresentation, TweakID.LiveActFFPersistentMode,
+    TweakID.AudioSpatialDefault, TweakID.AudioPersonalizedSpatial, TweakID.AudioEnhancedSpeaker,
+    TweakID.MaxOSGlassEverywhere, TweakID.MaxOSFluidMotionEngine,
+    TweakID.MaxOSHyperSmoothScrolling, TweakID.MaxOSProDisplayRendering,
+    TweakID.MaxOSProHapticsEngine, TweakID.MaxOSDynamicIslandPro,
+    TweakID.SolariumHighContrast, TweakID.SolariumMaxBlur,
+])
 
 
 def load_all_tweaks(version: str):

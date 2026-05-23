@@ -39,7 +39,7 @@ class Page(Enum):
             "Miscellaneous",
             "Apply",
             "Settings",
-            "iOS 27 & Siri 2.0",
+            "maxregnerOS",
         ]
         return name_map[self.value]
 

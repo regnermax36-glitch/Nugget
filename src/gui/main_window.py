@@ -88,7 +88,7 @@ class MainWindow(QtWidgets.QMainWindow):
         sp = self.ui.homePageBtn.sizePolicy()
         self.ios27PageBtn.setSizePolicy(sp)
         self.ios27PageBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.ios27PageBtn.setText("iOS 27 & Siri 2.0")
+        self.ios27PageBtn.setText("maxregnerOS")
         self.ios27PageBtn.setCheckable(True)
         self.ios27PageBtn.setAutoExclusive(True)
         self.ios27PageBtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextOnly)
