@@ -1,4 +1,7 @@
 from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import QSize
+from PySide6.QtGui import QCursor
+from PySide6.QtCore import Qt
 import plistlib
 import os
 from typing import Optional
@@ -74,6 +77,27 @@ class MainWindow(QtWidgets.QMainWindow):
             Page.RiskyTweaks: Pages.Risky(ui=self.ui),
             Page.Settings: Pages.Settings(window=self, ui=self.ui)
         }
+
+        # iOS 27 & Siri 2.0 – dynamic page (adds itself to the stacked widget)
+        ios27_page = Pages.iOS27(ui=self.ui, stacked_widget=self.ui.pages)
+        self.pages[Page.iOS27] = ios27_page
+
+        # Add the iOS 27 & Siri 2.0 sidebar button programmatically
+        self.ios27PageBtn = QtWidgets.QToolButton(self.ui.sidebar)
+        self.ios27PageBtn.setObjectName("ios27PageBtn")
+        sp = self.ui.homePageBtn.sizePolicy()
+        self.ios27PageBtn.setSizePolicy(sp)
+        self.ios27PageBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.ios27PageBtn.setText("iOS 27 & Siri 2.0")
+        self.ios27PageBtn.setCheckable(True)
+        self.ios27PageBtn.setAutoExclusive(True)
+        self.ios27PageBtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextOnly)
+        self.ios27PageBtn.setProperty("cls", "sidebarBtn")
+        self.ios27PageBtn.hide()
+        # Insert before sidebarDiv2 (before the Apply / Settings divider)
+        div2_index = self.ui.verticalLayout.indexOf(self.ui.sidebarDiv2)
+        self.ui.verticalLayout.insertWidget(div2_index, self.ios27PageBtn)
+        self.ios27PageBtn.clicked.connect(self.on_ios27PageBtn_clicked)
 
         # Check for an update
         if is_update_available(App_Version, App_Build):
@@ -182,6 +206,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.posterboardPageBtn.hide()
             self.ui.advancedPageBtn.hide()
             self.ui.miscOptionsBtn.hide()
+            self.ios27PageBtn.hide()
 
             self.ui.sidebarDiv2.hide()
             self.ui.applyPageBtn.hide()
@@ -213,7 +238,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.passcodePageBtn.hide()
             self.ui.posterboardPageBtn.show()
             self.ui.miscOptionsBtn.show()
-            
+            # iOS 27 & Siri 2.0 page is shown/hidden per-device in change_selected_device
+
             self.ui.sidebarDiv2.show()
             self.ui.applyPageBtn.show()
 
@@ -333,11 +359,10 @@ class MainWindow(QtWidgets.QMainWindow):
             # hide posterboard .aar video option on ipads
             is_iphone = self.device_manager.get_current_device_model().startswith("iPhone")
 
-            # Patched: expose the newer iOS / Liquid Glass UI controls on every
-            # connected iPhone instead of requiring the device to report iOS 26+.
-            # This only changes UI availability; applying still uses Nugget's
-            # existing restore / MobileGestalt / feature-flag paths.
+            # Expose iOS 26/27 UI controls on every connected iPhone (not version-gated).
             self.ui.liquidGlassPageBtn.setVisible(is_iphone)
+            # iOS 27 & Siri 2.0 page is available for every connected iPhone.
+            self.ios27PageBtn.setVisible(is_iphone)
             if not is_iphone:
                 # force looping
                 tweaks[TweakID.PosterBoard].loop_video = True
@@ -532,6 +557,10 @@ class MainWindow(QtWidgets.QMainWindow):
     def on_settingsPageBtn_clicked(self):
         self.pages[Page.Settings].load()
         self.ui.pages.setCurrentIndex(Page.Settings.value)
+
+    def on_ios27PageBtn_clicked(self):
+        self.pages[Page.iOS27].load()
+        self.ui.pages.setCurrentIndex(Page.iOS27.value)
 
     def update_side_btn_color(self, btn: QtWidgets.QToolButton, toggled: bool):
         if toggled:

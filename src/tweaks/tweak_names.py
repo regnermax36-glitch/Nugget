@@ -117,3 +117,54 @@ class TweakID(Enum):
     # daemons
     Daemons = auto()
     ClearScreenTimeAgentPlist = auto()
+
+    # ── iOS 27 Concept & Siri 2.0 ──────────────────────────────────────────
+
+    # Siri 2.0 UI feature flags
+    Siri2FloatingBubble = auto()
+    Siri2AmbientMode = auto()
+    Siri2VisualResponse = auto()
+    Siri2NaturalVoice = auto()
+    Siri2OnScreenContext = auto()
+    Siri2CallScreening = auto()
+    Siri2PersonalHistory = auto()
+    Siri2VisionProStyle = auto()
+
+    # iOS 27 home screen feature flags
+    iOS27LargeWidgets = auto()
+    iOS27HomeScreenRedesign = auto()
+    iOS27AppLibraryRedesign = auto()
+    iOS27ContextMenuRedesign = auto()
+    iOS27AppSwitcherRedesign = auto()
+
+    # iOS 27 system UI feature flags
+    iOS27CCRedesign = auto()
+    iOS27NotificationsRedesign = auto()
+    iOS27LockScreenRedesign = auto()
+    iOS27StatusBarRedesign = auto()
+    iOS27ShareSheetRedesign = auto()
+
+    # Liquid Glass 2.0 per-app extensions (feature flags)
+    SolariumFFMessages = auto()
+    SolariumFFMaps = auto()
+    SolariumFFSafari = auto()
+    SolariumFFSpotlight = auto()
+    SolariumFFControlCenter = auto()
+    SolariumFFNotifications = auto()
+    SolariumFFWidgets = auto()
+
+    # Liquid Glass fine-tuning (plist)
+    NoLiquidStatusBar = auto()
+    NoLiquidNotifications = auto()
+    SolariumHighContrast = auto()
+    SolariumForceLightTint = auto()
+    SolariumMaxBlur = auto()
+
+    # SpringBoard iOS 27 plist tweaks
+    SBAlwaysGlassHeaders = auto()
+    SBExpandedDynamicIsland = auto()
+    SBShowWeatherLockScreen = auto()
+    SBEnhancedHaptics = auto()
+    SBShowBatteryPercentageAlways = auto()
+    SBHideHomeIndicator = auto()
+    SBDisableParallaxEffect = auto()

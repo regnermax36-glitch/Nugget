@@ -12,3 +12,4 @@ from .tools.templates import TemplatesPage as Templates
 from .tools.passcode import PasscodePage as Passcode
 from .tools.risky import RiskyPage as Risky
 from .main.settings import SettingsPage as Settings
+from .tools.ios27 import iOS27Page as iOS27
