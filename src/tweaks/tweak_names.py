@@ -168,3 +168,75 @@ class TweakID(Enum):
     SBShowBatteryPercentageAlways = auto()
     SBHideHomeIndicator = auto()
     SBDisableParallaxEffect = auto()
+
+    # ── iOS 27 Concept batch 2 ─────────────────────────────────────────────
+
+    # Siri 2.0 Advanced
+    Siri2MultiModal = auto()
+    Siri2OfflineMode = auto()
+    Siri2ProactiveCards = auto()
+    Siri2AppIntents2 = auto()
+    Siri2LiveTranslation = auto()
+
+    # iOS 27 Typography & Fonts
+    iOS27DynamicType2 = auto()
+    iOS27NewSystemFont = auto()
+    iOS27BoldUIElements = auto()
+    iOS27LargeHeaderStyle = auto()
+    iOS27CompactLabels = auto()
+
+    # iOS 27 Animations
+    iOS27SpringAnimations = auto()
+    iOS27MorphTransitions = auto()
+    iOS27ElasticBounce = auto()
+    iOS27ZoomTransitions = auto()
+    iOS27GlassReveal = auto()
+    iOS27ReducedMotionAlt = auto()
+
+    # iOS 27 Colors & Appearance
+    iOS27VividColors = auto()
+    iOS27DynamicColors = auto()
+    iOS27TintEverywhere = auto()
+    iOS27TrueBlack = auto()
+    iOS27ColorizedGlass = auto()
+    iOS27MaterialVariant2 = auto()
+
+    # iOS 27 Keyboard
+    iOS27KeyboardRedesign = auto()
+    iOS27KeyboardGlass = auto()
+    iOS27SmartPrediction = auto()
+    iOS27KeyboardHaptics = auto()
+
+    # iOS 27 Multitasking
+    iOS27StagedMultitasking = auto()
+    iOS27FloatingApps = auto()
+    iOS27PiPEnhancements = auto()
+    iOS27SplitViewIPhone = auto()
+
+    # iOS 27 Photos & Camera
+    iOS27PhotosRedesign = auto()
+    iOS27CameraRedesign = auto()
+    iOS27SmartAlbums2 = auto()
+    iOS27CinematicCapture = auto()
+    iOS27ProRAWEnhanced = auto()
+
+    # iOS 27 Privacy & Security
+    iOS27PrivacyDashboard2 = auto()
+    iOS27AppPrivacyReport2 = auto()
+    iOS27BiometricEnhanced = auto()
+    iOS27LockdownModeLite = auto()
+
+    # Liquid Glass 3.0 – more apps
+    SolariumFFMusic = auto()
+    SolariumFFPodcasts = auto()
+    SolariumFFPhone = auto()
+    SolariumFFCalendar = auto()
+    SolariumFFReminders = auto()
+    SolariumFFNotes = auto()
+
+    # SpringBoard iOS 27 Advanced
+    SBSmartStackRedesign = auto()
+    SBIconBadgeRedesign = auto()
+    SBTransparentFolders = auto()
+    SBAlwaysShowClockDI = auto()
+    SBFocusFiltersRedesign = auto()
