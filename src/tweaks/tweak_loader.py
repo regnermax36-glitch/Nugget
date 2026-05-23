@@ -983,6 +983,146 @@ def load_mros_exclusive_v2():
 
 
 # maxregnerOS Mode: curated set of the highest-impact tweaks for maximum visual effect
+def load_mros_macos():
+    """macOS feature parity flags for mROS."""
+    if TweakID.MacOSMenuBar in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.MacOSMenuBar:            FeatureFlagTweak('SpringBoard',    ['MacOSMenuBar']),
+        TweakID.MacOSDock:               FeatureFlagTweak('SpringBoard',    ['MacOSStyleDock']),
+        TweakID.MacOSMissionControl:     FeatureFlagTweak('SpringBoard',    ['MissionControl']),
+        TweakID.MacOSSpotlightPro:       FeatureFlagTweak('Spotlight',      ['MacOSSpotlightPro']),
+        TweakID.MacOSFinderMode:         FeatureFlagTweak('Files',          ['FinderMode']),
+        TweakID.MacOSWindowChrome:       FeatureFlagTweak('UIKit',          ['MacOSWindowChrome']),
+        TweakID.MacOSUniversalControl:   FeatureFlagTweak('UniversalControl',['Enabled']),
+        TweakID.MacOSSidecar:            FeatureFlagTweak('Sidecar',        ['SidecarEnabled']),
+        TweakID.MacOSSystemPreferences:  FeatureFlagTweak('Preferences',    ['MacOSStyleSettings']),
+        TweakID.MacOSActivityMonitor:    FeatureFlagTweak('SpringBoard',    ['ActivityMonitor']),
+        TweakID.MacOSNotificationCenter: FeatureFlagTweak('UserNotificationsUI', ['MacOSNotificationCenter']),
+        TweakID.MacOSScreenSaver:        FeatureFlagTweak('SpringBoard',    ['ScreenSaverEnabled']),
+        TweakID.MacOSHandoffPro:         FeatureFlagTweak('Handoff',        ['HandoffPro']),
+        TweakID.MacOSContinuityCamera:   FeatureFlagTweak('Continuity',     ['ContinuityCameraV2']),
+        TweakID.MacOSAirPlayReceiver:    FeatureFlagTweak('AirPlay',        ['ReceiverEnabled']),
+        TweakID.MacOSWindowResizing:     FeatureFlagTweak('UIKit',          ['MacOSWindowResizing']),
+        TweakID.MacOSSnapWindows:        FeatureFlagTweak('UIKit',          ['WindowSnapping']),
+        TweakID.MacOSMenuBarExtras:      FeatureFlagTweak('SpringBoard',    ['MenuBarExtras']),
+        TweakID.MacOSQuickLookPro:       FeatureFlagTweak('QuickLook',      ['QuickLookPro']),
+        TweakID.MacOSSpaces:             FeatureFlagTweak('SpringBoard',    ['MacOSSpaces']),
+        TweakID.MacOSExpose:             FeatureFlagTweak('SpringBoard',    ['MacOSExpose']),
+        TweakID.MacOSControlStrip:       FeatureFlagTweak('SpringBoard',    ['MacOSControlStrip']),
+        TweakID.MacOSShareExtension:     FeatureFlagTweak('Sharing',        ['MacOSShareExtension']),
+        TweakID.MacOSServicesMenu:       FeatureFlagTweak('SpringBoard',    ['ServicesMenu']),
+        TweakID.MacOSQuickActions:       FeatureFlagTweak('SpringBoard',    ['QuickActions']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_ipados():
+    """iPadOS feature parity flags for mROS."""
+    if TweakID.iPadOSSplitView in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.iPadOSSplitView:             FeatureFlagTweak('SpringBoard',  ['SplitViewEnabled']),
+        TweakID.iPadOSSlideOver:             FeatureFlagTweak('SpringBoard',  ['SlideOverEnabled']),
+        TweakID.iPadOSDragDropPro:           FeatureFlagTweak('UIKit',        ['DragDropPro']),
+        TweakID.iPadOSStageManagerPro:       FeatureFlagTweak('SpringBoard',  ['StageManagerPro']),
+        TweakID.iPadOSExternalDisplayPro:    FeatureFlagTweak('SpringBoard',  ['ExternalDisplayPro']),
+        TweakID.iPadOSPointerPro:            FeatureFlagTweak('UIKit',        ['PointerInteractionPro']),
+        TweakID.iPadOSPencilPro:             FeatureFlagTweak('PencilKit',    ['PencilProFeatures']),
+        TweakID.iPadOSShelfMode:             FeatureFlagTweak('SpringBoard',  ['ShelfMode']),
+        TweakID.iPadOSKeyboardShortcutsPro:  FeatureFlagTweak('UIKit',        ['KeyboardShortcutsPro']),
+        TweakID.iPadOSHoverEffects:          FeatureFlagTweak('UIKit',        ['HoverEffects']),
+        TweakID.iPadOSScribble:              FeatureFlagTweak('PencilKit',    ['ScribbleV2']),
+        TweakID.iPadOSWidgetAnywhere:        FeatureFlagTweak('WidgetKit',    ['WidgetAnywhere']),
+        TweakID.iPadOSDocumentBrowser:       FeatureFlagTweak('Files',        ['DocumentBrowserPro']),
+        TweakID.iPadOSMultitaskingBar:       FeatureFlagTweak('SpringBoard',  ['MultitaskingBar']),
+        TweakID.iPadOSWindowSnapping:        FeatureFlagTweak('SpringBoard',  ['WindowSnappingPro']),
+        TweakID.iPadOSQuickNote:             FeatureFlagTweak('Notes',        ['QuickNoteV2']),
+        TweakID.iPadOSFreeformCanvas:        FeatureFlagTweak('Freeform',     ['FreeformCanvasPro']),
+        TweakID.iPadOSTranslucency:          FeatureFlagTweak('UIKit',        ['BackgroundTranslucency']),
+        TweakID.iPadOSFloatingKeyboard:      FeatureFlagTweak('UIKit',        ['FloatingKeyboardV2']),
+        TweakID.iPadOSMagicKeyboard:         FeatureFlagTweak('UIKit',        ['MagicKeyboardV2']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_icons_styles():
+    """mROS icon system and style engine."""
+    if TweakID.IconRoundedSquare in tweaks:
+        return
+    additional_tweaks = {
+        # Icon System
+        TweakID.IconRoundedSquare:       FeatureFlagTweak('IconServices',  ['RoundedSquareIcons']),
+        TweakID.IconDynamicSystem:       FeatureFlagTweak('IconServices',  ['DynamicIconSystem']),
+        TweakID.IconColorAdaptive:       FeatureFlagTweak('IconServices',  ['ColorAdaptiveIcons']),
+        TweakID.IconGlowEffect:          FeatureFlagTweak('IconServices',  ['GlowEffect']),
+        TweakID.IconDepthShadow:         FeatureFlagTweak('IconServices',  ['DepthShadow']),
+        TweakID.IconMorphAnimation:      FeatureFlagTweak('IconServices',  ['MorphAnimation']),
+        TweakID.IconSizeVariants:        FeatureFlagTweak('IconServices',  ['SizeVariants']),
+        TweakID.IconBadgeRedesign:       FeatureFlagTweak('SpringBoard',   ['BadgeRedesign']),
+        TweakID.IconFolderGlass:         FeatureFlagTweak('SpringBoard',   ['FolderGlassV2']),
+        TweakID.IconShimmerEffect:       FeatureFlagTweak('IconServices',  ['ShimmerEffect']),
+        TweakID.IconHDRTextures:         FeatureFlagTweak('IconServices',  ['HDRTextures']),
+        TweakID.IconNeuralShape:         FeatureFlagTweak('IconServices',  ['NeuralShapeAdapt']),
+        TweakID.IconContextMenuPro:      FeatureFlagTweak('SpringBoard',   ['ContextMenuPro']),
+        # Style Engine
+        TweakID.StyleDynamicColorSystem: FeatureFlagTweak('UIKit',         ['DynamicColorSystem']),
+        TweakID.StyleAdaptiveTypography: FeatureFlagTweak('CoreText',      ['AdaptiveTypography']),
+        TweakID.StyleFluidAnimations:    FeatureFlagTweak('UIKit',         ['FluidAnimationSystem']),
+        TweakID.StyleHDRColorSpace:      FeatureFlagTweak('CoreGraphics',  ['HDRColorSpaceUI']),
+        TweakID.StyleP3ColorGamut:       FeatureFlagTweak('CoreGraphics',  ['P3ColorGamut']),
+        TweakID.StyleDolbyVisionUI:      FeatureFlagTweak('CoreDisplay',   ['DolbyVisionUIMode']),
+        TweakID.StyleProMotionEverywhere:FeatureFlagTweak('UIKit',         ['ProMotionEverywhere']),
+        TweakID.StyleTrueBlackMode:      FeatureFlagTweak('UIKit',         ['TrueBlackMode']),
+        TweakID.StyleSFSymbolsPro:       FeatureFlagTweak('CoreText',      ['SFSymbolsPro']),
+        TweakID.StyleSFProVariable:      FeatureFlagTweak('CoreText',      ['SFProVariableFont']),
+        TweakID.StyleDynamicType:        FeatureFlagTweak('CoreText',      ['DynamicTypeV3']),
+        TweakID.StyleVibrantColors:      FeatureFlagTweak('UIKit',         ['VibrantColorSystem']),
+        TweakID.StyleGlassMorphism:      FeatureFlagTweak('UIKit',         ['GlassMorphism']),
+        TweakID.StyleNeumorphism:        FeatureFlagTweak('UIKit',         ['Neumorphism']),
+        TweakID.StyleMaterialBlur:       FeatureFlagTweak('UIKit',         ['MaterialBlurV2']),
+        TweakID.StyleCinematicColor:     FeatureFlagTweak('CoreGraphics',  ['CinematicColorGrading']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_system_rewrite():
+    """mROS core system rewrite — compositor, renderer, layout engine."""
+    if TweakID.RewriteUnifiedShellV2 in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.RewriteUnifiedShellV2:   FeatureFlagTweak('SpringBoard',   ['UnifiedShellV2']),
+        TweakID.RewriteMultiWindowEngine: FeatureFlagTweak('UIKit',         ['MultiWindowEngine']),
+        TweakID.RewriteCompositorV3:      FeatureFlagTweak('CoreAnimation', ['CompositorV3']),
+        TweakID.RewriteGPUDirectUI:       FeatureFlagTweak('Metal',         ['GPUDirectUI']),
+        TweakID.RewriteNeuralAnimator:    FeatureFlagTweak('UIKit',         ['NeuralAnimator']),
+        TweakID.RewriteAdaptiveLayout:    FeatureFlagTweak('UIKit',         ['AdaptiveLayoutEngine']),
+        TweakID.RewriteContextEngine:     FeatureFlagTweak('SpringBoard',   ['ContextEngine']),
+        TweakID.RewriteSharedMemoryUI:    FeatureFlagTweak('UIKit',         ['SharedMemoryUI']),
+        TweakID.RewriteRealTimeRender:    FeatureFlagTweak('Metal',         ['RealTimeUIRender']),
+        TweakID.RewriteZeroLatencyInput:  FeatureFlagTweak('UIKit',         ['ZeroLatencyInput']),
+        TweakID.RewriteProximityEngine:   FeatureFlagTweak('SpringBoard',   ['ProximityContextEngine']),
+        TweakID.RewriteSpatialAudioUI:    FeatureFlagTweak('AVFoundation',  ['SpatialAudioUI']),
+        TweakID.RewriteHapticLanguage:    FeatureFlagTweak('CoreHaptics',   ['HapticLanguage']),
+        TweakID.RewriteIntelligentCache:  FeatureFlagTweak('SpringBoard',   ['IntelligentUICache']),
+        TweakID.RewritePredictiveFetch:   FeatureFlagTweak('SpringBoard',   ['PredictiveFetch']),
+        TweakID.RewriteQuantumCompositor: FeatureFlagTweak('CoreAnimation', ['QuantumCompositor']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
 MAXREGNEROS_MODE_IDS = frozenset([
     # Liquid Glass per-app
     TweakID.SolariumFFMessages, TweakID.SolariumFFMaps, TweakID.SolariumFFSafari,
@@ -1039,6 +1179,24 @@ MAXREGNEROS_MODE_IDS = frozenset([
     TweakID.MROSCrystalClear, TweakID.MROSDeepFusion, TweakID.MROSMorphicUI,
     TweakID.MROSChronoEngine, TweakID.MROSAdaptiveCortex, TweakID.MROSHyperCore,
     TweakID.MROSQuantumHaptics, TweakID.MROSDimensionalShift,
+    # macOS
+    TweakID.MacOSMenuBar, TweakID.MacOSDock, TweakID.MacOSMissionControl,
+    TweakID.MacOSWindowChrome, TweakID.MacOSSnapWindows, TweakID.MacOSSpaces,
+    TweakID.MacOSUniversalControl, TweakID.MacOSHandoffPro,
+    # iPadOS
+    TweakID.iPadOSSplitView, TweakID.iPadOSStageManagerPro,
+    TweakID.iPadOSExternalDisplayPro, TweakID.iPadOSHoverEffects,
+    TweakID.iPadOSWidgetAnywhere, TweakID.iPadOSMultitaskingBar,
+    # Icons & Style
+    TweakID.IconDynamicSystem, TweakID.IconGlowEffect, TweakID.IconDepthShadow,
+    TweakID.IconHDRTextures, TweakID.IconMorphAnimation,
+    TweakID.StyleDynamicColorSystem, TweakID.StyleHDRColorSpace,
+    TweakID.StyleP3ColorGamut, TweakID.StyleGlassMorphism,
+    TweakID.StyleProMotionEverywhere, TweakID.StyleCinematicColor,
+    # System Rewrite
+    TweakID.RewriteUnifiedShellV2, TweakID.RewriteCompositorV3,
+    TweakID.RewriteGPUDirectUI, TweakID.RewriteNeuralAnimator,
+    TweakID.RewriteZeroLatencyInput, TweakID.RewriteQuantumCompositor,
 ])
 
 

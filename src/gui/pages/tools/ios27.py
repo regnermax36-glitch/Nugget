@@ -13,6 +13,7 @@ from src.tweaks.tweak_loader import (
     load_maxos_privacy_shortcuts_org, load_maxos_reminders_files,
     load_maxos_gaming_media, load_maxos_extended_apps, load_maxos_system_core,
     load_mros_kernel, load_mros_exclusive_v2,
+    load_mros_macos, load_mros_ipados, load_mros_icons_styles, load_mros_system_rewrite,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -628,6 +629,140 @@ class iOS27Page(Page):
         ]:
             L.addWidget(_row(tid, name, desc))
 
+        # ── macOS Features ────────────────────────────────────────────────────
+        L.addWidget(_hdr("⌘ macOS Features — Full Parity"))
+        L.addWidget(_div())
+        for tid, name, flag in [
+            (TweakID.MacOSMenuBar,           "Menu Bar",                   "SpringBoard.MacOSMenuBar"),
+            (TweakID.MacOSDock,              "macOS-Style Dock",           "SpringBoard.MacOSStyleDock"),
+            (TweakID.MacOSMissionControl,    "Mission Control",            "SpringBoard.MissionControl"),
+            (TweakID.MacOSSpotlightPro,      "Spotlight Pro",              "Spotlight.MacOSSpotlightPro"),
+            (TweakID.MacOSFinderMode,        "Finder Mode",                "Files.FinderMode"),
+            (TweakID.MacOSWindowChrome,      "macOS Window Chrome",        "UIKit.MacOSWindowChrome"),
+            (TweakID.MacOSUniversalControl,  "Universal Control",          "UniversalControl.Enabled"),
+            (TweakID.MacOSSidecar,           "Sidecar",                    "Sidecar.SidecarEnabled"),
+            (TweakID.MacOSSystemPreferences, "macOS-Style Settings",       "Preferences.MacOSStyleSettings"),
+            (TweakID.MacOSActivityMonitor,   "Activity Monitor",           "SpringBoard.ActivityMonitor"),
+            (TweakID.MacOSNotificationCenter,"macOS Notification Centre",  "UserNotificationsUI.MacOSNotificationCenter"),
+            (TweakID.MacOSScreenSaver,       "Screen Saver",               "SpringBoard.ScreenSaverEnabled"),
+            (TweakID.MacOSHandoffPro,        "Handoff Pro",                "Handoff.HandoffPro"),
+            (TweakID.MacOSContinuityCamera,  "Continuity Camera V2",       "Continuity.ContinuityCameraV2"),
+            (TweakID.MacOSAirPlayReceiver,   "AirPlay Receiver",           "AirPlay.ReceiverEnabled"),
+            (TweakID.MacOSWindowResizing,    "macOS Window Resizing",      "UIKit.MacOSWindowResizing"),
+            (TweakID.MacOSSnapWindows,       "Snap Windows",               "UIKit.WindowSnapping"),
+            (TweakID.MacOSMenuBarExtras,     "Menu Bar Extras",            "SpringBoard.MenuBarExtras"),
+            (TweakID.MacOSQuickLookPro,      "Quick Look Pro",             "QuickLook.QuickLookPro"),
+            (TweakID.MacOSSpaces,            "Spaces",                     "SpringBoard.MacOSSpaces"),
+            (TweakID.MacOSExpose,            "Exposé",                     "SpringBoard.MacOSExpose"),
+            (TweakID.MacOSControlStrip,      "Control Strip",              "SpringBoard.MacOSControlStrip"),
+            (TweakID.MacOSShareExtension,    "macOS Share Extension",      "Sharing.MacOSShareExtension"),
+            (TweakID.MacOSServicesMenu,      "Services Menu",              "SpringBoard.ServicesMenu"),
+            (TweakID.MacOSQuickActions,      "Quick Actions",              "SpringBoard.QuickActions"),
+        ]:
+            L.addWidget(_row(tid, name, f"mROS flag: {flag}"))
+
+        # ── iPadOS Features ───────────────────────────────────────────────────
+        L.addWidget(_hdr("⬜ iPadOS Features — Full Parity"))
+        L.addWidget(_div())
+        for tid, name, flag in [
+            (TweakID.iPadOSSplitView,            "Split View",              "SpringBoard.SplitViewEnabled"),
+            (TweakID.iPadOSSlideOver,            "Slide Over",              "SpringBoard.SlideOverEnabled"),
+            (TweakID.iPadOSDragDropPro,          "Drag & Drop Pro",         "UIKit.DragDropPro"),
+            (TweakID.iPadOSStageManagerPro,      "Stage Manager Pro",       "SpringBoard.StageManagerPro"),
+            (TweakID.iPadOSExternalDisplayPro,   "External Display Pro",    "SpringBoard.ExternalDisplayPro"),
+            (TweakID.iPadOSPointerPro,           "Pointer Interaction Pro", "UIKit.PointerInteractionPro"),
+            (TweakID.iPadOSPencilPro,            "Apple Pencil Pro",        "PencilKit.PencilProFeatures"),
+            (TweakID.iPadOSShelfMode,            "App Shelf",               "SpringBoard.ShelfMode"),
+            (TweakID.iPadOSKeyboardShortcutsPro, "Keyboard Shortcuts Pro",  "UIKit.KeyboardShortcutsPro"),
+            (TweakID.iPadOSHoverEffects,         "Hover Effects",           "UIKit.HoverEffects"),
+            (TweakID.iPadOSScribble,             "Scribble V2",             "PencilKit.ScribbleV2"),
+            (TweakID.iPadOSWidgetAnywhere,       "Widgets Anywhere",        "WidgetKit.WidgetAnywhere"),
+            (TweakID.iPadOSDocumentBrowser,      "Document Browser Pro",    "Files.DocumentBrowserPro"),
+            (TweakID.iPadOSMultitaskingBar,      "Multitasking Bar",        "SpringBoard.MultitaskingBar"),
+            (TweakID.iPadOSWindowSnapping,       "Window Snapping Pro",     "SpringBoard.WindowSnappingPro"),
+            (TweakID.iPadOSQuickNote,            "Quick Note V2",           "Notes.QuickNoteV2"),
+            (TweakID.iPadOSFreeformCanvas,       "Freeform Canvas Pro",     "Freeform.FreeformCanvasPro"),
+            (TweakID.iPadOSTranslucency,         "Background Translucency", "UIKit.BackgroundTranslucency"),
+            (TweakID.iPadOSFloatingKeyboard,     "Floating Keyboard V2",    "UIKit.FloatingKeyboardV2"),
+            (TweakID.iPadOSMagicKeyboard,        "Magic Keyboard V2",       "UIKit.MagicKeyboardV2"),
+        ]:
+            L.addWidget(_row(tid, name, f"mROS flag: {flag}"))
+
+        # ── mROS Icon System & Style Engine ───────────────────────────────────
+        L.addWidget(_hdr("◈ mROS Icon System & Style Engine"))
+        L.addWidget(_div())
+        for tid, name, flag in [
+            (TweakID.IconRoundedSquare,       "Rounded Square Icons",        "IconServices.RoundedSquareIcons"),
+            (TweakID.IconDynamicSystem,       "Dynamic Icon System",         "IconServices.DynamicIconSystem"),
+            (TweakID.IconColorAdaptive,       "Colour-Adaptive Icons",       "IconServices.ColorAdaptiveIcons"),
+            (TweakID.IconGlowEffect,          "Icon Glow Effect",            "IconServices.GlowEffect"),
+            (TweakID.IconDepthShadow,         "Icon Depth Shadow",           "IconServices.DepthShadow"),
+            (TweakID.IconMorphAnimation,      "Icon Morph Animation",        "IconServices.MorphAnimation"),
+            (TweakID.IconSizeVariants,        "Icon Size Variants",          "IconServices.SizeVariants"),
+            (TweakID.IconBadgeRedesign,       "Badge Redesign",              "SpringBoard.BadgeRedesign"),
+            (TweakID.IconFolderGlass,         "Glass Folder Icons",          "SpringBoard.FolderGlassV2"),
+            (TweakID.IconShimmerEffect,       "Icon Shimmer Effect",         "IconServices.ShimmerEffect"),
+            (TweakID.IconHDRTextures,         "Icon HDR Textures",           "IconServices.HDRTextures"),
+            (TweakID.IconNeuralShape,         "Neural Shape Adaptation",     "IconServices.NeuralShapeAdapt"),
+            (TweakID.IconContextMenuPro,      "Context Menu Pro",            "SpringBoard.ContextMenuPro"),
+            (TweakID.StyleDynamicColorSystem, "Dynamic Colour System",       "UIKit.DynamicColorSystem"),
+            (TweakID.StyleAdaptiveTypography, "Adaptive Typography",         "CoreText.AdaptiveTypography"),
+            (TweakID.StyleFluidAnimations,    "Fluid Animation System",      "UIKit.FluidAnimationSystem"),
+            (TweakID.StyleHDRColorSpace,      "HDR Colour Space UI",         "CoreGraphics.HDRColorSpaceUI"),
+            (TweakID.StyleP3ColorGamut,       "P3 Wide Colour Gamut",        "CoreGraphics.P3ColorGamut"),
+            (TweakID.StyleDolbyVisionUI,      "Dolby Vision UI Mode",        "CoreDisplay.DolbyVisionUIMode"),
+            (TweakID.StyleProMotionEverywhere,"ProMotion Everywhere",         "UIKit.ProMotionEverywhere"),
+            (TweakID.StyleTrueBlackMode,      "True Black Mode",             "UIKit.TrueBlackMode"),
+            (TweakID.StyleSFSymbolsPro,       "SF Symbols Pro",              "CoreText.SFSymbolsPro"),
+            (TweakID.StyleSFProVariable,      "SF Pro Variable Font",        "CoreText.SFProVariableFont"),
+            (TweakID.StyleDynamicType,        "Dynamic Type V3",             "CoreText.DynamicTypeV3"),
+            (TweakID.StyleVibrantColors,      "Vibrant Colour System",       "UIKit.VibrantColorSystem"),
+            (TweakID.StyleGlassMorphism,      "Glass Morphism",              "UIKit.GlassMorphism"),
+            (TweakID.StyleNeumorphism,        "Neumorphism",                 "UIKit.Neumorphism"),
+            (TweakID.StyleMaterialBlur,       "Material Blur V2",            "UIKit.MaterialBlurV2"),
+            (TweakID.StyleCinematicColor,     "Cinematic Colour Grading",    "CoreGraphics.CinematicColorGrading"),
+        ]:
+            L.addWidget(_row(tid, name, f"mROS flag: {flag}"))
+
+        # ── mROS System Rewrite Core ──────────────────────────────────────────
+        L.addWidget(_hdr("◉ mROS System Rewrite Core"))
+        L.addWidget(_div())
+        for tid, name, desc in [
+            (TweakID.RewriteUnifiedShellV2,   "Unified Shell V2",
+             "Complete shell replacement with unified layer model (SpringBoard.UnifiedShellV2)."),
+            (TweakID.RewriteMultiWindowEngine, "Multi-Window Engine",
+             "Full multi-window support across all apps (UIKit.MultiWindowEngine)."),
+            (TweakID.RewriteCompositorV3,      "Compositor V3",
+             "Third-generation CoreAnimation compositor — lower latency, higher throughput."),
+            (TweakID.RewriteGPUDirectUI,       "GPU-Direct UI",
+             "Bypass CPU for UI compositing — Metal GPU-direct render path (Metal.GPUDirectUI)."),
+            (TweakID.RewriteNeuralAnimator,    "Neural Animator",
+             "AI-predicted animation curves — smoother than any hardware (UIKit.NeuralAnimator)."),
+            (TweakID.RewriteAdaptiveLayout,    "Adaptive Layout Engine",
+             "Context-aware adaptive layout reflow for all orientations (UIKit.AdaptiveLayoutEngine)."),
+            (TweakID.RewriteContextEngine,     "Context Engine",
+             "OS-wide context awareness — UI adapts to your usage pattern."),
+            (TweakID.RewriteSharedMemoryUI,    "Shared Memory UI",
+             "Zero-copy shared-memory UI buffer pipeline (UIKit.SharedMemoryUI)."),
+            (TweakID.RewriteRealTimeRender,    "Real-Time UI Render",
+             "Hard real-time constraints applied to UI render thread (Metal.RealTimeUIRender)."),
+            (TweakID.RewriteZeroLatencyInput,  "Zero-Latency Input",
+             "Sub-frame input prediction eliminates all perceived touch lag."),
+            (TweakID.RewriteProximityEngine,   "Proximity Context Engine",
+             "Proximity + face detection reshape the entire UI in real time."),
+            (TweakID.RewriteSpatialAudioUI,    "Spatial Audio UI",
+             "Full spatial audio tied to every UI interaction (AVFoundation.SpatialAudioUI)."),
+            (TweakID.RewriteHapticLanguage,    "Haptic Language",
+             "Unified haptic vocabulary — every action has a unique haptic signature."),
+            (TweakID.RewriteIntelligentCache,  "Intelligent UI Cache",
+             "ML-driven UI asset cache predicts what you need before you need it."),
+            (TweakID.RewritePredictiveFetch,   "Predictive Fetch",
+             "Preloads apps and content before you tap (SpringBoard.PredictiveFetch)."),
+            (TweakID.RewriteQuantumCompositor, "Quantum Compositor",
+             "Experimental frame-quantum compositor — maximum frame coherence."),
+        ]:
+            L.addWidget(_row(tid, name, desc))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -673,5 +808,9 @@ class iOS27Page(Page):
         load_maxos_system_core()
         load_mros_kernel()
         load_mros_exclusive_v2()
+        load_mros_macos()
+        load_mros_ipados()
+        load_mros_icons_styles()
+        load_mros_system_rewrite()
         # sync checkboxes with pre-enabled state
         self._sync_checkboxes()
