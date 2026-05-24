@@ -7,13 +7,9 @@ from PySide6.QtCore import Qt
 from ..page import Page
 from src.tweaks.tweaks import tweaks, TweakID
 from src.tweaks.tweak_loader import (
-    load_ios27, load_maxos_ui, load_maxos_apps, load_maxos_system,
-    load_maxos_exclusive, load_maxos_haptics_ar, load_maxos_connectivity,
-    load_maxos_cloud_health, load_maxos_wallet_home_focus,
-    load_maxos_privacy_shortcuts_org, load_maxos_reminders_files,
-    load_maxos_gaming_media, load_maxos_extended_apps, load_maxos_system_core,
-    load_mros_kernel, load_mros_exclusive_v2,
-    load_mros_macos, load_mros_ipados, load_mros_icons_styles, load_mros_system_rewrite,
+    load_ios27, load_mros_solarium_extra, load_mros_real_prefs,
+    load_mros_dock_nav, load_mros_alien_colors,
+    load_mros_sound_engine, load_mros_siri_v2,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -182,357 +178,52 @@ class iOS27Page(Page):
         L.addWidget(_row(TweakID.SBAlwaysShowClockDI,
             "Clock with Dynamic Island", "Show clock alongside Dynamic Island (SBShowClockWithDynamicIsland)."))
 
-        # ── Audio Processing ──────────────────────────────────────────────────
-        L.addWidget(_hdr("Audio Processing"))
+        # ── Audio — Managed Preferences ───────────────────────────────────────
+        L.addWidget(_hdr("Audio — Managed Preferences"))
         L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.AudioSpatialDefault,      "Spatial Audio Processing",   "CoreAudio.SpatialAudioProcessing"),
-            (TweakID.AudioEnhancedSpeaker,     "Enhanced Speaker Output",    "AVFoundation.EnhancedSpeakerOutput"),
-            (TweakID.AudioPersonalizedSpatial, "Personalized Spatial Audio", "AVFoundation.PersonalizedSpatialAudio"),
-            (TweakID.AudioBackgroundSounds,    "Background Sounds",          "Accessibility.BackgroundSounds"),
-            (TweakID.AudioHeadphoneAccom,      "Headphone Accommodations",   "Accessibility.HeadphoneAccommodations"),
-            (TweakID.AudioLoudnessNorm,        "Loudness Normalisation",     "AVFoundation.LoudnessNormalization"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
         L.addWidget(_row(TweakID.AudioSoundEffectsEnabled,
-            "System Sound Effects", "Force system sound effects on (SBSoundEffectsEnabled)."))
+            "System Sound Effects",
+            "Force system sound effects on (SBSoundEffectsEnabled)."))
         L.addWidget(_row(TweakID.AudioHapticsSync,
-            "Audio-Haptics Sync", "Synchronised audio+haptic patterns (SBAudioHapticsSyncEnabled)."))
+            "Audio-Haptics Sync",
+            "Synchronised audio+haptic patterns (SBAudioHapticsSyncEnabled)."))
 
-        # ── SpringBoard UI feature flags ──────────────────────────────────────
-        L.addWidget(_hdr("SpringBoard UI — Feature Flags"))
+        # ── Liquid Glass — Extended Apps ──────────────────────────────────────
+        L.addWidget(_hdr("Liquid Glass — Extended Apps"))
         L.addWidget(_div())
         for tid, name, flag in [
-            (TweakID.SBFFFloatingDock,            "Floating Dock",               "SpringBoard.FloatingDock"),
-            (TweakID.SBFFDenseHomeScreen,         "Dense Home Screen Grid",      "SpringBoard.DenseHomeScreen"),
-            (TweakID.SBFFAppSwitcherV2,           "Enhanced App Switcher",       "SpringBoard.EnhancedAppSwitcher"),
-            (TweakID.SBFFGlassFolders,            "Liquid Glass Folders",        "SpringBoard.LiquidGlassFolders"),
-            (TweakID.SBFFLiveActivitiesPersistent,"Persistent Live Activities",  "SpringBoard.PersistentLiveActivities"),
-            (TweakID.SBFFAdaptiveGrid,            "Adaptive Home Screen Grid",   "SpringBoard.HomeScreenAdaptiveGrid"),
-            (TweakID.SBFFContextWidgets,          "Contextual Widgets",          "SpringBoard.ContextualWidgets"),
-            (TweakID.SBFFProximityAnimations,     "Proximity-Based Animations",  "SpringBoard.ProximityBasedAnimations"),
-            (TweakID.SBFFLargeWidgetGrid,         "Large Widget Grid Size",      "SpringBoard.LargeWidgetGridSize"),
-            (TweakID.SBFFDynamicBackground,       "Dynamic Background Adapt.",   "SpringBoard.DynamicBackgroundAdaptation"),
-            (TweakID.SBFFGlassIconShimmer,        "Glass Icon Shimmer",          "SpringBoard.GlassIconShimmer"),
-            (TweakID.SBFFPageIndicatorRedesign,   "Page Indicator Redesign",     "SpringBoard.PageIndicatorRedesign"),
-            (TweakID.SBFFEnhancedAppLibrary,      "Enhanced App Library Search", "SpringBoard.EnhancedAppLibrarySearch"),
-            (TweakID.SBFFGlassSectionDividers,    "Glass Section Dividers",      "SpringBoard.GlassSectionDividers"),
-            (TweakID.SBFFDebugUIOverlay,          "UI Debug Overlay",            "SpringBoard.UIDebugOverlay"),
+            (TweakID.SolariumFFBooks,      "Books",       "Books.Solarium"),
+            (TweakID.SolariumFFWeather,    "Weather",     "Weather.Solarium"),
+            (TweakID.SolariumFFStocks,     "Stocks",      "Stocks.Solarium"),
+            (TweakID.SolariumFFClock,      "Clock",       "Clock.Solarium"),
+            (TweakID.SolariumFFCalculator, "Calculator",  "Calculator.Solarium"),
+            (TweakID.SolariumFFCamera,     "Camera",      "Camera.Solarium"),
+            (TweakID.SolariumFFFaceTime,   "FaceTime",    "FaceTime.Solarium"),
+            (TweakID.SolariumFFHealth,     "Health",      "Health.Solarium"),
+            (TweakID.SolariumFFWallet,     "Wallet",      "Wallet.Solarium"),
+            (TweakID.SolariumFFSettings,   "Settings",    "Preferences.Solarium"),
+            (TweakID.SolariumFFFiles,      "Files",       "Files.Solarium"),
+            (TweakID.SolariumFFTranslate,  "Translate",   "Translate.Solarium"),
+            (TweakID.SolariumFFFreeform,   "Freeform",    "Freeform.Solarium"),
+            (TweakID.SolariumFFNews,       "News",        "News.Solarium"),
+            (TweakID.SolariumFFContacts,   "Contacts",    "Contacts.Solarium"),
+            (TweakID.SolariumFFFindMy,     "Find My",     "FindMy.Solarium"),
+            (TweakID.SolariumFFTV,         "Apple TV",    "TV.Solarium"),
+            (TweakID.SolariumFFVoiceMemos, "Voice Memos", "VoiceMemos.Solarium"),
+            (TweakID.SolariumFFShortcuts,  "Shortcuts",   "Shortcuts.Solarium"),
         ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
+            L.addWidget(_row(tid, f"Liquid Glass — {name}",
+                f"Feature flag: {flag}"))
 
-        # ── UIKit feature flags ───────────────────────────────────────────────
-        L.addWidget(_hdr("UIKit — Feature Flags"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.UIKitFFGlassSheets,            "Glass Bottom Sheets",         "UIKit.GlassBottomSheets"),
-            (TweakID.UIKitFFPillButtons,            "Pill-Shaped Buttons",         "UIKit.PillShapedButtons"),
-            (TweakID.UIKitFFLargeNavHeaders,        "Large Navigation Headers",    "UIKit.LargeNavigationHeaders"),
-            (TweakID.UIKitFFSwipeBackV2,            "Swipe-Back Gesture V2",       "UIKit.SwipeBackGestureV2"),
-            (TweakID.UIKitFFFloatingMenus,          "Floating Menu Presentations", "UIKit.FloatingMenuPresentations"),
-            (TweakID.UIKitFFCardLayouts,            "Adaptive Card Layouts",       "UIKit.AdaptiveCardLayouts"),
-            (TweakID.UIKitFFRubberBandPhysics,      "Rubber-Band Scroll Physics",  "UIKit.RubberBandScrollPhysics"),
-            (TweakID.UIKitFFGlassAlerts,            "Glass Alert Views",           "UIKit.GlassAlertViews"),
-            (TweakID.UIKitFFCompactProgress,        "Compact Progress Indicators", "UIKit.CompactProgressIndicators"),
-            (TweakID.UIKitFFHapticKeyboard,         "Haptic Keyboard Feedback",    "UIKit.HapticKeyboardFeedback"),
-            (TweakID.UIKitFFEnhancedTextRendering,  "Enhanced Text Rendering",     "UIKit.EnhancedTextRendering"),
-            (TweakID.UIKitFFDynamicColorAdaptation, "Dynamic Color Adaptation",    "UIKit.DynamicColorAdaptation"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Photos & Camera ───────────────────────────────────────────────────
-        L.addWidget(_hdr("Photos & Camera — Feature Flags"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.PhotosFFEnhancedEditing,   "Enhanced Photo Editing",    "Photos.EnhancedEditing"),
-            (TweakID.PhotosFFAIAlbums,          "AI Smart Albums",           "Photos.AISmartAlbums"),
-            (TweakID.PhotosFFMemoriesV2,        "Memories V2",               "Photos.MemoriesV2"),
-            (TweakID.PhotosFFImprovedSearch,    "Improved Photos Search",    "Photos.ImprovedSearch"),
-            (TweakID.CameraFFProResVideo,       "ProRes Video",              "Camera.ProResVideoEnabled"),
-            (TweakID.CameraFFMacroPro,          "Macro Photography Pro",     "Camera.MacroPro"),
-            (TweakID.CameraFFNightModePortrait, "Night Mode Portrait",       "Camera.NightModePortrait"),
-            (TweakID.CameraFFProRAWMax,         "ProRAW Max",                "Camera.ProRAWMax"),
-            (TweakID.CameraFFCinematicV2,       "Cinematic Mode V2",         "Camera.CinematicModeV2"),
-            (TweakID.CameraFFQuantumHDR,        "Quantum HDR",               "Camera.QuantumHDR"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Messages & FaceTime ───────────────────────────────────────────────
-        L.addWidget(_hdr("Messages & FaceTime — Feature Flags"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.MsgFFEnhancedSearch,          "Enhanced Message Search",  "Messages.EnhancedSearch"),
-            (TweakID.MsgFFEffectsV2,               "Message Effects V2",       "Messages.EffectsV2"),
-            (TweakID.MsgFFCollaborativeSharing,    "Collaborative Sharing",    "Messages.CollaborativeSharing"),
-            (TweakID.MsgFFRichLinksV2,             "Rich Link Previews V2",    "Messages.RichLinksV2"),
-            (TweakID.FaceTimeFFPersonSegmentation, "Person Segmentation",      "FaceTime.PersonSegmentation"),
-            (TweakID.FaceTimeFFReactionAnimations, "Reaction Animations",      "FaceTime.ReactionAnimations"),
-            (TweakID.FaceTimeFFSharedPlaybackV2,   "Shared Playback V2",       "FaceTime.SharedPlaybackV2"),
-            (TweakID.FaceTimeFFSpatialAudioCall,   "Spatial Audio Calls",      "FaceTime.SpatialAudioCall"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Maps & Safari ─────────────────────────────────────────────────────
-        L.addWidget(_hdr("Maps & Safari — Feature Flags"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.MapsFFImmersiveView,      "Immersive View",            "Maps.ImmersiveView"),
-            (TweakID.MapsFFARWalkDirections,   "AR Walk Directions",        "Maps.ARWalkDirections"),
-            (TweakID.MapsFFOfflineEnhanced,    "Enhanced Offline Maps",     "Maps.OfflineMapsEnhanced"),
-            (TweakID.MapsFFRealtimeTrafficV2,  "Realtime Traffic V2",       "Maps.RealtimeTrafficV2"),
-            (TweakID.MapsFF3DPlaceCards,       "3D Place Cards",            "Maps.PlaceCards3D"),
-            (TweakID.MapsFFElevationData,      "Elevation Data Overlay",    "Maps.ElevationData"),
-            (TweakID.SafariFFEnhancedPrivacy,  "Enhanced Privacy Mode",     "MobileSafari.EnhancedPrivacyMode"),
-            (TweakID.SafariFFTabGroupsV2,      "Tab Groups V2",             "MobileSafari.TabGroupsV2"),
-            (TweakID.SafariFFWebExtensionsAPI, "Web Extensions API",        "MobileSafari.WebExtensionsAPI"),
-            (TweakID.SafariFFStartPageRedesign,"Start Page Redesign",       "MobileSafari.StartPageRedesign"),
-            (TweakID.SafariFFFloatingAddressBar,"Floating Address Bar",     "MobileSafari.FloatingAddressBar"),
-            (TweakID.SafariFFReaderModeV2,     "Reader Mode V2",            "MobileSafari.ReaderModeV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Widgets, Live Activities, Lock Screen & Notifications ─────────────
-        L.addWidget(_hdr("Widgets, Live Activities & Notifications"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.WidgetFFInteractiveWidgets, "Interactive Widgets",        "WidgetKit.InteractiveWidgets"),
-            (TweakID.WidgetFFLargeFormat,        "Large Widget Format",        "WidgetKit.LargeWidgetFormat"),
-            (TweakID.WidgetFFAnimatedWidgets,    "Animated Widgets",           "WidgetKit.AnimatedWidgets"),
-            (TweakID.LiveActFFPersistentMode,    "Persistent Live Activities", "LiveActivities.PersistentMode"),
-            (TweakID.LiveActFFGlassPresentation, "Glass Live Activity UI",     "LiveActivities.GlassPresentation"),
-            (TweakID.LiveActFFStandbyV2,         "Standby Mode V2",            "LiveActivities.StandbyModeV2"),
-            (TweakID.LockFFWidgetsV2,            "Lock Screen Widgets V2",     "SpringBoard.LockScreenWidgetsV2"),
-            (TweakID.LockFFDepthEffectClock,     "Depth-Effect Clock",         "SpringBoard.DepthEffectClock"),
-            (TweakID.LockFFLiveWeatherBG,        "Live Weather Background",    "SpringBoard.LiveWeatherBackground"),
-            (TweakID.LockFFAlwaysOnDisplayV2,    "Always-On Display V2",       "SpringBoard.AlwaysOnDisplayV2"),
-            (TweakID.NotifFFStackedBanners,      "Stacked Notification Banners","UserNotificationsUI.StackedBanners"),
-            (TweakID.NotifFFGlassNotifications,  "Glass Notification Banners", "UserNotificationsUI.GlassNotifications"),
-            (TweakID.NotifFFQuickRepliesV2,      "Quick Replies V2",           "UserNotificationsUI.QuickRepliesV2"),
-            (TweakID.NotifFFSummaryV2,           "Notification Summary V2",    "UserNotificationsUI.NotificationSummaryV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── System Performance ────────────────────────────────────────────────
-        L.addWidget(_hdr("System Performance — Feature Flags"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.PerfFFEnhancedLowPower,     "Enhanced Low Power Mode",   "SpringBoard.EnhancedLowPowerMode"),
-            (TweakID.PerfFFBackgroundRefreshV2,  "Background Refresh V2",     "SpringBoard.BackgroundRefreshV2"),
-            (TweakID.PerfFFLowLatencyAudio,      "Low-Latency Audio",         "CoreAudio.LowLatencyProcessing"),
-            (TweakID.PerfFFHardwareAcceleration, "Hardware Acceleration",     "AVFoundation.HardwareAcceleration"),
-            (TweakID.PerfFFThermalStatusUI,      "Thermal Status UI",         "SpringBoard.ThermalStatusUI"),
-            (TweakID.PerfFFMemoryPressureMonitor,"Memory Pressure Monitor",   "SpringBoard.MemoryPressureMonitor"),
-            (TweakID.PerfFFProcessPriorityBoost, "Process Priority Boost",    "SpringBoard.ProcessPriorityBoost"),
-            (TweakID.PerfFFUltraLowLatencyInput, "Ultra-Low-Latency Input",   "SpringBoard.UltraLowLatencyInput"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── maxregnerOS Exclusive ─────────────────────────────────────────────
-        L.addWidget(_hdr("✦ maxregnerOS Exclusive"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.MaxOSGlassEverywhere,      "Glass Everywhere",          "SpringBoard.GlassEverywhere"),
-            (TweakID.MaxOSFluidMotionEngine,    "Fluid Motion Engine",       "UIKit.FluidMotionEngine"),
-            (TweakID.MaxOSNeuralEngineBoost,    "Neural Engine Boost",       "CoreML.EnhancedNeuralEngine"),
-            (TweakID.MaxOSProDisplayRendering,  "Pro Display Rendering",     "CoreGraphics.ProDisplayRendering"),
-            (TweakID.MaxOSHyperSmoothScrolling, "HyperSmooth Scrolling",     "UIKit.HyperSmoothScrolling"),
-            (TweakID.MaxOSChromaticAberration,  "Chromatic Aberration FX",   "CoreImage.ChromaticAberrationEffect"),
-            (TweakID.MaxOSDepthSensingV2,       "Depth Sensing V2",          "ARKit.DepthSensingV2"),
-            (TweakID.MaxOSAmbientIntelligence,  "Ambient Intelligence",      "Siri.AmbientIntelligence"),
-            (TweakID.MaxOSProHapticsEngine,     "Pro Haptics Engine",        "CoreHaptics.ProHapticsEngine"),
-            (TweakID.MaxOSDynamicIslandPro,     "Dynamic Island Pro",        "SpringBoard.DynamicIslandPro"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Haptics, ARKit & Machine Learning ─────────────────────────────────
-        L.addWidget(_hdr("Haptics, ARKit & Machine Learning"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.HapticsPatternPlayback,     "Haptic Pattern Playback",      "CoreHaptics.PatternPlayback"),
-            (TweakID.HapticsAdvancedComposition, "Advanced Haptic Composition",  "CoreHaptics.AdvancedComposition"),
-            (TweakID.HapticsSyncedPlayback,      "Synced Audio+Haptic Playback", "CoreHaptics.SyncedPlayback"),
-            (TweakID.HapticsAdaptiveTriggers,    "Adaptive Haptic Triggers",     "CoreHaptics.AdaptiveTriggers"),
-            (TweakID.HapticsProEffectsEngine,    "Pro Haptics Effects Engine",   "CoreHaptics.ProEffectsEngine"),
-            (TweakID.ARKitWorldTrackingV3,       "AR World Tracking V3",         "ARKit.WorldTrackingV3"),
-            (TweakID.ARKitFaceTrackingPro,       "AR Face Tracking Pro",         "ARKit.FaceTrackingPro"),
-            (TweakID.ARKitObjectScanningPro,     "AR Object Scanning Pro",       "ARKit.ObjectScanningPro"),
-            (TweakID.ARKitGeospatialV2,          "AR Geospatial Anchors V2",     "ARKit.GeospatialV2"),
-            (TweakID.ARKitOcclusionV2,           "AR Occlusion V2",              "ARKit.OcclusionV2"),
-            (TweakID.VisionLiveTextV3,           "Live Text V3",                 "Vision.LiveTextV3"),
-            (TweakID.VisionDocumentScannerPro,   "Document Scanner Pro",         "Vision.DocumentScannerPro"),
-            (TweakID.VisionSubjectLiftV2,        "Subject Lift V2",              "Vision.SubjectLiftV2"),
-            (TweakID.VisionStyleTransferV2,      "Style Transfer V2",            "Vision.StyleTransferV2"),
-            (TweakID.VisionPersonSegV2,          "Person Segmentation V2",       "Vision.PersonSegmentationV2"),
-            (TweakID.CoreMLOnDeviceV2,           "On-Device Inference V2",       "CoreML.OnDeviceInferenceV2"),
-            (TweakID.CoreMLNeuralMaxUtil,        "Neural Engine Max Utilization","CoreML.NeuralEngineMaxUtilization"),
-            (TweakID.CoreMLAdaptiveInference,    "Adaptive ML Inference",        "CoreML.AdaptiveInference"),
-            (TweakID.CoreMLPrivateCompute,       "Private Cloud Compute",        "CoreML.PrivateCloudCompute"),
-            (TweakID.CoreMLStreamingInference,   "Streaming ML Inference",       "CoreML.StreamingInference"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Connectivity ──────────────────────────────────────────────────────
-        L.addWidget(_hdr("Connectivity — Network, Bluetooth & Location"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.NetHTTP3Default,           "HTTP/3 Default",              "Network.HTTP3Default"),
-            (TweakID.NetQUICEnabled,            "QUIC Protocol",               "Network.QUICEnabled"),
-            (TweakID.NetAdaptiveQoS,            "Adaptive QoS",                "Network.AdaptiveQoS"),
-            (TweakID.NetPrivacyProxyV2,         "Privacy Proxy V2",            "Network.PrivacyProxyV2"),
-            (TweakID.NetLowDataModeV2,          "Low Data Mode V2",            "Network.LowDataModeV2"),
-            (TweakID.BLEEnhancedScanning,       "BLE Enhanced Scanning",       "Bluetooth.EnhancedScanning"),
-            (TweakID.BLELeAudioCodecs,          "LE Audio Codecs",             "Bluetooth.LEAudioCodecs"),
-            (TweakID.BTCompanionMode,           "Companion Mode",              "Bluetooth.CompanionMode"),
-            (TweakID.BTPersonalHotspotV2,       "Personal Hotspot V2",         "Bluetooth.PersonalHotspotV2"),
-            (TweakID.LocPrecisionV2,            "Precise Location V2",         "CoreLocation.PreciseLocationV2"),
-            (TweakID.LocOfflineGeocoding,       "Offline Geocoding",           "CoreLocation.OfflineGeocoding"),
-            (TweakID.LocBackgroundOptimization, "Location Background Opt.",    "CoreLocation.BackgroundOptimization"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Cloud Services & Health ───────────────────────────────────────────
-        L.addWidget(_hdr("Cloud Services & Health"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.CloudKitEncryptionV2,      "CloudKit Encryption V2",      "CloudKit.EncryptionV2"),
-            (TweakID.CloudKitSyncPriorityV2,    "CloudKit Sync Priority V2",   "CloudKit.SyncPriorityV2"),
-            (TweakID.iCloudDriveV2,             "iCloud Drive V2",             "iCloud.DriveV2"),
-            (TweakID.iCloudKeyValueV2,          "iCloud Key-Value Store V2",   "iCloud.KeyValueStoreV2"),
-            (TweakID.HealthMentalHealthV2,      "Mental Health V2",            "HealthKit.MentalHealthV2"),
-            (TweakID.HealthSleepV3,             "Sleep Tracking V3",           "HealthKit.SleepV3"),
-            (TweakID.HealthInsightsV2,          "Health Insights V2",          "HealthKit.InsightsV2"),
-            (TweakID.HealthCyclingV2,           "Cycling Metrics V2",          "HealthKit.CyclingV2"),
-            (TweakID.HealthVisionV2,            "Vision Health V2",            "HealthKit.VisionHealthV2"),
-            (TweakID.HealthWorkoutV3,           "Workout V3",                  "HealthKit.WorkoutV3"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Wallet, HomeKit & Focus ───────────────────────────────────────────
-        L.addWidget(_hdr("Wallet, HomeKit & Focus"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.WalletCompanionPasses,     "Companion Passes",            "Wallet.CompanionPasses"),
-            (TweakID.WalletApplePayV3,          "Apple Pay V3",                "Wallet.ApplePayV3"),
-            (TweakID.WalletOrdersV2,            "Order Tracking V2",           "Wallet.OrdersV2"),
-            (TweakID.WalletIDVerification,      "ID Verification",             "Wallet.IDVerification"),
-            (TweakID.HomeKitMatterV2,           "Matter Protocol V2",          "HomeKit.MatterV2"),
-            (TweakID.HomeKitAutomationV3,       "Home Automation V3",          "HomeKit.AutomationV3"),
-            (TweakID.HomeKitEnergyV2,           "Energy Management V2",        "HomeKit.EnergyManagementV2"),
-            (TweakID.HomeKitCameraV2,           "Camera Streaming V2",         "HomeKit.CameraStreamingV2"),
-            (TweakID.FocusContextV2,            "Context Awareness V2",        "Focus.ContextAwarenessV2"),
-            (TweakID.FocusFiltersV2Extended,    "Focus Filters V2 Extended",   "Focus.FiltersV2Extended"),
-            (TweakID.FocusInsightsV2,           "Focus Insights V2",           "Focus.InsightsV2"),
-            (TweakID.ScreenTimeV3,              "Screen Time V3",              "ScreenTime.ScreenTimeV3"),
-            (TweakID.ScreenTimeCommunicationV2, "Communication Limits V2",     "ScreenTime.CommunicationLimitsV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Privacy, Shortcuts & Organization ────────────────────────────────
-        L.addWidget(_hdr("Privacy, Shortcuts & Organization"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.PrivacyAppReportV2,        "App Privacy Report V2",       "Privacy.AppReportV2"),
-            (TweakID.PrivacyLocationV2,         "Location Services V2",        "Privacy.LocationServicesV2"),
-            (TweakID.PrivacyTrackingV2,         "Tracking Transparency V2",    "Privacy.TrackingTransparencyV2"),
-            (TweakID.PrivacySensorV2,           "Sensor Access V2",            "Privacy.SensorAccessV2"),
-            (TweakID.PrivacyDataBrokerV2,       "Data Broker Protection V2",   "Privacy.DataBrokerProtectionV2"),
-            (TweakID.ShortcutsV3,               "Shortcuts V3",                "Shortcuts.ShortcutsV3"),
-            (TweakID.ShortcutsAutomationsV2,    "Automations V2",              "Shortcuts.AutomationsV2"),
-            (TweakID.ShortcutsAIActions,        "AI Actions",                  "Shortcuts.AIActions"),
-            (TweakID.ShortcutsAppIntentsV2,     "App Intents V2",              "Shortcuts.AppIntentsV2"),
-            (TweakID.CalSuggestionsV2,          "Calendar Suggestions V2",     "Calendar.SuggestionsV2"),
-            (TweakID.CalSmartScheduling,        "Smart Scheduling",            "Calendar.SmartScheduling"),
-            (TweakID.CalInsightsV2,             "Calendar Insights V2",        "Calendar.InsightsV2"),
-            (TweakID.CalSharedCalendarV2,       "Shared Calendar V2",          "Calendar.SharedCalendarV2"),
-            (TweakID.ContactsSuggestionsV2,     "Contact Suggestions V2",      "Contacts.SuggestionsV2"),
-            (TweakID.ContactsUnifiedViewV2,     "Unified Contacts View V2",    "Contacts.UnifiedViewV2"),
-            (TweakID.ContactsSmartGroupV2,      "Smart Contact Groups V2",     "Contacts.SmartGroupV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Reminders, Notes & Files ──────────────────────────────────────────
-        L.addWidget(_hdr("Reminders, Notes & Files"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.RemindersSuggestionsV2,    "Reminder Suggestions V2",     "Reminders.SuggestionsV2"),
-            (TweakID.RemindersCollaborationV2,  "Reminder Collaboration V2",   "Reminders.CollaborationV2"),
-            (TweakID.RemindersSmartListsV2,     "Smart Lists V2",              "Reminders.SmartListsV2"),
-            (TweakID.NotesCollaborationV2,      "Notes Collaboration V2",      "Notes.CollaborationV2"),
-            (TweakID.NotesSearchV2,             "Notes Search V2",             "Notes.SearchV2"),
-            (TweakID.NotesTemplatesV2,          "Notes Templates V2",          "Notes.TemplatesV2"),
-            (TweakID.FilesTaggingV2,            "Files Tagging V2",            "Files.TaggingV2"),
-            (TweakID.FilesSharingV2,            "Files Sharing V2",            "Files.SharingV2"),
-            (TweakID.FilesQuickLookV2,          "Files Quick Look V2",         "Files.QuickLookV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Gaming, Metal & Media ─────────────────────────────────────────────
-        L.addWidget(_hdr("Gaming, Metal & Media"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.GameCenterV3,              "Game Center V3",              "GameKit.GameCenterV3"),
-            (TweakID.GameMultiplayerV2,         "Multiplayer V2",              "GameKit.MultiplayerV2"),
-            (TweakID.MetalRayTracingV2,         "Metal Ray Tracing V2",        "Metal.RayTracingV2"),
-            (TweakID.MetalMLAcceleration,       "Metal ML Acceleration",       "Metal.MLAcceleration"),
-            (TweakID.RealityKitV3,              "RealityKit V3",               "RealityKit.RealityKitV3"),
-            (TweakID.SpatialComputingV2,        "Spatial Computing V2",        "RealityKit.SpatialComputingV2"),
-            (TweakID.MediaTVFloatingPlayer,     "TV Floating Player",          "TVUIKit.FloatingPlayer"),
-            (TweakID.MediaMusicLosslessDefault, "Music Lossless Default",      "Music.LosslessDefault"),
-            (TweakID.MediaMusicSpatialDefault,  "Music Spatial Default",       "Music.SpatialDefault"),
-            (TweakID.MediaPodcastsTranscriptV2, "Podcasts Transcript V2",      "Podcasts.TranscriptV2"),
-            (TweakID.MediaFitnessGroupWorkoutV2,"Fitness Group Workout V2",    "Fitness.GroupWorkoutV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── Extended App Capabilities ─────────────────────────────────────────
-        L.addWidget(_hdr("Extended App Capabilities"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.MapsImmersiveViewV2,       "Immersive View V2",           "Maps.ImmersiveViewV2"),
-            (TweakID.MapsLookAroundV2,          "Look Around V2",              "Maps.LookAroundV2"),
-            (TweakID.MapsFlyoverV2,             "Flyover V2",                  "Maps.FlyoverV2"),
-            (TweakID.MapsTransitV2,             "Transit V2",                  "Maps.TransitV2"),
-            (TweakID.MapsGuidesV2,              "Guides V2",                   "Maps.GuidesV2"),
-            (TweakID.SafariWebCodecAV1,         "Safari AV1 Codec",            "MobileSafari.AV1Codec"),
-            (TweakID.SafariPasskeysFull,        "Passkeys Full Support",       "MobileSafari.PasskeysFullSupport"),
-            (TweakID.SafariAdBlockingV2,        "Ad Blocking V2",              "MobileSafari.AdBlockingV2"),
-            (TweakID.SafariTranslationV2,       "Page Translation V2",         "MobileSafari.TranslationV2"),
-            (TweakID.SafariWebExtensionsV2,     "Web Extensions V2",           "MobileSafari.WebExtensionsV2"),
-            (TweakID.MsgReactionsV2,            "Message Reactions V2",        "Messages.ReactionsV2"),
-            (TweakID.MsgStickerPacksV2,         "Sticker Packs V2",            "Messages.StickerPacksV2"),
-            (TweakID.MsgSharePlayV2,            "SharePlay V2",                "Messages.SharePlayV2"),
-            (TweakID.MsgGroupFocusSync,         "Group Focus Sync",            "Messages.GroupFocusSync"),
-            (TweakID.MsgCheckInV2,              "Check In V2",                 "Messages.CheckInV2"),
-            (TweakID.FTHandoffCallsV2,          "FaceTime Handoff V2",         "FaceTime.HandoffCallsV2"),
-            (TweakID.FTVideoMessageV2,          "Video Message V2",            "FaceTime.VideoMessageV2"),
-            (TweakID.FTSpatialFaceTime,         "Spatial FaceTime",            "FaceTime.SpatialFaceTime"),
-            (TweakID.FTGroupCallsV2,            "Group Calls V2",              "FaceTime.GroupCallsV2"),
-            (TweakID.FTPortraitModeCall,        "Portrait Mode Call",          "FaceTime.PortraitModeCall"),
-            (TweakID.PhotosSharedLibraryV2,     "Shared Library V2",           "Photos.SharedLibraryV2"),
-            (TweakID.PhotosCleanUpV2,           "Photos Clean Up V2",          "Photos.CleanUpV2"),
-            (TweakID.PhotosMemoryMovieV2,       "Memory Movie V2",             "Photos.MemoryMovieV2"),
-            (TweakID.PhotosHDRMax,              "Photos HDR Max",              "Photos.HDRMax"),
-            (TweakID.PhotosPortraitLightsV2,    "Portrait Lights V2",          "Photos.PortraitLightsV2"),
-            (TweakID.CameraStudioLightV2,       "Studio Light V2",             "Camera.StudioLightV2"),
-            (TweakID.CameraActionModeV2,        "Action Mode V2",              "Camera.ActionModeV2"),
-            (TweakID.CameraPhotonicEngineV2,    "Photonic Engine V2",          "Camera.PhotonicEngineV2"),
-            (TweakID.CameraVideoV3,             "Video V3",                    "Camera.VideoV3"),
-            (TweakID.CameraFrontVideoV2,        "Front Camera Video V2",       "Camera.FrontVideoV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"Feature flag: {flag}"))
-
-        # ── System Core Overrides ─────────────────────────────────────────────
-        L.addWidget(_hdr("✦ System Core Overrides"))
+        # ── System Core — Managed Preferences ────────────────────────────────
+        L.addWidget(_hdr("✦ System Core — Managed Preferences"))
         L.addWidget(_div())
         L.addWidget(_row(TweakID.SysCoreProMotion,
             "ProMotion 120Hz Display",
             "Force ProMotion on all content (SBProMotionEnabled)."))
         L.addWidget(_row(TweakID.SysCoreAnimSpeed,
             "Faster Animations",
-            "Lower drag coefficient to 0.35 for snappier transitions (UIAnimationDragCoefficient)."))
-        L.addWidget(_row(TweakID.SysCoreScrollVelocity,
-            "Scroll Velocity Boost",
-            "Increased scroll momentum for faster navigation (UIKit.ScrollVelocityBoost)."))
+            "Lower drag coefficient for snappier transitions (UIAnimationDragCoefficient=0.35)."))
         L.addWidget(_row(TweakID.SysCoreMTLOverlay,
             "Metal Performance Overlay",
             "Real-time GPU/FPS overlay on screen (MTOverlayEnabled)."))
@@ -541,227 +232,98 @@ class iOS27Page(Page):
             "Remove carrier name from status bar (SBHideCarrierText)."))
         L.addWidget(_row(TweakID.SysCoreDevSettings,
             "Show Developer Settings",
-            "Expose developer settings in system preferences (SBShowDeveloperSettings)."))
+            "Expose developer settings in preferences (SBShowDeveloperSettings)."))
         L.addWidget(_row(TweakID.SysCoreAlwaysAOD,
             "Always-On Display Override",
             "Force Always-On Display active (SBAlwaysOnDisplayEnabled)."))
-        L.addWidget(_row(TweakID.SysCoreNightShiftMax,
-            "Night Shift Max Brightness",
-            "Full brightness during Night Shift (CoreDisplay.NightShiftMaxBrightness)."))
         L.addWidget(_row(TweakID.SysCoreAutoRotate,
             "Force Auto-Rotate",
-            "Ensure auto-rotation is never disabled (SBDisableAutoRotation=false)."))
-        L.addWidget(_row(TweakID.SysCoreHDRVideo,
-            "HDR Video Default",
-            "Default all video playback to HDR (AVFoundation.HDRVideoDefault)."))
+            "Ensure auto-rotation is never locked (SBDisableAutoRotation=false)."))
 
-        # ── mROS Kernel Layer ─────────────────────────────────────────────────
-        L.addWidget(_hdr("⚙ mROS Kernel Layer — XNU / IOKit / Darwin"))
+        # ── macOS-Style Dock & Navigation ─────────────────────────────────────
+        L.addWidget(_hdr("⌘ macOS-Style Dock & Navigation"))
         L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.KernelThreadPriorityBoost, "Thread Priority Boost",        "XNU.ThreadPriorityBoost"),
-            (TweakID.KernelMemoryCompression,   "Memory Compression V2",        "XNU.MemoryCompressionV2"),
-            (TweakID.KernelIOSchedulerV2,       "I/O Scheduler V2",             "IOKit.IOSchedulerV2"),
-            (TweakID.KernelThermalGovernorV2,   "Thermal Governor V2",          "IOKit.ThermalGovernorV2"),
-            (TweakID.KernelCPUGovernorPerf,     "CPU Governor Performance",     "XNU.CPUGovernorPerformance"),
-            (TweakID.KernelNetworkStackV2,      "Network Stack V2",             "Darwin.NetworkStackV2"),
-            (TweakID.KernelSecureMemoryV2,      "Secure Memory V2",             "XNU.SecureMemoryV2"),
-            (TweakID.KernelIRQBalancing,        "IRQ Balancing",                "IOKit.IRQBalancing"),
-            (TweakID.KernelZRAMEnabled,         "ZRAM Swap Compression",        "XNU.ZRAMEnabled"),
-            (TweakID.KernelVMPressureOpt,       "VM Pressure Optimization",     "XNU.VMPressureOptimization"),
-            (TweakID.KernelFileSystemCache,     "File System Cache V2",         "Darwin.FileSystemCacheV2"),
-            (TweakID.KernelDiskSchedulerV2,     "Disk Scheduler V2",            "IOKit.DiskSchedulerV2"),
-            (TweakID.KernelGraphicsDriverV2,    "Graphics Driver V2",           "IOKit.GraphicsDriverV2"),
-            (TweakID.KernelAudioDriverV2,       "Audio Driver V2",              "IOKit.AudioDriverV2"),
-            (TweakID.KernelUSBStackV2,          "USB Stack V2",                 "IOKit.USBStackV2"),
-            (TweakID.KernelPowerManagementV2,   "Power Management V2",          "IOKit.PowerManagementV2"),
-            (TweakID.KernelSecureEnclaveV2,     "Secure Enclave V2",            "XNU.SecureEnclaveV2"),
-            (TweakID.KernelCryptoEngineV2,      "Crypto Engine V2",             "Darwin.CryptoEngineV2"),
-            (TweakID.KernelSandboxV2,           "Sandbox V2",                   "Darwin.SandboxV2"),
-            (TweakID.KernelSignalHandlerV2,     "Signal Handler V2",            "XNU.SignalHandlerV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"mROS kernel flag: {flag}"))
+        L.addWidget(_row(TweakID.DockSolarium,
+            "Liquid Glass Dock",
+            "Enable Liquid Glass rendering for the Dock (Dock.Solarium)."))
+        L.addWidget(_row(TweakID.DockHidden,
+            "Auto-Hide Dock",
+            "Force the Dock to remain hidden (SBForceDockHidden)."))
+        L.addWidget(_row(TweakID.DockMagnification,
+            "Dock Magnification",
+            "Enable dock icon magnification on hover (SBDockMagnificationEnabled)."))
+        L.addWidget(_row(TweakID.NavGestureSwipeBack,
+            "Swipe-Back Navigation",
+            "Re-enable back-swipe breadcrumb gesture (SBNeverBreadcrumb=false)."))
+        L.addWidget(_row(TweakID.NavGestureLongPress,
+            "Long-Press Home Menu",
+            "Enable long-press contextual menu on Home button (SBLongPressHomeMenuEnabled)."))
+        L.addWidget(_row(TweakID.NavGestureAssistiveTouch,
+            "Assistive Touch Overlay",
+            "Enable on-screen assistive touch button (SBAssistiveTouchEnabled)."))
 
-        # ── mROS Exclusive V2 ─────────────────────────────────────────────────
-        L.addWidget(_hdr("✦✦ mROS Exclusive — Beyond Any Phone"))
+        # ── Alien Color Engine ────────────────────────────────────────────────
+        L.addWidget(_hdr("◈ Alien Color Engine — Accessibility"))
         L.addWidget(_div())
-        for tid, name, desc in [
-            (TweakID.MROSHolographicUI,     "Holographic Depth UI",
-             "Full holographic depth layering across all SpringBoard surfaces (SpringBoard.HolographicDepthUI)."),
-            (TweakID.MROSNeuralDisplay,     "Neural Display Optimization",
-             "AI-driven per-frame display tuning — colour, brightness, sharpness (CoreDisplay.NeuralDisplayOptimization)."),
-            (TweakID.MROSQuantumSync,       "Quantum Sync Renderer",
-             "Frame-perfect synchronised rendering pipeline (UIKit.QuantumSyncRenderer)."),
-            (TweakID.MROSBioMetricAura,     "BiometricKit Aura Display",
-             "Biometric-ambient reactive display effects (BiometricKit.AuraDisplay)."),
-            (TweakID.MROSChronoEngine,      "Chrono Time-Aware UI",
-             "Time-of-day adaptive UI morphing engine (SpringBoard.ChronoTimeAwareUI)."),
-            (TweakID.MROSAdaptiveCortex,    "Adaptive Cortex V2",
-             "On-device adaptive AI reshapes UI based on usage patterns (CoreML.AdaptiveCortexV2)."),
-            (TweakID.MROSProximityAura,     "Proximity Aura Morph",
-             "UI elements morph in response to proximity sensor data (SpringBoard.ProximityAuraMorph)."),
-            (TweakID.MROSRetinalTrack,      "Retinal Tracking",
-             "Eye-tracking UI adaptation layer via ARKit (ARKit.RetinalTracking)."),
-            (TweakID.MROSAmbientEngine,     "Ambient Computing Mode",
-             "Full ambient computing presence — always-on context layer (SpringBoard.AmbientComputingMode)."),
-            (TweakID.MROSHyperThread,       "Hyper-Threaded Rendering",
-             "Parallel-threaded UI composition pipeline (UIKit.HyperThreadedRendering)."),
-            (TweakID.MROSCrystalClear,      "Crystal Clear Glass",
-             "Next-gen ultra-transparent glass rendering mode (SpringBoard.CrystalClearGlass)."),
-            (TweakID.MROSQuantumHaptics,    "Quantum Haptic Patterns",
-             "Sub-millisecond haptic pattern quantisation (CoreHaptics.QuantumHapticPatterns)."),
-            (TweakID.MROSNeuralKernel,      "Neural Kernel Optimizer",
-             "Neural-network driven kernel task scheduler (XNU.NeuralKernelOptimizer)."),
-            (TweakID.MROSCognitiveUI,       "Cognitive Computing UI",
-             "Cognitive-layer UI prediction and pre-rendering (UIKit.CognitiveComputingUI)."),
-            (TweakID.MROSDeepFusion,        "Deep Fusion Rendering",
-             "Multi-frame deep fusion compositor for all UI surfaces (CoreImage.DeepFusionRendering)."),
-            (TweakID.MROSSilverLining,      "Silver Lining Effect",
-             "Metallic silver-lining edge highlight on all panels (SpringBoard.SilverLiningEffect)."),
-            (TweakID.MROSMorphicUI,         "Morphic Interface System",
-             "Fluid interface morphing between all UI states (UIKit.MorphicInterfaceSystem)."),
-            (TweakID.MROSEchoEngine,        "Echo Resonance Haptics",
-             "Resonance-echo layered haptic feedback engine (CoreHaptics.EchoResonanceHaptics)."),
-            (TweakID.MROSDimensionalShift,  "Dimensional Shift Animation",
-             "3D dimensional-shift transition animations across the OS (UIKit.DimensionalShiftAnim)."),
-            (TweakID.MROSHyperCore,         "HyperCore Scheduler",
-             "Hyper-optimised XNU task scheduling for maximum throughput (XNU.HyperCoreScheduler)."),
-        ]:
-            L.addWidget(_row(tid, name, desc))
+        L.addWidget(_row(TweakID.AlienSmartInvert,
+            "Smart Invert Colors",
+            "Invert UI colors but keep photos/video intact (AXSmartInvertColors)."))
+        L.addWidget(_row(TweakID.AlienColorFilter,
+            "Color Filter Mode",
+            "Enable display color filter for alien visual effect (AXColorFilterEnabled)."))
+        L.addWidget(_row(TweakID.AlienReduceTransparency,
+            "Remove All Transparency",
+            "Replace all translucency with solid colors — alien feel (AXReduceTransparency)."))
+        L.addWidget(_row(TweakID.AlienDarkenColors,
+            "Darken System Colors",
+            "Shift all system colors darker for a deep alien palette (AXDarkenSystemColors)."))
+        L.addWidget(_row(TweakID.AlienReduceMotion,
+            "Remove All Motion",
+            "Kill all animations — snap-cut transitions across the OS (AXReduceMotionEnabled)."))
+        L.addWidget(_row(TweakID.AlienBoldText,
+            "Bold All Text",
+            "Force bold weight on every text element system-wide (AXBoldTextEnabled)."))
+        L.addWidget(_row(TweakID.AlienHighContrast,
+            "Maximum Contrast",
+            "Push UI contrast to maximum — harsh, vivid, alien (AXIncreaseContrastEnabled)."))
 
-        # ── macOS Features ────────────────────────────────────────────────────
-        L.addWidget(_hdr("⌘ macOS Features — Full Parity"))
+        # ── maxregnerOS Sound Engine ───────────────────────────────────────────
+        L.addWidget(_hdr("♪ maxregnerOS Sound Engine"))
         L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.MacOSMenuBar,           "Menu Bar",                   "SpringBoard.MacOSMenuBar"),
-            (TweakID.MacOSDock,              "macOS-Style Dock",           "SpringBoard.MacOSStyleDock"),
-            (TweakID.MacOSMissionControl,    "Mission Control",            "SpringBoard.MissionControl"),
-            (TweakID.MacOSSpotlightPro,      "Spotlight Pro",              "Spotlight.MacOSSpotlightPro"),
-            (TweakID.MacOSFinderMode,        "Finder Mode",                "Files.FinderMode"),
-            (TweakID.MacOSWindowChrome,      "macOS Window Chrome",        "UIKit.MacOSWindowChrome"),
-            (TweakID.MacOSUniversalControl,  "Universal Control",          "UniversalControl.Enabled"),
-            (TweakID.MacOSSidecar,           "Sidecar",                    "Sidecar.SidecarEnabled"),
-            (TweakID.MacOSSystemPreferences, "macOS-Style Settings",       "Preferences.MacOSStyleSettings"),
-            (TweakID.MacOSActivityMonitor,   "Activity Monitor",           "SpringBoard.ActivityMonitor"),
-            (TweakID.MacOSNotificationCenter,"macOS Notification Centre",  "UserNotificationsUI.MacOSNotificationCenter"),
-            (TweakID.MacOSScreenSaver,       "Screen Saver",               "SpringBoard.ScreenSaverEnabled"),
-            (TweakID.MacOSHandoffPro,        "Handoff Pro",                "Handoff.HandoffPro"),
-            (TweakID.MacOSContinuityCamera,  "Continuity Camera V2",       "Continuity.ContinuityCameraV2"),
-            (TweakID.MacOSAirPlayReceiver,   "AirPlay Receiver",           "AirPlay.ReceiverEnabled"),
-            (TweakID.MacOSWindowResizing,    "macOS Window Resizing",      "UIKit.MacOSWindowResizing"),
-            (TweakID.MacOSSnapWindows,       "Snap Windows",               "UIKit.WindowSnapping"),
-            (TweakID.MacOSMenuBarExtras,     "Menu Bar Extras",            "SpringBoard.MenuBarExtras"),
-            (TweakID.MacOSQuickLookPro,      "Quick Look Pro",             "QuickLook.QuickLookPro"),
-            (TweakID.MacOSSpaces,            "Spaces",                     "SpringBoard.MacOSSpaces"),
-            (TweakID.MacOSExpose,            "Exposé",                     "SpringBoard.MacOSExpose"),
-            (TweakID.MacOSControlStrip,      "Control Strip",              "SpringBoard.MacOSControlStrip"),
-            (TweakID.MacOSShareExtension,    "macOS Share Extension",      "Sharing.MacOSShareExtension"),
-            (TweakID.MacOSServicesMenu,      "Services Menu",              "SpringBoard.ServicesMenu"),
-            (TweakID.MacOSQuickActions,      "Quick Actions",              "SpringBoard.QuickActions"),
-        ]:
-            L.addWidget(_row(tid, name, f"mROS flag: {flag}"))
+        L.addWidget(_row(TweakID.SoundEngineBoostVolume,
+            "Volume Boost",
+            "Override volume limit for boosted output (SBVolumeBoostEnabled)."))
+        L.addWidget(_row(TweakID.SoundEngineMuteSwitch,
+            "Force Silent Mode",
+            "Keep device in silent mode regardless of physical switch (SBSilentModeEnabled)."))
+        L.addWidget(_row(TweakID.SoundEngineVibrateOnRing,
+            "Vibrate on Ring",
+            "Enable vibration when ringer is on (SBVibrateOnRing)."))
+        L.addWidget(_row(TweakID.SoundEngineVibrateOnSilent,
+            "Vibrate on Silent",
+            "Enable vibration when device is silenced (SBVibrateOnSilent)."))
+        L.addWidget(_row(TweakID.SoundEngineKeyClicks,
+            "Keyboard Click Sounds",
+            "Enable audible click for every key press (SBKeyClickEnabled)."))
 
-        # ── iPadOS Features ───────────────────────────────────────────────────
-        L.addWidget(_hdr("⬜ iPadOS Features — Full Parity"))
+        # ── Enhanced Siri v2 ──────────────────────────────────────────────────
+        L.addWidget(_hdr("◎ Enhanced Siri — MDM Managed Preferences v2"))
         L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.iPadOSSplitView,            "Split View",              "SpringBoard.SplitViewEnabled"),
-            (TweakID.iPadOSSlideOver,            "Slide Over",              "SpringBoard.SlideOverEnabled"),
-            (TweakID.iPadOSDragDropPro,          "Drag & Drop Pro",         "UIKit.DragDropPro"),
-            (TweakID.iPadOSStageManagerPro,      "Stage Manager Pro",       "SpringBoard.StageManagerPro"),
-            (TweakID.iPadOSExternalDisplayPro,   "External Display Pro",    "SpringBoard.ExternalDisplayPro"),
-            (TweakID.iPadOSPointerPro,           "Pointer Interaction Pro", "UIKit.PointerInteractionPro"),
-            (TweakID.iPadOSPencilPro,            "Apple Pencil Pro",        "PencilKit.PencilProFeatures"),
-            (TweakID.iPadOSShelfMode,            "App Shelf",               "SpringBoard.ShelfMode"),
-            (TweakID.iPadOSKeyboardShortcutsPro, "Keyboard Shortcuts Pro",  "UIKit.KeyboardShortcutsPro"),
-            (TweakID.iPadOSHoverEffects,         "Hover Effects",           "UIKit.HoverEffects"),
-            (TweakID.iPadOSScribble,             "Scribble V2",             "PencilKit.ScribbleV2"),
-            (TweakID.iPadOSWidgetAnywhere,       "Widgets Anywhere",        "WidgetKit.WidgetAnywhere"),
-            (TweakID.iPadOSDocumentBrowser,      "Document Browser Pro",    "Files.DocumentBrowserPro"),
-            (TweakID.iPadOSMultitaskingBar,      "Multitasking Bar",        "SpringBoard.MultitaskingBar"),
-            (TweakID.iPadOSWindowSnapping,       "Window Snapping Pro",     "SpringBoard.WindowSnappingPro"),
-            (TweakID.iPadOSQuickNote,            "Quick Note V2",           "Notes.QuickNoteV2"),
-            (TweakID.iPadOSFreeformCanvas,       "Freeform Canvas Pro",     "Freeform.FreeformCanvasPro"),
-            (TweakID.iPadOSTranslucency,         "Background Translucency", "UIKit.BackgroundTranslucency"),
-            (TweakID.iPadOSFloatingKeyboard,     "Floating Keyboard V2",    "UIKit.FloatingKeyboardV2"),
-            (TweakID.iPadOSMagicKeyboard,        "Magic Keyboard V2",       "UIKit.MagicKeyboardV2"),
-        ]:
-            L.addWidget(_row(tid, name, f"mROS flag: {flag}"))
-
-        # ── mROS Icon System & Style Engine ───────────────────────────────────
-        L.addWidget(_hdr("◈ mROS Icon System & Style Engine"))
-        L.addWidget(_div())
-        for tid, name, flag in [
-            (TweakID.IconRoundedSquare,       "Rounded Square Icons",        "IconServices.RoundedSquareIcons"),
-            (TweakID.IconDynamicSystem,       "Dynamic Icon System",         "IconServices.DynamicIconSystem"),
-            (TweakID.IconColorAdaptive,       "Colour-Adaptive Icons",       "IconServices.ColorAdaptiveIcons"),
-            (TweakID.IconGlowEffect,          "Icon Glow Effect",            "IconServices.GlowEffect"),
-            (TweakID.IconDepthShadow,         "Icon Depth Shadow",           "IconServices.DepthShadow"),
-            (TweakID.IconMorphAnimation,      "Icon Morph Animation",        "IconServices.MorphAnimation"),
-            (TweakID.IconSizeVariants,        "Icon Size Variants",          "IconServices.SizeVariants"),
-            (TweakID.IconBadgeRedesign,       "Badge Redesign",              "SpringBoard.BadgeRedesign"),
-            (TweakID.IconFolderGlass,         "Glass Folder Icons",          "SpringBoard.FolderGlassV2"),
-            (TweakID.IconShimmerEffect,       "Icon Shimmer Effect",         "IconServices.ShimmerEffect"),
-            (TweakID.IconHDRTextures,         "Icon HDR Textures",           "IconServices.HDRTextures"),
-            (TweakID.IconNeuralShape,         "Neural Shape Adaptation",     "IconServices.NeuralShapeAdapt"),
-            (TweakID.IconContextMenuPro,      "Context Menu Pro",            "SpringBoard.ContextMenuPro"),
-            (TweakID.StyleDynamicColorSystem, "Dynamic Colour System",       "UIKit.DynamicColorSystem"),
-            (TweakID.StyleAdaptiveTypography, "Adaptive Typography",         "CoreText.AdaptiveTypography"),
-            (TweakID.StyleFluidAnimations,    "Fluid Animation System",      "UIKit.FluidAnimationSystem"),
-            (TweakID.StyleHDRColorSpace,      "HDR Colour Space UI",         "CoreGraphics.HDRColorSpaceUI"),
-            (TweakID.StyleP3ColorGamut,       "P3 Wide Colour Gamut",        "CoreGraphics.P3ColorGamut"),
-            (TweakID.StyleDolbyVisionUI,      "Dolby Vision UI Mode",        "CoreDisplay.DolbyVisionUIMode"),
-            (TweakID.StyleProMotionEverywhere,"ProMotion Everywhere",         "UIKit.ProMotionEverywhere"),
-            (TweakID.StyleTrueBlackMode,      "True Black Mode",             "UIKit.TrueBlackMode"),
-            (TweakID.StyleSFSymbolsPro,       "SF Symbols Pro",              "CoreText.SFSymbolsPro"),
-            (TweakID.StyleSFProVariable,      "SF Pro Variable Font",        "CoreText.SFProVariableFont"),
-            (TweakID.StyleDynamicType,        "Dynamic Type V3",             "CoreText.DynamicTypeV3"),
-            (TweakID.StyleVibrantColors,      "Vibrant Colour System",       "UIKit.VibrantColorSystem"),
-            (TweakID.StyleGlassMorphism,      "Glass Morphism",              "UIKit.GlassMorphism"),
-            (TweakID.StyleNeumorphism,        "Neumorphism",                 "UIKit.Neumorphism"),
-            (TweakID.StyleMaterialBlur,       "Material Blur V2",            "UIKit.MaterialBlurV2"),
-            (TweakID.StyleCinematicColor,     "Cinematic Colour Grading",    "CoreGraphics.CinematicColorGrading"),
-        ]:
-            L.addWidget(_row(tid, name, f"mROS flag: {flag}"))
-
-        # ── mROS System Rewrite Core ──────────────────────────────────────────
-        L.addWidget(_hdr("◉ mROS System Rewrite Core"))
-        L.addWidget(_div())
-        for tid, name, desc in [
-            (TweakID.RewriteUnifiedShellV2,   "Unified Shell V2",
-             "Complete shell replacement with unified layer model (SpringBoard.UnifiedShellV2)."),
-            (TweakID.RewriteMultiWindowEngine, "Multi-Window Engine",
-             "Full multi-window support across all apps (UIKit.MultiWindowEngine)."),
-            (TweakID.RewriteCompositorV3,      "Compositor V3",
-             "Third-generation CoreAnimation compositor — lower latency, higher throughput."),
-            (TweakID.RewriteGPUDirectUI,       "GPU-Direct UI",
-             "Bypass CPU for UI compositing — Metal GPU-direct render path (Metal.GPUDirectUI)."),
-            (TweakID.RewriteNeuralAnimator,    "Neural Animator",
-             "AI-predicted animation curves — smoother than any hardware (UIKit.NeuralAnimator)."),
-            (TweakID.RewriteAdaptiveLayout,    "Adaptive Layout Engine",
-             "Context-aware adaptive layout reflow for all orientations (UIKit.AdaptiveLayoutEngine)."),
-            (TweakID.RewriteContextEngine,     "Context Engine",
-             "OS-wide context awareness — UI adapts to your usage pattern."),
-            (TweakID.RewriteSharedMemoryUI,    "Shared Memory UI",
-             "Zero-copy shared-memory UI buffer pipeline (UIKit.SharedMemoryUI)."),
-            (TweakID.RewriteRealTimeRender,    "Real-Time UI Render",
-             "Hard real-time constraints applied to UI render thread (Metal.RealTimeUIRender)."),
-            (TweakID.RewriteZeroLatencyInput,  "Zero-Latency Input",
-             "Sub-frame input prediction eliminates all perceived touch lag."),
-            (TweakID.RewriteProximityEngine,   "Proximity Context Engine",
-             "Proximity + face detection reshape the entire UI in real time."),
-            (TweakID.RewriteSpatialAudioUI,    "Spatial Audio UI",
-             "Full spatial audio tied to every UI interaction (AVFoundation.SpatialAudioUI)."),
-            (TweakID.RewriteHapticLanguage,    "Haptic Language",
-             "Unified haptic vocabulary — every action has a unique haptic signature."),
-            (TweakID.RewriteIntelligentCache,  "Intelligent UI Cache",
-             "ML-driven UI asset cache predicts what you need before you need it."),
-            (TweakID.RewritePredictiveFetch,   "Predictive Fetch",
-             "Preloads apps and content before you tap (SpringBoard.PredictiveFetch)."),
-            (TweakID.RewriteQuantumCompositor, "Quantum Compositor",
-             "Experimental frame-quantum compositor — maximum frame coherence."),
-        ]:
-            L.addWidget(_row(tid, name, desc))
+        L.addWidget(_row(TweakID.SiriDictation,
+            "Dictation",
+            "Enable Siri dictation input (DictationEnabled)."))
+        L.addWidget(_row(TweakID.SiriSearchEnabled,
+            "Siri Search",
+            "Enable Siri search integration system-wide (SearchEnabled)."))
+        L.addWidget(_row(TweakID.SiriPersonalInsights,
+            "Personal Insights",
+            "Allow Siri to surface personal usage insights (PersonalInsights)."))
+        L.addWidget(_row(TweakID.SiriContextSuggestions,
+            "Contextual Suggestions",
+            "Enable context-aware Siri suggestions (ContextualSuggestionsEnabled)."))
+        L.addWidget(_row(TweakID.SiriOnDeviceOnly,
+            "On-Device Only Mode",
+            "Force all Siri processing to stay on device (OnDeviceOnlyEnabled)."))
 
     # ── callbacks ────────────────────────────────────────────────────────────
 
@@ -793,24 +355,10 @@ class iOS27Page(Page):
 
     def load_page(self):
         load_ios27()
-        load_maxos_ui()
-        load_maxos_apps()
-        load_maxos_system()
-        load_maxos_exclusive()
-        load_maxos_haptics_ar()
-        load_maxos_connectivity()
-        load_maxos_cloud_health()
-        load_maxos_wallet_home_focus()
-        load_maxos_privacy_shortcuts_org()
-        load_maxos_reminders_files()
-        load_maxos_gaming_media()
-        load_maxos_extended_apps()
-        load_maxos_system_core()
-        load_mros_kernel()
-        load_mros_exclusive_v2()
-        load_mros_macos()
-        load_mros_ipados()
-        load_mros_icons_styles()
-        load_mros_system_rewrite()
-        # sync checkboxes with pre-enabled state
+        load_mros_solarium_extra()
+        load_mros_real_prefs()
+        load_mros_dock_nav()
+        load_mros_alien_colors()
+        load_mros_sound_engine()
+        load_mros_siri_v2()
         self._sync_checkboxes()

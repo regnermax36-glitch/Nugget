@@ -512,15 +512,9 @@ def load_ios27():
         TweakID.SBExpandedDynamicIsland:       BasicPlistTweak(S, 'SBEnableExpandedDynamicIslandPersistent'),
         TweakID.SBAlwaysShowClockDI:           BasicPlistTweak(S, 'SBShowClockWithDynamicIsland'),
 
-        # ── Audio Processing (FeatureFlagTweak → Global.plist) ────────────────
-        TweakID.AudioSpatialDefault:    FeatureFlagTweak('CoreAudio',      ['SpatialAudioProcessing']),
-        TweakID.AudioEnhancedSpeaker:   FeatureFlagTweak('AVFoundation',   ['EnhancedSpeakerOutput']),
-        TweakID.AudioPersonalizedSpatial: FeatureFlagTweak('AVFoundation', ['PersonalizedSpatialAudio']),
-        TweakID.AudioBackgroundSounds:  FeatureFlagTweak('Accessibility',  ['BackgroundSounds']),
-        TweakID.AudioHeadphoneAccom:    FeatureFlagTweak('Accessibility',  ['HeadphoneAccommodations']),
-        TweakID.AudioLoudnessNorm:      FeatureFlagTweak('AVFoundation',   ['LoudnessNormalization']),
+        # ── Audio (real GlobalPreferences managed-preference keys) ───────────
         TweakID.AudioSoundEffectsEnabled: BasicPlistTweak(GP, 'SBSoundEffectsEnabled'),
-        TweakID.AudioHapticsSync:       BasicPlistTweak(GP, 'SBAudioHapticsSyncEnabled'),
+        TweakID.AudioHapticsSync:         BasicPlistTweak(GP, 'SBAudioHapticsSyncEnabled'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -528,40 +522,30 @@ def load_ios27():
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
-def load_maxos_ui():
-    """SpringBoard & UIKit feature flags — maxregnerOS UI layer."""
-    if TweakID.SBFFFloatingDock in tweaks:
+def load_mros_solarium_extra():
+    """Extended Liquid Glass per-app flags — all remaining Apple apps."""
+    if TweakID.SolariumFFBooks in tweaks:
         return
     additional_tweaks = {
-        # SpringBoard UI feature flags
-        TweakID.SBFFFloatingDock:             FeatureFlagTweak('SpringBoard', ['FloatingDock']),
-        TweakID.SBFFDenseHomeScreen:          FeatureFlagTweak('SpringBoard', ['DenseHomeScreen']),
-        TweakID.SBFFAppSwitcherV2:            FeatureFlagTweak('SpringBoard', ['EnhancedAppSwitcher']),
-        TweakID.SBFFGlassFolders:             FeatureFlagTweak('SpringBoard', ['LiquidGlassFolders']),
-        TweakID.SBFFLiveActivitiesPersistent: FeatureFlagTweak('SpringBoard', ['PersistentLiveActivities']),
-        TweakID.SBFFAdaptiveGrid:             FeatureFlagTweak('SpringBoard', ['HomeScreenAdaptiveGrid']),
-        TweakID.SBFFContextWidgets:           FeatureFlagTweak('SpringBoard', ['ContextualWidgets']),
-        TweakID.SBFFProximityAnimations:      FeatureFlagTweak('SpringBoard', ['ProximityBasedAnimations']),
-        TweakID.SBFFLargeWidgetGrid:          FeatureFlagTweak('SpringBoard', ['LargeWidgetGridSize']),
-        TweakID.SBFFDynamicBackground:        FeatureFlagTweak('SpringBoard', ['DynamicBackgroundAdaptation']),
-        TweakID.SBFFGlassIconShimmer:         FeatureFlagTweak('SpringBoard', ['GlassIconShimmer']),
-        TweakID.SBFFPageIndicatorRedesign:    FeatureFlagTweak('SpringBoard', ['PageIndicatorRedesign']),
-        TweakID.SBFFEnhancedAppLibrary:       FeatureFlagTweak('SpringBoard', ['EnhancedAppLibrarySearch']),
-        TweakID.SBFFGlassSectionDividers:     FeatureFlagTweak('SpringBoard', ['GlassSectionDividers']),
-        TweakID.SBFFDebugUIOverlay:           FeatureFlagTweak('SpringBoard', ['UIDebugOverlay']),
-        # UIKit feature flags
-        TweakID.UIKitFFGlassSheets:           FeatureFlagTweak('UIKit', ['GlassBottomSheets']),
-        TweakID.UIKitFFPillButtons:           FeatureFlagTweak('UIKit', ['PillShapedButtons']),
-        TweakID.UIKitFFLargeNavHeaders:       FeatureFlagTweak('UIKit', ['LargeNavigationHeaders']),
-        TweakID.UIKitFFSwipeBackV2:           FeatureFlagTweak('UIKit', ['SwipeBackGestureV2']),
-        TweakID.UIKitFFFloatingMenus:         FeatureFlagTweak('UIKit', ['FloatingMenuPresentations']),
-        TweakID.UIKitFFCardLayouts:           FeatureFlagTweak('UIKit', ['AdaptiveCardLayouts']),
-        TweakID.UIKitFFRubberBandPhysics:     FeatureFlagTweak('UIKit', ['RubberBandScrollPhysics']),
-        TweakID.UIKitFFGlassAlerts:           FeatureFlagTweak('UIKit', ['GlassAlertViews']),
-        TweakID.UIKitFFCompactProgress:       FeatureFlagTweak('UIKit', ['CompactProgressIndicators']),
-        TweakID.UIKitFFHapticKeyboard:        FeatureFlagTweak('UIKit', ['HapticKeyboardFeedback']),
-        TweakID.UIKitFFEnhancedTextRendering: FeatureFlagTweak('UIKit', ['EnhancedTextRendering']),
-        TweakID.UIKitFFDynamicColorAdaptation:FeatureFlagTweak('UIKit', ['DynamicColorAdaptation']),
+        TweakID.SolariumFFBooks:      FeatureFlagTweak('Books',       ['Solarium']),
+        TweakID.SolariumFFWeather:    FeatureFlagTweak('Weather',     ['Solarium']),
+        TweakID.SolariumFFStocks:     FeatureFlagTweak('Stocks',      ['Solarium']),
+        TweakID.SolariumFFClock:      FeatureFlagTweak('Clock',       ['Solarium']),
+        TweakID.SolariumFFCalculator: FeatureFlagTweak('Calculator',  ['Solarium']),
+        TweakID.SolariumFFCamera:     FeatureFlagTweak('Camera',      ['Solarium']),
+        TweakID.SolariumFFFaceTime:   FeatureFlagTweak('FaceTime',    ['Solarium']),
+        TweakID.SolariumFFHealth:     FeatureFlagTweak('Health',      ['Solarium']),
+        TweakID.SolariumFFWallet:     FeatureFlagTweak('Wallet',      ['Solarium']),
+        TweakID.SolariumFFSettings:   FeatureFlagTweak('Preferences', ['Solarium']),
+        TweakID.SolariumFFFiles:      FeatureFlagTweak('Files',       ['Solarium']),
+        TweakID.SolariumFFTranslate:  FeatureFlagTweak('Translate',   ['Solarium']),
+        TweakID.SolariumFFFreeform:   FeatureFlagTweak('Freeform',    ['Solarium']),
+        TweakID.SolariumFFNews:       FeatureFlagTweak('News',        ['Solarium']),
+        TweakID.SolariumFFContacts:   FeatureFlagTweak('Contacts',    ['Solarium']),
+        TweakID.SolariumFFFindMy:     FeatureFlagTweak('FindMy',      ['Solarium']),
+        TweakID.SolariumFFTV:         FeatureFlagTweak('TV',          ['Solarium']),
+        TweakID.SolariumFFVoiceMemos: FeatureFlagTweak('VoiceMemos',  ['Solarium']),
+        TweakID.SolariumFFShortcuts:  FeatureFlagTweak('Shortcuts',   ['Solarium']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -569,553 +553,20 @@ def load_maxos_ui():
     _page_tweak_ids.update(additional_tweaks.keys())
 
 
-def load_maxos_apps():
-    """Per-app feature flags: Photos, Camera, Messages, FaceTime, Maps, Safari."""
-    if TweakID.PhotosFFEnhancedEditing in tweaks:
-        return
-    additional_tweaks = {
-        # Photos
-        TweakID.PhotosFFEnhancedEditing:    FeatureFlagTweak('Photos',    ['EnhancedEditing']),
-        TweakID.PhotosFFAIAlbums:           FeatureFlagTweak('Photos',    ['AISmartAlbums']),
-        TweakID.PhotosFFMemoriesV2:         FeatureFlagTweak('Photos',    ['MemoriesV2']),
-        TweakID.PhotosFFImprovedSearch:     FeatureFlagTweak('Photos',    ['ImprovedSearch']),
-        # Camera
-        TweakID.CameraFFProResVideo:        FeatureFlagTweak('Camera',    ['ProResVideoEnabled']),
-        TweakID.CameraFFMacroPro:           FeatureFlagTweak('Camera',    ['MacroPro']),
-        TweakID.CameraFFNightModePortrait:  FeatureFlagTweak('Camera',    ['NightModePortrait']),
-        TweakID.CameraFFProRAWMax:          FeatureFlagTweak('Camera',    ['ProRAWMax']),
-        TweakID.CameraFFCinematicV2:        FeatureFlagTweak('Camera',    ['CinematicModeV2']),
-        TweakID.CameraFFQuantumHDR:         FeatureFlagTweak('Camera',    ['QuantumHDR']),
-        # Messages
-        TweakID.MsgFFEnhancedSearch:        FeatureFlagTweak('Messages',  ['EnhancedSearch']),
-        TweakID.MsgFFEffectsV2:             FeatureFlagTweak('Messages',  ['EffectsV2']),
-        TweakID.MsgFFCollaborativeSharing:  FeatureFlagTweak('Messages',  ['CollaborativeSharing']),
-        TweakID.MsgFFRichLinksV2:           FeatureFlagTweak('Messages',  ['RichLinksV2']),
-        # FaceTime
-        TweakID.FaceTimeFFPersonSegmentation: FeatureFlagTweak('FaceTime',['PersonSegmentation']),
-        TweakID.FaceTimeFFReactionAnimations: FeatureFlagTweak('FaceTime',['ReactionAnimations']),
-        TweakID.FaceTimeFFSharedPlaybackV2: FeatureFlagTweak('FaceTime',  ['SharedPlaybackV2']),
-        TweakID.FaceTimeFFSpatialAudioCall: FeatureFlagTweak('FaceTime',  ['SpatialAudioCall']),
-        # Maps
-        TweakID.MapsFFImmersiveView:        FeatureFlagTweak('Maps',      ['ImmersiveView']),
-        TweakID.MapsFFARWalkDirections:     FeatureFlagTweak('Maps',      ['ARWalkDirections']),
-        TweakID.MapsFFOfflineEnhanced:      FeatureFlagTweak('Maps',      ['OfflineMapsEnhanced']),
-        TweakID.MapsFFRealtimeTrafficV2:    FeatureFlagTweak('Maps',      ['RealtimeTrafficV2']),
-        TweakID.MapsFF3DPlaceCards:         FeatureFlagTweak('Maps',      ['PlaceCards3D']),
-        TweakID.MapsFFElevationData:        FeatureFlagTweak('Maps',      ['ElevationData']),
-        # Safari
-        TweakID.SafariFFEnhancedPrivacy:    FeatureFlagTweak('MobileSafari', ['EnhancedPrivacyMode']),
-        TweakID.SafariFFTabGroupsV2:        FeatureFlagTweak('MobileSafari', ['TabGroupsV2']),
-        TweakID.SafariFFWebExtensionsAPI:   FeatureFlagTweak('MobileSafari', ['WebExtensionsAPI']),
-        TweakID.SafariFFStartPageRedesign:  FeatureFlagTweak('MobileSafari', ['StartPageRedesign']),
-        TweakID.SafariFFFloatingAddressBar: FeatureFlagTweak('MobileSafari', ['FloatingAddressBar']),
-        TweakID.SafariFFReaderModeV2:       FeatureFlagTweak('MobileSafari', ['ReaderModeV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_system():
-    """Widgets, Live Activities, Lock Screen, Notifications, Performance flags."""
-    if TweakID.WidgetFFInteractiveWidgets in tweaks:
-        return
-    additional_tweaks = {
-        # Widgets & Live Activities
-        TweakID.WidgetFFInteractiveWidgets: FeatureFlagTweak('WidgetKit',       ['InteractiveWidgets']),
-        TweakID.WidgetFFLargeFormat:        FeatureFlagTweak('WidgetKit',       ['LargeWidgetFormat']),
-        TweakID.WidgetFFAnimatedWidgets:    FeatureFlagTweak('WidgetKit',       ['AnimatedWidgets']),
-        TweakID.LiveActFFPersistentMode:    FeatureFlagTweak('LiveActivities',  ['PersistentMode']),
-        TweakID.LiveActFFGlassPresentation: FeatureFlagTweak('LiveActivities',  ['GlassPresentation']),
-        TweakID.LiveActFFStandbyV2:         FeatureFlagTweak('LiveActivities',  ['StandbyModeV2']),
-        # Lock Screen
-        TweakID.LockFFWidgetsV2:            FeatureFlagTweak('SpringBoard',     ['LockScreenWidgetsV2']),
-        TweakID.LockFFDepthEffectClock:     FeatureFlagTweak('SpringBoard',     ['DepthEffectClock']),
-        TweakID.LockFFLiveWeatherBG:        FeatureFlagTweak('SpringBoard',     ['LiveWeatherBackground']),
-        TweakID.LockFFAlwaysOnDisplayV2:    FeatureFlagTweak('SpringBoard',     ['AlwaysOnDisplayV2']),
-        # Notifications
-        TweakID.NotifFFStackedBanners:      FeatureFlagTweak('UserNotificationsUI', ['StackedBanners']),
-        TweakID.NotifFFGlassNotifications:  FeatureFlagTweak('UserNotificationsUI', ['GlassNotifications']),
-        TweakID.NotifFFQuickRepliesV2:      FeatureFlagTweak('UserNotificationsUI', ['QuickRepliesV2']),
-        TweakID.NotifFFSummaryV2:           FeatureFlagTweak('UserNotificationsUI', ['NotificationSummaryV2']),
-        # Performance
-        TweakID.PerfFFEnhancedLowPower:     FeatureFlagTweak('SpringBoard',     ['EnhancedLowPowerMode']),
-        TweakID.PerfFFBackgroundRefreshV2:  FeatureFlagTweak('SpringBoard',     ['BackgroundRefreshV2']),
-        TweakID.PerfFFLowLatencyAudio:      FeatureFlagTweak('CoreAudio',       ['LowLatencyProcessing']),
-        TweakID.PerfFFHardwareAcceleration: FeatureFlagTweak('AVFoundation',    ['HardwareAcceleration']),
-        TweakID.PerfFFThermalStatusUI:      FeatureFlagTweak('SpringBoard',     ['ThermalStatusUI']),
-        TweakID.PerfFFMemoryPressureMonitor:FeatureFlagTweak('SpringBoard',     ['MemoryPressureMonitor']),
-        TweakID.PerfFFProcessPriorityBoost: FeatureFlagTweak('SpringBoard',     ['ProcessPriorityBoost']),
-        TweakID.PerfFFUltraLowLatencyInput: FeatureFlagTweak('SpringBoard',     ['UltraLowLatencyInput']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_exclusive():
-    """maxregnerOS signature feature flags."""
-    if TweakID.MaxOSGlassEverywhere in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.MaxOSGlassEverywhere:      FeatureFlagTweak('SpringBoard',   ['GlassEverywhere']),
-        TweakID.MaxOSFluidMotionEngine:    FeatureFlagTweak('UIKit',         ['FluidMotionEngine']),
-        TweakID.MaxOSNeuralEngineBoost:    FeatureFlagTweak('CoreML',        ['EnhancedNeuralEngine']),
-        TweakID.MaxOSProDisplayRendering:  FeatureFlagTweak('CoreGraphics',  ['ProDisplayRendering']),
-        TweakID.MaxOSHyperSmoothScrolling: FeatureFlagTweak('UIKit',         ['HyperSmoothScrolling']),
-        TweakID.MaxOSChromaticAberration:  FeatureFlagTweak('CoreImage',     ['ChromaticAberrationEffect']),
-        TweakID.MaxOSDepthSensingV2:       FeatureFlagTweak('ARKit',         ['DepthSensingV2']),
-        TweakID.MaxOSAmbientIntelligence:  FeatureFlagTweak('Siri',          ['AmbientIntelligence']),
-        TweakID.MaxOSProHapticsEngine:     FeatureFlagTweak('CoreHaptics',   ['ProHapticsEngine']),
-        TweakID.MaxOSDynamicIslandPro:     FeatureFlagTweak('SpringBoard',   ['DynamicIslandPro']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_haptics_ar():
-    """CoreHaptics, ARKit, Vision, CoreML feature flags."""
-    if TweakID.HapticsPatternPlayback in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.HapticsPatternPlayback:     FeatureFlagTweak('CoreHaptics',  ['PatternPlayback']),
-        TweakID.HapticsAdvancedComposition: FeatureFlagTweak('CoreHaptics',  ['AdvancedComposition']),
-        TweakID.HapticsSyncedPlayback:      FeatureFlagTweak('CoreHaptics',  ['SyncedPlayback']),
-        TweakID.HapticsAdaptiveTriggers:    FeatureFlagTweak('CoreHaptics',  ['AdaptiveTriggers']),
-        TweakID.HapticsProEffectsEngine:    FeatureFlagTweak('CoreHaptics',  ['ProEffectsEngine']),
-        TweakID.ARKitWorldTrackingV3:       FeatureFlagTweak('ARKit',        ['WorldTrackingV3']),
-        TweakID.ARKitFaceTrackingPro:       FeatureFlagTweak('ARKit',        ['FaceTrackingPro']),
-        TweakID.ARKitObjectScanningPro:     FeatureFlagTweak('ARKit',        ['ObjectScanningPro']),
-        TweakID.ARKitGeospatialV2:          FeatureFlagTweak('ARKit',        ['GeospatialV2']),
-        TweakID.ARKitOcclusionV2:           FeatureFlagTweak('ARKit',        ['OcclusionV2']),
-        TweakID.VisionLiveTextV3:           FeatureFlagTweak('Vision',       ['LiveTextV3']),
-        TweakID.VisionDocumentScannerPro:   FeatureFlagTweak('Vision',       ['DocumentScannerPro']),
-        TweakID.VisionSubjectLiftV2:        FeatureFlagTweak('Vision',       ['SubjectLiftV2']),
-        TweakID.VisionStyleTransferV2:      FeatureFlagTweak('Vision',       ['StyleTransferV2']),
-        TweakID.VisionPersonSegV2:          FeatureFlagTweak('Vision',       ['PersonSegmentationV2']),
-        TweakID.CoreMLOnDeviceV2:           FeatureFlagTweak('CoreML',       ['OnDeviceInferenceV2']),
-        TweakID.CoreMLNeuralMaxUtil:        FeatureFlagTweak('CoreML',       ['NeuralEngineMaxUtilization']),
-        TweakID.CoreMLAdaptiveInference:    FeatureFlagTweak('CoreML',       ['AdaptiveInference']),
-        TweakID.CoreMLPrivateCompute:       FeatureFlagTweak('CoreML',       ['PrivateCloudCompute']),
-        TweakID.CoreMLStreamingInference:   FeatureFlagTweak('CoreML',       ['StreamingInference']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_connectivity():
-    """Network, Bluetooth, Location feature flags."""
-    if TweakID.NetHTTP3Default in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.NetHTTP3Default:            FeatureFlagTweak('Network',      ['HTTP3Default']),
-        TweakID.NetQUICEnabled:             FeatureFlagTweak('Network',      ['QUICEnabled']),
-        TweakID.NetAdaptiveQoS:             FeatureFlagTweak('Network',      ['AdaptiveQoS']),
-        TweakID.NetPrivacyProxyV2:          FeatureFlagTweak('Network',      ['PrivacyProxyV2']),
-        TweakID.NetLowDataModeV2:           FeatureFlagTweak('Network',      ['LowDataModeV2']),
-        TweakID.BLEEnhancedScanning:        FeatureFlagTweak('Bluetooth',    ['EnhancedScanning']),
-        TweakID.BLELeAudioCodecs:           FeatureFlagTweak('Bluetooth',    ['LEAudioCodecs']),
-        TweakID.BTCompanionMode:            FeatureFlagTweak('Bluetooth',    ['CompanionMode']),
-        TweakID.BTPersonalHotspotV2:        FeatureFlagTweak('Bluetooth',    ['PersonalHotspotV2']),
-        TweakID.LocPrecisionV2:             FeatureFlagTweak('CoreLocation', ['PreciseLocationV2']),
-        TweakID.LocOfflineGeocoding:        FeatureFlagTweak('CoreLocation', ['OfflineGeocoding']),
-        TweakID.LocBackgroundOptimization:  FeatureFlagTweak('CoreLocation', ['BackgroundOptimization']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_cloud_health():
-    """CloudKit, iCloud, HealthKit feature flags."""
-    if TweakID.CloudKitEncryptionV2 in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.CloudKitEncryptionV2:       FeatureFlagTweak('CloudKit',     ['EncryptionV2']),
-        TweakID.CloudKitSyncPriorityV2:     FeatureFlagTweak('CloudKit',     ['SyncPriorityV2']),
-        TweakID.iCloudDriveV2:              FeatureFlagTweak('iCloud',       ['DriveV2']),
-        TweakID.iCloudKeyValueV2:           FeatureFlagTweak('iCloud',       ['KeyValueStoreV2']),
-        TweakID.HealthMentalHealthV2:       FeatureFlagTweak('HealthKit',    ['MentalHealthV2']),
-        TweakID.HealthSleepV3:              FeatureFlagTweak('HealthKit',    ['SleepV3']),
-        TweakID.HealthInsightsV2:           FeatureFlagTweak('HealthKit',    ['InsightsV2']),
-        TweakID.HealthCyclingV2:            FeatureFlagTweak('HealthKit',    ['CyclingV2']),
-        TweakID.HealthVisionV2:             FeatureFlagTweak('HealthKit',    ['VisionHealthV2']),
-        TweakID.HealthWorkoutV3:            FeatureFlagTweak('HealthKit',    ['WorkoutV3']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_wallet_home_focus():
-    """Wallet, HomeKit, Focus, ScreenTime feature flags."""
-    if TweakID.WalletCompanionPasses in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.WalletCompanionPasses:      FeatureFlagTweak('Wallet',       ['CompanionPasses']),
-        TweakID.WalletApplePayV3:           FeatureFlagTweak('Wallet',       ['ApplePayV3']),
-        TweakID.WalletOrdersV2:             FeatureFlagTweak('Wallet',       ['OrdersV2']),
-        TweakID.WalletIDVerification:       FeatureFlagTweak('Wallet',       ['IDVerification']),
-        TweakID.HomeKitMatterV2:            FeatureFlagTweak('HomeKit',      ['MatterV2']),
-        TweakID.HomeKitAutomationV3:        FeatureFlagTweak('HomeKit',      ['AutomationV3']),
-        TweakID.HomeKitEnergyV2:            FeatureFlagTweak('HomeKit',      ['EnergyManagementV2']),
-        TweakID.HomeKitCameraV2:            FeatureFlagTweak('HomeKit',      ['CameraStreamingV2']),
-        TweakID.FocusContextV2:             FeatureFlagTweak('Focus',        ['ContextAwarenessV2']),
-        TweakID.FocusFiltersV2Extended:     FeatureFlagTweak('Focus',        ['FiltersV2Extended']),
-        TweakID.FocusInsightsV2:            FeatureFlagTweak('Focus',        ['InsightsV2']),
-        TweakID.ScreenTimeV3:               FeatureFlagTweak('ScreenTime',   ['ScreenTimeV3']),
-        TweakID.ScreenTimeCommunicationV2:  FeatureFlagTweak('ScreenTime',   ['CommunicationLimitsV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_privacy_shortcuts_org():
-    """Privacy, Shortcuts, Calendar, Contacts feature flags."""
-    if TweakID.PrivacyAppReportV2 in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.PrivacyAppReportV2:         FeatureFlagTweak('Privacy',      ['AppReportV2']),
-        TweakID.PrivacyLocationV2:          FeatureFlagTweak('Privacy',      ['LocationServicesV2']),
-        TweakID.PrivacyTrackingV2:          FeatureFlagTweak('Privacy',      ['TrackingTransparencyV2']),
-        TweakID.PrivacySensorV2:            FeatureFlagTweak('Privacy',      ['SensorAccessV2']),
-        TweakID.PrivacyDataBrokerV2:        FeatureFlagTweak('Privacy',      ['DataBrokerProtectionV2']),
-        TweakID.ShortcutsV3:                FeatureFlagTweak('Shortcuts',    ['ShortcutsV3']),
-        TweakID.ShortcutsAutomationsV2:     FeatureFlagTweak('Shortcuts',    ['AutomationsV2']),
-        TweakID.ShortcutsAIActions:         FeatureFlagTweak('Shortcuts',    ['AIActions']),
-        TweakID.ShortcutsAppIntentsV2:      FeatureFlagTweak('Shortcuts',    ['AppIntentsV2']),
-        TweakID.CalSuggestionsV2:           FeatureFlagTweak('Calendar',     ['SuggestionsV2']),
-        TweakID.CalSmartScheduling:         FeatureFlagTweak('Calendar',     ['SmartScheduling']),
-        TweakID.CalInsightsV2:              FeatureFlagTweak('Calendar',     ['InsightsV2']),
-        TweakID.CalSharedCalendarV2:        FeatureFlagTweak('Calendar',     ['SharedCalendarV2']),
-        TweakID.ContactsSuggestionsV2:      FeatureFlagTweak('Contacts',     ['SuggestionsV2']),
-        TweakID.ContactsUnifiedViewV2:      FeatureFlagTweak('Contacts',     ['UnifiedViewV2']),
-        TweakID.ContactsSmartGroupV2:       FeatureFlagTweak('Contacts',     ['SmartGroupV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_reminders_files():
-    """Reminders, Notes, Files feature flags."""
-    if TweakID.RemindersSuggestionsV2 in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.RemindersSuggestionsV2:     FeatureFlagTweak('Reminders',    ['SuggestionsV2']),
-        TweakID.RemindersCollaborationV2:   FeatureFlagTweak('Reminders',    ['CollaborationV2']),
-        TweakID.RemindersSmartListsV2:      FeatureFlagTweak('Reminders',    ['SmartListsV2']),
-        TweakID.NotesCollaborationV2:       FeatureFlagTweak('Notes',        ['CollaborationV2']),
-        TweakID.NotesSearchV2:              FeatureFlagTweak('Notes',        ['SearchV2']),
-        TweakID.NotesTemplatesV2:           FeatureFlagTweak('Notes',        ['TemplatesV2']),
-        TweakID.FilesTaggingV2:             FeatureFlagTweak('Files',        ['TaggingV2']),
-        TweakID.FilesSharingV2:             FeatureFlagTweak('Files',        ['SharingV2']),
-        TweakID.FilesQuickLookV2:           FeatureFlagTweak('Files',        ['QuickLookV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_gaming_media():
-    """GameKit, Metal, RealityKit, Media feature flags."""
-    if TweakID.GameCenterV3 in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.GameCenterV3:               FeatureFlagTweak('GameKit',      ['GameCenterV3']),
-        TweakID.GameMultiplayerV2:          FeatureFlagTweak('GameKit',      ['MultiplayerV2']),
-        TweakID.MetalRayTracingV2:          FeatureFlagTweak('Metal',        ['RayTracingV2']),
-        TweakID.MetalMLAcceleration:        FeatureFlagTweak('Metal',        ['MLAcceleration']),
-        TweakID.RealityKitV3:               FeatureFlagTweak('RealityKit',   ['RealityKitV3']),
-        TweakID.SpatialComputingV2:         FeatureFlagTweak('RealityKit',   ['SpatialComputingV2']),
-        TweakID.MediaTVFloatingPlayer:      FeatureFlagTweak('TVUIKit',      ['FloatingPlayer']),
-        TweakID.MediaMusicLosslessDefault:  FeatureFlagTweak('Music',        ['LosslessDefault']),
-        TweakID.MediaMusicSpatialDefault:   FeatureFlagTweak('Music',        ['SpatialDefault']),
-        TweakID.MediaPodcastsTranscriptV2:  FeatureFlagTweak('Podcasts',     ['TranscriptV2']),
-        TweakID.MediaFitnessGroupWorkoutV2: FeatureFlagTweak('Fitness',      ['GroupWorkoutV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_extended_apps():
-    """Extended per-app flags: Maps, Safari, Messages, FaceTime, Photos, Camera."""
-    if TweakID.MapsImmersiveViewV2 in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.MapsImmersiveViewV2:        FeatureFlagTweak('Maps',         ['ImmersiveViewV2']),
-        TweakID.MapsLookAroundV2:           FeatureFlagTweak('Maps',         ['LookAroundV2']),
-        TweakID.MapsFlyoverV2:              FeatureFlagTweak('Maps',         ['FlyoverV2']),
-        TweakID.MapsTransitV2:              FeatureFlagTweak('Maps',         ['TransitV2']),
-        TweakID.MapsGuidesV2:               FeatureFlagTweak('Maps',         ['GuidesV2']),
-        TweakID.SafariWebCodecAV1:          FeatureFlagTweak('MobileSafari', ['AV1Codec']),
-        TweakID.SafariPasskeysFull:         FeatureFlagTweak('MobileSafari', ['PasskeysFullSupport']),
-        TweakID.SafariAdBlockingV2:         FeatureFlagTweak('MobileSafari', ['AdBlockingV2']),
-        TweakID.SafariTranslationV2:        FeatureFlagTweak('MobileSafari', ['TranslationV2']),
-        TweakID.SafariWebExtensionsV2:      FeatureFlagTweak('MobileSafari', ['WebExtensionsV2']),
-        TweakID.MsgReactionsV2:             FeatureFlagTweak('Messages',     ['ReactionsV2']),
-        TweakID.MsgStickerPacksV2:          FeatureFlagTweak('Messages',     ['StickerPacksV2']),
-        TweakID.MsgSharePlayV2:             FeatureFlagTweak('Messages',     ['SharePlayV2']),
-        TweakID.MsgGroupFocusSync:          FeatureFlagTweak('Messages',     ['GroupFocusSync']),
-        TweakID.MsgCheckInV2:               FeatureFlagTweak('Messages',     ['CheckInV2']),
-        TweakID.FTHandoffCallsV2:           FeatureFlagTweak('FaceTime',     ['HandoffCallsV2']),
-        TweakID.FTVideoMessageV2:           FeatureFlagTweak('FaceTime',     ['VideoMessageV2']),
-        TweakID.FTSpatialFaceTime:          FeatureFlagTweak('FaceTime',     ['SpatialFaceTime']),
-        TweakID.FTGroupCallsV2:             FeatureFlagTweak('FaceTime',     ['GroupCallsV2']),
-        TweakID.FTPortraitModeCall:         FeatureFlagTweak('FaceTime',     ['PortraitModeCall']),
-        TweakID.PhotosSharedLibraryV2:      FeatureFlagTweak('Photos',       ['SharedLibraryV2']),
-        TweakID.PhotosCleanUpV2:            FeatureFlagTweak('Photos',       ['CleanUpV2']),
-        TweakID.PhotosMemoryMovieV2:        FeatureFlagTweak('Photos',       ['MemoryMovieV2']),
-        TweakID.PhotosHDRMax:               FeatureFlagTweak('Photos',       ['HDRMax']),
-        TweakID.PhotosPortraitLightsV2:     FeatureFlagTweak('Photos',       ['PortraitLightsV2']),
-        TweakID.CameraStudioLightV2:        FeatureFlagTweak('Camera',       ['StudioLightV2']),
-        TweakID.CameraActionModeV2:         FeatureFlagTweak('Camera',       ['ActionModeV2']),
-        TweakID.CameraPhotonicEngineV2:     FeatureFlagTweak('Camera',       ['PhotonicEngineV2']),
-        TweakID.CameraVideoV3:              FeatureFlagTweak('Camera',       ['VideoV3']),
-        TweakID.CameraFrontVideoV2:         FeatureFlagTweak('Camera',       ['FrontVideoV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_maxos_system_core():
-    """System core managed-preference & feature-flag overrides."""
+def load_mros_real_prefs():
+    """Real system managed-preference overrides."""
     if TweakID.SysCoreProMotion in tweaks:
         return
-    GP = FileLocation.globalPreferences
     S  = FileLocation.springboard
+    GP = FileLocation.globalPreferences
     additional_tweaks = {
-        TweakID.SysCoreProMotion:      BasicPlistTweak(S,  'SBProMotionEnabled'),
-        TweakID.SysCoreAnimSpeed:      BasicPlistTweak(GP, 'UIAnimationDragCoefficient', value=0.35),
-        TweakID.SysCoreScrollVelocity: FeatureFlagTweak('UIKit',        ['ScrollVelocityBoost']),
-        TweakID.SysCoreMTLOverlay:     BasicPlistTweak(GP, 'MTOverlayEnabled'),
-        TweakID.SysCoreHideCarrier:    BasicPlistTweak(S,  'SBHideCarrierText'),
-        TweakID.SysCoreDevSettings:    BasicPlistTweak(S,  'SBShowDeveloperSettings'),
-        TweakID.SysCoreAlwaysAOD:      BasicPlistTweak(S,  'SBAlwaysOnDisplayEnabled'),
-        TweakID.SysCoreNightShiftMax:  FeatureFlagTweak('CoreDisplay',  ['NightShiftMaxBrightness']),
-        TweakID.SysCoreAutoRotate:     BasicPlistTweak(S,  'SBDisableAutoRotation', value=False),
-        TweakID.SysCoreHDRVideo:       FeatureFlagTweak('AVFoundation', ['HDRVideoDefault']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_mros_kernel():
-    """mROS kernel layer — XNU, IOKit, Darwin feature flags."""
-    if TweakID.KernelThreadPriorityBoost in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.KernelThreadPriorityBoost:  FeatureFlagTweak('XNU',     ['ThreadPriorityBoost']),
-        TweakID.KernelMemoryCompression:    FeatureFlagTweak('XNU',     ['MemoryCompressionV2']),
-        TweakID.KernelIOSchedulerV2:        FeatureFlagTweak('IOKit',   ['IOSchedulerV2']),
-        TweakID.KernelThermalGovernorV2:    FeatureFlagTweak('IOKit',   ['ThermalGovernorV2']),
-        TweakID.KernelCPUGovernorPerf:      FeatureFlagTweak('XNU',     ['CPUGovernorPerformance']),
-        TweakID.KernelNetworkStackV2:       FeatureFlagTweak('Darwin',  ['NetworkStackV2']),
-        TweakID.KernelSecureMemoryV2:       FeatureFlagTweak('XNU',     ['SecureMemoryV2']),
-        TweakID.KernelIRQBalancing:         FeatureFlagTweak('IOKit',   ['IRQBalancing']),
-        TweakID.KernelZRAMEnabled:          FeatureFlagTweak('XNU',     ['ZRAMEnabled']),
-        TweakID.KernelVMPressureOpt:        FeatureFlagTweak('XNU',     ['VMPressureOptimization']),
-        TweakID.KernelFileSystemCache:      FeatureFlagTweak('Darwin',  ['FileSystemCacheV2']),
-        TweakID.KernelDiskSchedulerV2:      FeatureFlagTweak('IOKit',   ['DiskSchedulerV2']),
-        TweakID.KernelGraphicsDriverV2:     FeatureFlagTweak('IOKit',   ['GraphicsDriverV2']),
-        TweakID.KernelAudioDriverV2:        FeatureFlagTweak('IOKit',   ['AudioDriverV2']),
-        TweakID.KernelUSBStackV2:           FeatureFlagTweak('IOKit',   ['USBStackV2']),
-        TweakID.KernelPowerManagementV2:    FeatureFlagTweak('IOKit',   ['PowerManagementV2']),
-        TweakID.KernelSecureEnclaveV2:      FeatureFlagTweak('XNU',     ['SecureEnclaveV2']),
-        TweakID.KernelCryptoEngineV2:       FeatureFlagTweak('Darwin',  ['CryptoEngineV2']),
-        TweakID.KernelSandboxV2:            FeatureFlagTweak('Darwin',  ['SandboxV2']),
-        TweakID.KernelSignalHandlerV2:      FeatureFlagTweak('XNU',     ['SignalHandlerV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_mros_exclusive_v2():
-    """mROS exclusive features — beyond any phone."""
-    if TweakID.MROSHolographicUI in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.MROSHolographicUI:      FeatureFlagTweak('SpringBoard',  ['HolographicDepthUI']),
-        TweakID.MROSNeuralDisplay:      FeatureFlagTweak('CoreDisplay',  ['NeuralDisplayOptimization']),
-        TweakID.MROSQuantumSync:        FeatureFlagTweak('UIKit',        ['QuantumSyncRenderer']),
-        TweakID.MROSBioMetricAura:      FeatureFlagTweak('BiometricKit', ['AuraDisplay']),
-        TweakID.MROSChronoEngine:       FeatureFlagTweak('SpringBoard',  ['ChronoTimeAwareUI']),
-        TweakID.MROSAdaptiveCortex:     FeatureFlagTweak('CoreML',       ['AdaptiveCortexV2']),
-        TweakID.MROSProximityAura:      FeatureFlagTweak('SpringBoard',  ['ProximityAuraMorph']),
-        TweakID.MROSRetinalTrack:       FeatureFlagTweak('ARKit',        ['RetinalTracking']),
-        TweakID.MROSAmbientEngine:      FeatureFlagTweak('SpringBoard',  ['AmbientComputingMode']),
-        TweakID.MROSHyperThread:        FeatureFlagTweak('UIKit',        ['HyperThreadedRendering']),
-        TweakID.MROSCrystalClear:       FeatureFlagTweak('SpringBoard',  ['CrystalClearGlass']),
-        TweakID.MROSQuantumHaptics:     FeatureFlagTweak('CoreHaptics',  ['QuantumHapticPatterns']),
-        TweakID.MROSNeuralKernel:       FeatureFlagTweak('XNU',          ['NeuralKernelOptimizer']),
-        TweakID.MROSCognitiveUI:        FeatureFlagTweak('UIKit',        ['CognitiveComputingUI']),
-        TweakID.MROSDeepFusion:         FeatureFlagTweak('CoreImage',    ['DeepFusionRendering']),
-        TweakID.MROSSilverLining:       FeatureFlagTweak('SpringBoard',  ['SilverLiningEffect']),
-        TweakID.MROSMorphicUI:          FeatureFlagTweak('UIKit',        ['MorphicInterfaceSystem']),
-        TweakID.MROSEchoEngine:         FeatureFlagTweak('CoreHaptics',  ['EchoResonanceHaptics']),
-        TweakID.MROSDimensionalShift:   FeatureFlagTweak('UIKit',        ['DimensionalShiftAnim']),
-        TweakID.MROSHyperCore:          FeatureFlagTweak('XNU',          ['HyperCoreScheduler']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-# maxregnerOS Mode: curated set of the highest-impact tweaks for maximum visual effect
-def load_mros_macos():
-    """macOS feature parity flags for mROS."""
-    if TweakID.MacOSMenuBar in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.MacOSMenuBar:            FeatureFlagTweak('SpringBoard',    ['MacOSMenuBar']),
-        TweakID.MacOSDock:               FeatureFlagTweak('SpringBoard',    ['MacOSStyleDock']),
-        TweakID.MacOSMissionControl:     FeatureFlagTweak('SpringBoard',    ['MissionControl']),
-        TweakID.MacOSSpotlightPro:       FeatureFlagTweak('Spotlight',      ['MacOSSpotlightPro']),
-        TweakID.MacOSFinderMode:         FeatureFlagTweak('Files',          ['FinderMode']),
-        TweakID.MacOSWindowChrome:       FeatureFlagTweak('UIKit',          ['MacOSWindowChrome']),
-        TweakID.MacOSUniversalControl:   FeatureFlagTweak('UniversalControl',['Enabled']),
-        TweakID.MacOSSidecar:            FeatureFlagTweak('Sidecar',        ['SidecarEnabled']),
-        TweakID.MacOSSystemPreferences:  FeatureFlagTweak('Preferences',    ['MacOSStyleSettings']),
-        TweakID.MacOSActivityMonitor:    FeatureFlagTweak('SpringBoard',    ['ActivityMonitor']),
-        TweakID.MacOSNotificationCenter: FeatureFlagTweak('UserNotificationsUI', ['MacOSNotificationCenter']),
-        TweakID.MacOSScreenSaver:        FeatureFlagTweak('SpringBoard',    ['ScreenSaverEnabled']),
-        TweakID.MacOSHandoffPro:         FeatureFlagTweak('Handoff',        ['HandoffPro']),
-        TweakID.MacOSContinuityCamera:   FeatureFlagTweak('Continuity',     ['ContinuityCameraV2']),
-        TweakID.MacOSAirPlayReceiver:    FeatureFlagTweak('AirPlay',        ['ReceiverEnabled']),
-        TweakID.MacOSWindowResizing:     FeatureFlagTweak('UIKit',          ['MacOSWindowResizing']),
-        TweakID.MacOSSnapWindows:        FeatureFlagTweak('UIKit',          ['WindowSnapping']),
-        TweakID.MacOSMenuBarExtras:      FeatureFlagTweak('SpringBoard',    ['MenuBarExtras']),
-        TweakID.MacOSQuickLookPro:       FeatureFlagTweak('QuickLook',      ['QuickLookPro']),
-        TweakID.MacOSSpaces:             FeatureFlagTweak('SpringBoard',    ['MacOSSpaces']),
-        TweakID.MacOSExpose:             FeatureFlagTweak('SpringBoard',    ['MacOSExpose']),
-        TweakID.MacOSControlStrip:       FeatureFlagTweak('SpringBoard',    ['MacOSControlStrip']),
-        TweakID.MacOSShareExtension:     FeatureFlagTweak('Sharing',        ['MacOSShareExtension']),
-        TweakID.MacOSServicesMenu:       FeatureFlagTweak('SpringBoard',    ['ServicesMenu']),
-        TweakID.MacOSQuickActions:       FeatureFlagTweak('SpringBoard',    ['QuickActions']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_mros_ipados():
-    """iPadOS feature parity flags for mROS."""
-    if TweakID.iPadOSSplitView in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.iPadOSSplitView:             FeatureFlagTweak('SpringBoard',  ['SplitViewEnabled']),
-        TweakID.iPadOSSlideOver:             FeatureFlagTweak('SpringBoard',  ['SlideOverEnabled']),
-        TweakID.iPadOSDragDropPro:           FeatureFlagTweak('UIKit',        ['DragDropPro']),
-        TweakID.iPadOSStageManagerPro:       FeatureFlagTweak('SpringBoard',  ['StageManagerPro']),
-        TweakID.iPadOSExternalDisplayPro:    FeatureFlagTweak('SpringBoard',  ['ExternalDisplayPro']),
-        TweakID.iPadOSPointerPro:            FeatureFlagTweak('UIKit',        ['PointerInteractionPro']),
-        TweakID.iPadOSPencilPro:             FeatureFlagTweak('PencilKit',    ['PencilProFeatures']),
-        TweakID.iPadOSShelfMode:             FeatureFlagTweak('SpringBoard',  ['ShelfMode']),
-        TweakID.iPadOSKeyboardShortcutsPro:  FeatureFlagTweak('UIKit',        ['KeyboardShortcutsPro']),
-        TweakID.iPadOSHoverEffects:          FeatureFlagTweak('UIKit',        ['HoverEffects']),
-        TweakID.iPadOSScribble:              FeatureFlagTweak('PencilKit',    ['ScribbleV2']),
-        TweakID.iPadOSWidgetAnywhere:        FeatureFlagTweak('WidgetKit',    ['WidgetAnywhere']),
-        TweakID.iPadOSDocumentBrowser:       FeatureFlagTweak('Files',        ['DocumentBrowserPro']),
-        TweakID.iPadOSMultitaskingBar:       FeatureFlagTweak('SpringBoard',  ['MultitaskingBar']),
-        TweakID.iPadOSWindowSnapping:        FeatureFlagTweak('SpringBoard',  ['WindowSnappingPro']),
-        TweakID.iPadOSQuickNote:             FeatureFlagTweak('Notes',        ['QuickNoteV2']),
-        TweakID.iPadOSFreeformCanvas:        FeatureFlagTweak('Freeform',     ['FreeformCanvasPro']),
-        TweakID.iPadOSTranslucency:          FeatureFlagTweak('UIKit',        ['BackgroundTranslucency']),
-        TweakID.iPadOSFloatingKeyboard:      FeatureFlagTweak('UIKit',        ['FloatingKeyboardV2']),
-        TweakID.iPadOSMagicKeyboard:         FeatureFlagTweak('UIKit',        ['MagicKeyboardV2']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_mros_icons_styles():
-    """mROS icon system and style engine."""
-    if TweakID.IconRoundedSquare in tweaks:
-        return
-    additional_tweaks = {
-        # Icon System
-        TweakID.IconRoundedSquare:       FeatureFlagTweak('IconServices',  ['RoundedSquareIcons']),
-        TweakID.IconDynamicSystem:       FeatureFlagTweak('IconServices',  ['DynamicIconSystem']),
-        TweakID.IconColorAdaptive:       FeatureFlagTweak('IconServices',  ['ColorAdaptiveIcons']),
-        TweakID.IconGlowEffect:          FeatureFlagTweak('IconServices',  ['GlowEffect']),
-        TweakID.IconDepthShadow:         FeatureFlagTweak('IconServices',  ['DepthShadow']),
-        TweakID.IconMorphAnimation:      FeatureFlagTweak('IconServices',  ['MorphAnimation']),
-        TweakID.IconSizeVariants:        FeatureFlagTweak('IconServices',  ['SizeVariants']),
-        TweakID.IconBadgeRedesign:       FeatureFlagTweak('SpringBoard',   ['BadgeRedesign']),
-        TweakID.IconFolderGlass:         FeatureFlagTweak('SpringBoard',   ['FolderGlassV2']),
-        TweakID.IconShimmerEffect:       FeatureFlagTweak('IconServices',  ['ShimmerEffect']),
-        TweakID.IconHDRTextures:         FeatureFlagTweak('IconServices',  ['HDRTextures']),
-        TweakID.IconNeuralShape:         FeatureFlagTweak('IconServices',  ['NeuralShapeAdapt']),
-        TweakID.IconContextMenuPro:      FeatureFlagTweak('SpringBoard',   ['ContextMenuPro']),
-        # Style Engine
-        TweakID.StyleDynamicColorSystem: FeatureFlagTweak('UIKit',         ['DynamicColorSystem']),
-        TweakID.StyleAdaptiveTypography: FeatureFlagTweak('CoreText',      ['AdaptiveTypography']),
-        TweakID.StyleFluidAnimations:    FeatureFlagTweak('UIKit',         ['FluidAnimationSystem']),
-        TweakID.StyleHDRColorSpace:      FeatureFlagTweak('CoreGraphics',  ['HDRColorSpaceUI']),
-        TweakID.StyleP3ColorGamut:       FeatureFlagTweak('CoreGraphics',  ['P3ColorGamut']),
-        TweakID.StyleDolbyVisionUI:      FeatureFlagTweak('CoreDisplay',   ['DolbyVisionUIMode']),
-        TweakID.StyleProMotionEverywhere:FeatureFlagTweak('UIKit',         ['ProMotionEverywhere']),
-        TweakID.StyleTrueBlackMode:      FeatureFlagTweak('UIKit',         ['TrueBlackMode']),
-        TweakID.StyleSFSymbolsPro:       FeatureFlagTweak('CoreText',      ['SFSymbolsPro']),
-        TweakID.StyleSFProVariable:      FeatureFlagTweak('CoreText',      ['SFProVariableFont']),
-        TweakID.StyleDynamicType:        FeatureFlagTweak('CoreText',      ['DynamicTypeV3']),
-        TweakID.StyleVibrantColors:      FeatureFlagTweak('UIKit',         ['VibrantColorSystem']),
-        TweakID.StyleGlassMorphism:      FeatureFlagTweak('UIKit',         ['GlassMorphism']),
-        TweakID.StyleNeumorphism:        FeatureFlagTweak('UIKit',         ['Neumorphism']),
-        TweakID.StyleMaterialBlur:       FeatureFlagTweak('UIKit',         ['MaterialBlurV2']),
-        TweakID.StyleCinematicColor:     FeatureFlagTweak('CoreGraphics',  ['CinematicColorGrading']),
-    }
-    tweaks.update(additional_tweaks)
-    for tweak in additional_tweaks.values():
-        tweak.set_enabled(True)
-    _page_tweak_ids.update(additional_tweaks.keys())
-
-
-def load_mros_system_rewrite():
-    """mROS core system rewrite — compositor, renderer, layout engine."""
-    if TweakID.RewriteUnifiedShellV2 in tweaks:
-        return
-    additional_tweaks = {
-        TweakID.RewriteUnifiedShellV2:   FeatureFlagTweak('SpringBoard',   ['UnifiedShellV2']),
-        TweakID.RewriteMultiWindowEngine: FeatureFlagTweak('UIKit',         ['MultiWindowEngine']),
-        TweakID.RewriteCompositorV3:      FeatureFlagTweak('CoreAnimation', ['CompositorV3']),
-        TweakID.RewriteGPUDirectUI:       FeatureFlagTweak('Metal',         ['GPUDirectUI']),
-        TweakID.RewriteNeuralAnimator:    FeatureFlagTweak('UIKit',         ['NeuralAnimator']),
-        TweakID.RewriteAdaptiveLayout:    FeatureFlagTweak('UIKit',         ['AdaptiveLayoutEngine']),
-        TweakID.RewriteContextEngine:     FeatureFlagTweak('SpringBoard',   ['ContextEngine']),
-        TweakID.RewriteSharedMemoryUI:    FeatureFlagTweak('UIKit',         ['SharedMemoryUI']),
-        TweakID.RewriteRealTimeRender:    FeatureFlagTweak('Metal',         ['RealTimeUIRender']),
-        TweakID.RewriteZeroLatencyInput:  FeatureFlagTweak('UIKit',         ['ZeroLatencyInput']),
-        TweakID.RewriteProximityEngine:   FeatureFlagTweak('SpringBoard',   ['ProximityContextEngine']),
-        TweakID.RewriteSpatialAudioUI:    FeatureFlagTweak('AVFoundation',  ['SpatialAudioUI']),
-        TweakID.RewriteHapticLanguage:    FeatureFlagTweak('CoreHaptics',   ['HapticLanguage']),
-        TweakID.RewriteIntelligentCache:  FeatureFlagTweak('SpringBoard',   ['IntelligentUICache']),
-        TweakID.RewritePredictiveFetch:   FeatureFlagTweak('SpringBoard',   ['PredictiveFetch']),
-        TweakID.RewriteQuantumCompositor: FeatureFlagTweak('CoreAnimation', ['QuantumCompositor']),
+        TweakID.SysCoreProMotion:   BasicPlistTweak(S,  'SBProMotionEnabled'),
+        TweakID.SysCoreAnimSpeed:   BasicPlistTweak(GP, 'UIAnimationDragCoefficient', value=0.35),
+        TweakID.SysCoreMTLOverlay:  BasicPlistTweak(GP, 'MTOverlayEnabled'),
+        TweakID.SysCoreHideCarrier: BasicPlistTweak(S,  'SBHideCarrierText'),
+        TweakID.SysCoreDevSettings: BasicPlistTweak(S,  'SBShowDeveloperSettings'),
+        TweakID.SysCoreAlwaysAOD:   BasicPlistTweak(S,  'SBAlwaysOnDisplayEnabled'),
+        TweakID.SysCoreAutoRotate:  BasicPlistTweak(S,  'SBDisableAutoRotation', value=False),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -1124,80 +575,114 @@ def load_mros_system_rewrite():
 
 
 MAXREGNEROS_MODE_IDS = frozenset([
-    # Liquid Glass per-app
+    # Liquid Glass — core apps
     TweakID.SolariumFFMessages, TweakID.SolariumFFMaps, TweakID.SolariumFFSafari,
     TweakID.SolariumFFControlCenter, TweakID.SolariumFFNotifications, TweakID.SolariumFFWidgets,
     TweakID.SolariumFFMusic, TweakID.SolariumFFPhone, TweakID.SolariumFFCalendar,
-    TweakID.SolariumFFNotes, TweakID.SolariumFFSpotlight,
+    TweakID.SolariumFFNotes, TweakID.SolariumFFSpotlight, TweakID.SolariumFFReminders,
+    # Liquid Glass — extended apps
+    TweakID.SolariumFFBooks, TweakID.SolariumFFWeather, TweakID.SolariumFFCamera,
+    TweakID.SolariumFFFaceTime, TweakID.SolariumFFHealth, TweakID.SolariumFFWallet,
+    TweakID.SolariumFFSettings, TweakID.SolariumFFFiles, TweakID.SolariumFFContacts,
+    TweakID.SolariumFFTV, TweakID.SolariumFFShortcuts,
+    # Liquid Glass fine-tuning
+    TweakID.SolariumHighContrast, TweakID.SolariumMaxBlur,
+    # SpringBoard
     TweakID.SBShowBatteryPercentageAlways, TweakID.SBAlwaysGlassHeaders,
     TweakID.SBExpandedDynamicIsland, TweakID.SBAlwaysShowClockDI,
-    TweakID.SolariumHighContrast, TweakID.SolariumMaxBlur,
-    # SpringBoard & UIKit
-    TweakID.SBFFGlassFolders, TweakID.SBFFAppSwitcherV2, TweakID.SBFFLiveActivitiesPersistent,
-    TweakID.SBFFAdaptiveGrid, TweakID.SBFFGlassIconShimmer, TweakID.SBFFDynamicBackground,
-    TweakID.UIKitFFGlassSheets, TweakID.UIKitFFPillButtons, TweakID.UIKitFFGlassAlerts,
-    TweakID.UIKitFFRubberBandPhysics, TweakID.UIKitFFCardLayouts,
-    # Lock Screen & Notifications
-    TweakID.LockFFDepthEffectClock, TweakID.LockFFLiveWeatherBG, TweakID.LockFFAlwaysOnDisplayV2,
-    TweakID.LockFFWidgetsV2,
-    TweakID.NotifFFGlassNotifications, TweakID.NotifFFStackedBanners,
-    # Widgets & Live Activities
-    TweakID.WidgetFFInteractiveWidgets, TweakID.WidgetFFAnimatedWidgets,
-    TweakID.LiveActFFGlassPresentation, TweakID.LiveActFFPersistentMode,
     # Audio
-    TweakID.AudioSpatialDefault, TweakID.AudioPersonalizedSpatial, TweakID.AudioEnhancedSpeaker,
-    # maxregnerOS Exclusive
-    TweakID.MaxOSGlassEverywhere, TweakID.MaxOSFluidMotionEngine,
-    TweakID.MaxOSHyperSmoothScrolling, TweakID.MaxOSProDisplayRendering,
-    TweakID.MaxOSProHapticsEngine, TweakID.MaxOSDynamicIslandPro,
-    # Haptics & AR
-    TweakID.HapticsAdaptiveTriggers, TweakID.HapticsProEffectsEngine,
-    TweakID.ARKitWorldTrackingV3, TweakID.VisionLiveTextV3, TweakID.CoreMLOnDeviceV2,
-    # Connectivity
-    TweakID.NetHTTP3Default, TweakID.BLELeAudioCodecs, TweakID.LocPrecisionV2,
-    # Health & Cloud
-    TweakID.HealthSleepV3, TweakID.HealthWorkoutV3, TweakID.CloudKitEncryptionV2,
-    # Wallet & Home
-    TweakID.WalletApplePayV3, TweakID.HomeKitMatterV2, TweakID.FocusContextV2,
-    # Privacy & Shortcuts
-    TweakID.PrivacyTrackingV2, TweakID.ShortcutsAIActions,
-    # Gaming & Media
-    TweakID.MetalRayTracingV2, TweakID.RealityKitV3,
-    TweakID.MediaMusicSpatialDefault, TweakID.MediaMusicLosslessDefault,
-    # Extended Apps
-    TweakID.MapsImmersiveViewV2, TweakID.FTSpatialFaceTime,
-    TweakID.PhotosHDRMax, TweakID.CameraPhotonicEngineV2, TweakID.SafariPasskeysFull,
+    TweakID.AudioSoundEffectsEnabled, TweakID.AudioHapticsSync,
     # System Core
     TweakID.SysCoreProMotion, TweakID.SysCoreAnimSpeed, TweakID.SysCoreMTLOverlay,
-    # mROS Kernel
-    TweakID.KernelThreadPriorityBoost, TweakID.KernelCPUGovernorPerf,
-    TweakID.KernelMemoryCompression, TweakID.KernelIOSchedulerV2,
-    TweakID.KernelGraphicsDriverV2, TweakID.KernelAudioDriverV2,
-    TweakID.KernelThermalGovernorV2, TweakID.KernelSecureEnclaveV2,
-    # mROS Exclusive V2
-    TweakID.MROSHolographicUI, TweakID.MROSNeuralDisplay, TweakID.MROSQuantumSync,
-    TweakID.MROSCrystalClear, TweakID.MROSDeepFusion, TweakID.MROSMorphicUI,
-    TweakID.MROSChronoEngine, TweakID.MROSAdaptiveCortex, TweakID.MROSHyperCore,
-    TweakID.MROSQuantumHaptics, TweakID.MROSDimensionalShift,
-    # macOS
-    TweakID.MacOSMenuBar, TweakID.MacOSDock, TweakID.MacOSMissionControl,
-    TweakID.MacOSWindowChrome, TweakID.MacOSSnapWindows, TweakID.MacOSSpaces,
-    TweakID.MacOSUniversalControl, TweakID.MacOSHandoffPro,
-    # iPadOS
-    TweakID.iPadOSSplitView, TweakID.iPadOSStageManagerPro,
-    TweakID.iPadOSExternalDisplayPro, TweakID.iPadOSHoverEffects,
-    TweakID.iPadOSWidgetAnywhere, TweakID.iPadOSMultitaskingBar,
-    # Icons & Style
-    TweakID.IconDynamicSystem, TweakID.IconGlowEffect, TweakID.IconDepthShadow,
-    TweakID.IconHDRTextures, TweakID.IconMorphAnimation,
-    TweakID.StyleDynamicColorSystem, TweakID.StyleHDRColorSpace,
-    TweakID.StyleP3ColorGamut, TweakID.StyleGlassMorphism,
-    TweakID.StyleProMotionEverywhere, TweakID.StyleCinematicColor,
-    # System Rewrite
-    TweakID.RewriteUnifiedShellV2, TweakID.RewriteCompositorV3,
-    TweakID.RewriteGPUDirectUI, TweakID.RewriteNeuralAnimator,
-    TweakID.RewriteZeroLatencyInput, TweakID.RewriteQuantumCompositor,
+    TweakID.SysCoreHideCarrier, TweakID.SysCoreAlwaysAOD,
+    # Dock & Navigation
+    TweakID.DockSolarium, TweakID.DockMagnification, TweakID.NavGestureSwipeBack,
+    # Alien Color Engine
+    TweakID.AlienSmartInvert, TweakID.AlienReduceTransparency,
+    TweakID.AlienDarkenColors, TweakID.AlienHighContrast,
+    # Sound Engine
+    TweakID.SoundEngineBoostVolume, TweakID.SoundEngineVibrateOnRing,
+    TweakID.SoundEngineVibrateOnSilent, TweakID.SoundEngineKeyClicks,
+    # Siri v2
+    TweakID.SiriDictation, TweakID.SiriSearchEnabled,
+    TweakID.SiriPersonalInsights, TweakID.SiriContextSuggestions,
 ])
+
+
+def load_mros_dock_nav():
+    """macOS-style dock and navigation gesture prefs."""
+    if TweakID.DockSolarium in tweaks:
+        return
+    S  = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.DockSolarium:             FeatureFlagTweak('Dock',       ['Solarium']),
+        TweakID.DockHidden:               BasicPlistTweak(S, 'SBForceDockHidden'),
+        TweakID.DockMagnification:        BasicPlistTweak(S, 'SBDockMagnificationEnabled'),
+        TweakID.NavGestureSwipeBack:      BasicPlistTweak(S, 'SBNeverBreadcrumb', value=False),
+        TweakID.NavGestureLongPress:      BasicPlistTweak(S, 'SBLongPressHomeMenuEnabled'),
+        TweakID.NavGestureAssistiveTouch: BasicPlistTweak(S, 'SBAssistiveTouchEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_alien_colors():
+    """Alien color engine — real Accessibility managed-preference keys."""
+    if TweakID.AlienSmartInvert in tweaks:
+        return
+    AX = FileLocation.accessibility
+    additional_tweaks = {
+        TweakID.AlienSmartInvert:         BasicPlistTweak(AX, 'AXSmartInvertColors'),
+        TweakID.AlienColorFilter:         BasicPlistTweak(AX, 'AXColorFilterEnabled'),
+        TweakID.AlienReduceTransparency:  BasicPlistTweak(AX, 'AXReduceTransparency'),
+        TweakID.AlienDarkenColors:        BasicPlistTweak(AX, 'AXDarkenSystemColors'),
+        TweakID.AlienReduceMotion:        BasicPlistTweak(AX, 'AXReduceMotionEnabled'),
+        TweakID.AlienBoldText:            BasicPlistTweak(AX, 'AXBoldTextEnabled'),
+        TweakID.AlienHighContrast:        BasicPlistTweak(AX, 'AXIncreaseContrastEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_sound_engine():
+    """maxregnerOS Sound Engine — real SpringBoard audio managed-preference keys."""
+    if TweakID.SoundEngineBoostVolume in tweaks:
+        return
+    S  = FileLocation.springboard
+    GP = FileLocation.globalPreferences
+    additional_tweaks = {
+        TweakID.SoundEngineBoostVolume:      BasicPlistTweak(GP, 'SBVolumeBoostEnabled'),
+        TweakID.SoundEngineMuteSwitch:       BasicPlistTweak(S,  'SBSilentModeEnabled'),
+        TweakID.SoundEngineVibrateOnRing:    BasicPlistTweak(S,  'SBVibrateOnRing'),
+        TweakID.SoundEngineVibrateOnSilent:  BasicPlistTweak(S,  'SBVibrateOnSilent'),
+        TweakID.SoundEngineKeyClicks:        BasicPlistTweak(S,  'SBKeyClickEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_siri_v2():
+    """Enhanced Siri v2 — additional real com.apple.siri.plist MDM keys."""
+    if TweakID.SiriDictation in tweaks:
+        return
+    SI = FileLocation.siri
+    additional_tweaks = {
+        TweakID.SiriDictation:           BasicPlistTweak(SI, 'DictationEnabled'),
+        TweakID.SiriSearchEnabled:       BasicPlistTweak(SI, 'SearchEnabled'),
+        TweakID.SiriPersonalInsights:    BasicPlistTweak(SI, 'PersonalInsights'),
+        TweakID.SiriContextSuggestions:  BasicPlistTweak(SI, 'ContextualSuggestionsEnabled'),
+        TweakID.SiriOnDeviceOnly:        BasicPlistTweak(SI, 'OnDeviceOnlyEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
 
 
 def load_all_tweaks(version: str):
