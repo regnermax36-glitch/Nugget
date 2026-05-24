@@ -35,3 +35,15 @@ class FileLocation(Enum):
 
     # Accessibility managed preferences (real Apple MDM domain)
     accessibility = "/var/Managed Preferences/mobile/com.apple.Accessibility.plist"
+
+    # Keyboard managed preferences
+    keyboard = "/var/Managed Preferences/mobile/com.apple.keyboard.preferences.plist"
+
+    # Notification managed preferences
+    notification = "/var/Managed Preferences/mobile/com.apple.UserNotifications.plist"
+
+    # Privacy / analytics managed preferences
+    privacy = "/var/Managed Preferences/mobile/com.apple.applicationaccess.plist"
+
+    # AppStore managed preferences
+    storeKit = "/var/Managed Preferences/mobile/com.apple.storekit.plist"

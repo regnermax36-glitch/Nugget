@@ -222,3 +222,88 @@ class TweakID(Enum):
     SiriPersonalInsights = auto()
     SiriContextSuggestions = auto()
     SiriOnDeviceOnly = auto()
+
+    # ── Home Screen (real com.apple.springboard.plist managed prefs) ──────────
+    HomeHideIconLabels = auto()         # SBIconTextEnabled = false
+    HomeHidePageDots = auto()           # SBPageIndicatorEnabled = false
+    HomeSearchBar = auto()              # SBShowHomeScreenSearchBar
+    HomeAutoArrange = auto()            # SBAutoArrangeApps
+    HomeLongPressMenu = auto()          # SBLongPressHomeScreenContextMenuEnabled
+    HomeSwipeToUnlock = auto()          # SBSwipeToUnlockEnabled
+    HomeFocusMode = auto()              # SBHomeFocusModeEnabled
+    HomeGridColumns = auto()            # SBIconColumnsPortrait (value=5 for 5-col grid)
+    HomeGridRows = auto()               # SBIconRowsPortrait (value=7 for 7-row grid)
+    HomeLargeIcons = auto()             # SBLargeIconsEnabled
+
+    # ── Icon & Display Shape (real AX managed prefs) ──────────────────────────
+    IconButtonShapes = auto()           # AXButtonShapesEnabled  (adds circle/rect outlines)
+    IconOnOffLabels = auto()            # AXOnOffSwitchLabels
+    IconGrayscale = auto()              # AXGrayscaleEnabled
+    IconReduceWhitePoint = auto()       # AXReduceWhitePoint
+    IconDifferentiateColors = auto()    # AXDifferentiateWithoutColor
+
+    # ── Display & Visual (GlobalPreferences) ──────────────────────────────────
+    DisplayNightShift = auto()          # NightShiftEnabled
+    DisplayTrueTone = auto()            # TrueToneEnabled
+    DisplayReduceFlicker = auto()       # UIReduceFlickerEnabled
+    DisplayEnhanceText = auto()         # UIEnhanceTextLegibility
+    DisplayLargeText = auto()           # UIPreferredContentSizeCategoryName = accessibilityExtraExtraExtraLarge
+    DisplayCursorThick = auto()         # AXCursorThicknessEnabled
+    DisplayFlashAlerts = auto()         # AXFlashScreenForAlerts
+
+    # ── Lock Screen (SpringBoard managed prefs) ───────────────────────────────
+    LockShowDate = auto()               # SBLockScreenShowDate
+    LockNotifPreview = auto()           # SBLockScreenShowNotificationPreview
+    LockShowMediaControls = auto()      # SBLockScreenShowMediaControls
+    LockShowCamera = auto()             # SBLockScreenShowCameraButton
+    LockShowFlashlight = auto()         # SBLockScreenShowFlashlightButton
+    LockBiometricOnWake = auto()        # SBFaceIDOnWake
+    LockRequirePasscodeImmediately = auto()  # SBRequirePasscodeImmediately
+    LockEnableUsb = auto()              # SBUSBRestrictedModeDisabled
+
+    # ── Keyboard (com.apple.keyboard.preferences.plist managed prefs) ─────────
+    KbAutoCorrect = auto()              # KeyboardAutocorrection
+    KbAutoCapitalize = auto()           # KeyboardAutocapitalization
+    KbPredictive = auto()               # KeyboardPrediction
+    KbHaptics = auto()                  # KeyboardHapticsEnabled
+    KbSwipeTyping = auto()              # KeyboardSlideToType
+    KbSmartPunctuation = auto()         # KeyboardSmartPunctuation
+    KbDictation = auto()               # KeyboardDictation
+    KbEmojiSuggestions = auto()         # KeyboardEmojiSuggestions
+    KbInlinePredictions = auto()        # KeyboardInlinePredictions
+
+    # ── Notifications (com.apple.UserNotifications.plist managed prefs) ───────
+    NotifBadges = auto()                # BadgesEnabled
+    NotifSounds = auto()                # SoundsEnabled
+    NotifVibrations = auto()            # VibrationsEnabled
+    NotifPreviewAlways = auto()         # PreviewsAlways
+    NotifGroupByApp = auto()            # GroupingByApp
+    NotifPersistentAlerts = auto()      # AlertTypePersistent
+    NotifCriticalAlerts = auto()        # CriticalAlertsEnabled
+    NotifAnnounce = auto()              # AnnounceNotificationsEnabled
+
+    # ── Control Center (SpringBoard managed prefs) ────────────────────────────
+    CCHideBrightness = auto()           # SBCCHideBrightness
+    CCHideVolume = auto()               # SBCCHideVolume
+    CCHideWifi = auto()                 # SBCCHideWifi
+    CCHideBluetooth = auto()            # SBCCHideBluetooth
+    CCLockRotationToggle = auto()       # SBCCLockRotationEnabled
+    CCNightShiftToggle = auto()         # SBCCNightShiftEnabled
+    CCLowPowerToggle = auto()           # SBCCLowPowerEnabled
+    CCMirroringToggle = auto()          # SBCCAirPlayEnabled
+    CCAlwaysShow = auto()               # SBCCAlwaysShow
+    CCShowInApps = auto()               # SBCCShowInApps
+
+    # ── Privacy & Analytics (com.apple.applicationaccess.plist managed prefs) ─
+    PrivacyAnalytics = auto()           # allowDiagnosticSubmission
+    PrivacyPersonalizedAds = auto()     # allowApplePersonalizedAdvertising
+    PrivacyImproveHealth = auto()       # allowHealthDataSharing
+    PrivacyShareiCloud = auto()         # allowManagedAppsCloudSync
+    PrivacyActivityContinuation = auto()# allowActivityContinuation
+
+    # ── App Store & Updates (com.apple.storekit.plist managed prefs) ──────────
+    AppAutoUpdates = auto()             # AutomaticAppUpdateEnabled
+    AppAutoDownloads = auto()           # AutomaticDownloadEnabled
+    AppOffloadUnused = auto()           # OffloadUnusedAppsEnabled
+    AppInAppPurchases = auto()          # InAppPurchasesEnabled
+    AppRatingsPrompt = auto()           # DisableAppRatingsPrompt

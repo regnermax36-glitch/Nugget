@@ -10,6 +10,9 @@ from src.tweaks.tweak_loader import (
     load_ios27, load_mros_solarium_extra, load_mros_real_prefs,
     load_mros_dock_nav, load_mros_alien_colors,
     load_mros_sound_engine, load_mros_siri_v2,
+    load_mros_home_screen, load_mros_display,
+    load_mros_lock_screen, load_mros_keyboard,
+    load_mros_notifications, load_mros_privacy_apps,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -325,6 +328,236 @@ class iOS27Page(Page):
             "On-Device Only Mode",
             "Force all Siri processing to stay on device (OnDeviceOnlyEnabled)."))
 
+        # ── Home Screen ───────────────────────────────────────────────────────
+        L.addWidget(_hdr("Home Screen — Layout & Icons"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.HomeHideIconLabels,
+            "Hide Icon Labels",
+            "Remove text labels beneath all app icons (SBIconTextEnabled=false)."))
+        L.addWidget(_row(TweakID.HomeHidePageDots,
+            "Hide Page Indicator Dots",
+            "Remove the dot row showing home screen pages (SBPageIndicatorEnabled=false)."))
+        L.addWidget(_row(TweakID.HomeSearchBar,
+            "Show Home Screen Search Bar",
+            "Always-visible Spotlight search bar on home screen (SBShowHomeScreenSearchBar)."))
+        L.addWidget(_row(TweakID.HomeAutoArrange,
+            "Auto-Arrange Icons",
+            "Automatically fill icon gaps like iPhone (SBAutoArrangeApps)."))
+        L.addWidget(_row(TweakID.HomeLongPressMenu,
+            "Long-Press Context Menu",
+            "Show edit/share context menu on long-press (SBLongPressHomeScreenContextMenuEnabled)."))
+        L.addWidget(_row(TweakID.HomeSwipeToUnlock,
+            "Swipe-to-Unlock Gesture",
+            "Enable classic swipe-to-unlock home gesture (SBSwipeToUnlockEnabled)."))
+        L.addWidget(_row(TweakID.HomeFocusMode,
+            "Focus Mode Integration",
+            "Tie home screen layout to active Focus mode (SBHomeFocusModeEnabled)."))
+        L.addWidget(_row(TweakID.HomeGridColumns,
+            "5-Column Icon Grid",
+            "Force 5 icon columns in portrait (SBIconColumnsPortrait=5)."))
+        L.addWidget(_row(TweakID.HomeGridRows,
+            "7-Row Icon Grid",
+            "Force 7 icon rows in portrait — more apps visible (SBIconRowsPortrait=7)."))
+        L.addWidget(_row(TweakID.HomeLargeIcons,
+            "Large Icons Mode",
+            "Increase icon size across the home screen (SBLargeIconsEnabled)."))
+
+        # ── Icon Appearance ───────────────────────────────────────────────────
+        L.addWidget(_hdr("Icon Appearance — Shapes & Colors"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.IconButtonShapes,
+            "Button Shapes (Circle-Style Icons)",
+            "Adds visible circular/rectangular outlines around all interactive icons (AXButtonShapesEnabled)."))
+        L.addWidget(_row(TweakID.IconOnOffLabels,
+            "On/Off Switch Labels",
+            "Show I/O text labels on all toggle switches throughout the OS (AXOnOffSwitchLabels)."))
+        L.addWidget(_row(TweakID.IconGrayscale,
+            "Grayscale Icons",
+            "Render entire UI and all icons in grayscale (AXGrayscaleEnabled)."))
+        L.addWidget(_row(TweakID.IconReduceWhitePoint,
+            "Reduce White Point",
+            "Lower maximum brightness of white areas — easier on eyes (AXReduceWhitePoint)."))
+        L.addWidget(_row(TweakID.IconDifferentiateColors,
+            "Differentiate Without Color",
+            "Add shapes/symbols instead of relying on color alone (AXDifferentiateWithoutColor)."))
+
+        # ── Display & Visual ──────────────────────────────────────────────────
+        L.addWidget(_hdr("Display & Visual — System Rendering"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.DisplayNightShift,
+            "Night Shift Always On",
+            "Force warm color temperature shift at all times (NightShiftEnabled)."))
+        L.addWidget(_row(TweakID.DisplayTrueTone,
+            "True Tone Always On",
+            "Force adaptive True Tone color balance (TrueToneEnabled)."))
+        L.addWidget(_row(TweakID.DisplayReduceFlicker,
+            "Reduce Display Flicker",
+            "Minimise 60Hz flicker on ProMotion panels (UIReduceFlickerEnabled)."))
+        L.addWidget(_row(TweakID.DisplayEnhanceText,
+            "Enhance Text Legibility",
+            "Increase font weight throughout the UI for sharper text (UIEnhanceTextLegibility)."))
+        L.addWidget(_row(TweakID.DisplayLargeText,
+            "Accessibility XL Text Size",
+            "Set system text to maximum accessibility size (UIPreferredContentSizeCategoryName)."))
+        L.addWidget(_row(TweakID.DisplayCursorThick,
+            "Thick Text Cursor",
+            "Use a thicker insertion cursor in all text fields (AXCursorThicknessEnabled)."))
+        L.addWidget(_row(TweakID.DisplayFlashAlerts,
+            "Flash Screen for Alerts",
+            "Flash the display instead of (or in addition to) sound for alerts (AXFlashScreenForAlerts)."))
+
+        # ── Lock Screen ───────────────────────────────────────────────────────
+        L.addWidget(_hdr("Lock Screen — Controls & Security"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.LockShowDate,
+            "Show Date on Lock Screen",
+            "Always display date below the clock (SBLockScreenShowDate)."))
+        L.addWidget(_row(TweakID.LockNotifPreview,
+            "Show Notification Previews",
+            "Show notification content on the lock screen (SBLockScreenShowNotificationPreview)."))
+        L.addWidget(_row(TweakID.LockShowMediaControls,
+            "Show Media Controls",
+            "Display playback controls on the lock screen (SBLockScreenShowMediaControls)."))
+        L.addWidget(_row(TweakID.LockShowCamera,
+            "Show Camera Shortcut",
+            "Show camera quick-launch button on lock screen (SBLockScreenShowCameraButton)."))
+        L.addWidget(_row(TweakID.LockShowFlashlight,
+            "Show Flashlight Shortcut",
+            "Show flashlight button on lock screen (SBLockScreenShowFlashlightButton)."))
+        L.addWidget(_row(TweakID.LockBiometricOnWake,
+            "Face ID on Wake",
+            "Automatically attempt Face ID when screen wakes (SBFaceIDOnWake)."))
+        L.addWidget(_row(TweakID.LockRequirePasscodeImmediately,
+            "Require Passcode Immediately",
+            "Demand passcode the instant the screen locks (SBRequirePasscodeImmediately)."))
+        L.addWidget(_row(TweakID.LockEnableUsb,
+            "Disable USB Restricted Mode",
+            "Allow USB accessories even after 1 hour locked (SBUSBRestrictedModeDisabled)."))
+
+        # ── Keyboard ──────────────────────────────────────────────────────────
+        L.addWidget(_hdr("Keyboard — Input Preferences"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.KbAutoCorrect,
+            "Auto-Correct",
+            "Enable automatic spelling correction while typing (KeyboardAutocorrection)."))
+        L.addWidget(_row(TweakID.KbAutoCapitalize,
+            "Auto-Capitalise",
+            "Automatically capitalise the first letter of sentences (KeyboardAutocapitalization)."))
+        L.addWidget(_row(TweakID.KbPredictive,
+            "Predictive Text",
+            "Show QuickType word suggestions above the keyboard (KeyboardPrediction)."))
+        L.addWidget(_row(TweakID.KbHaptics,
+            "Keyboard Haptics",
+            "Tactile feedback on every key press (KeyboardHapticsEnabled)."))
+        L.addWidget(_row(TweakID.KbSwipeTyping,
+            "Swipe / Slide to Type",
+            "Enable swipe-gesture typing across the keyboard (KeyboardSlideToType)."))
+        L.addWidget(_row(TweakID.KbSmartPunctuation,
+            "Smart Punctuation",
+            "Auto-convert quotes and dashes to typographic versions (KeyboardSmartPunctuation)."))
+        L.addWidget(_row(TweakID.KbDictation,
+            "Keyboard Dictation",
+            "Enable microphone dictation from the keyboard (KeyboardDictation)."))
+        L.addWidget(_row(TweakID.KbEmojiSuggestions,
+            "Emoji Suggestions",
+            "Show emoji replacements in the predictive bar (KeyboardEmojiSuggestions)."))
+        L.addWidget(_row(TweakID.KbInlinePredictions,
+            "Inline Predictions",
+            "Show ghost-text completions inline as you type (KeyboardInlinePredictions)."))
+
+        # ── Notifications & Control Center ────────────────────────────────────
+        L.addWidget(_hdr("Notifications & Control Center"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.NotifBadges,
+            "App Badge Numbers",
+            "Show numeric badges on app icons for unread counts (BadgesEnabled)."))
+        L.addWidget(_row(TweakID.NotifSounds,
+            "Notification Sounds",
+            "Play sound for all incoming notifications (SoundsEnabled)."))
+        L.addWidget(_row(TweakID.NotifVibrations,
+            "Notification Vibrations",
+            "Vibrate for all incoming notifications (VibrationsEnabled)."))
+        L.addWidget(_row(TweakID.NotifPreviewAlways,
+            "Always Show Notification Previews",
+            "Show message content in banners regardless of lock state (PreviewsAlways)."))
+        L.addWidget(_row(TweakID.NotifGroupByApp,
+            "Group Notifications by App",
+            "Collapse multiple notifications per app into a stack (GroupingByApp)."))
+        L.addWidget(_row(TweakID.NotifPersistentAlerts,
+            "Persistent Alert Style",
+            "Banners stay on screen until manually dismissed (AlertTypePersistent)."))
+        L.addWidget(_row(TweakID.NotifCriticalAlerts,
+            "Critical Alerts Enabled",
+            "Allow critical priority alerts that bypass Do Not Disturb (CriticalAlertsEnabled)."))
+        L.addWidget(_row(TweakID.NotifAnnounce,
+            "Announce Notifications via Siri",
+            "Have Siri read out notifications through AirPods (AnnounceNotificationsEnabled)."))
+        L.addWidget(_hdr("  Control Center Toggles"))
+        L.addWidget(_row(TweakID.CCAlwaysShow,
+            "Always Show Control Center",
+            "Show CC swipe handle on every screen including apps (SBCCAlwaysShow)."))
+        L.addWidget(_row(TweakID.CCShowInApps,
+            "Control Center in Apps",
+            "Allow CC to open while an app is in the foreground (SBCCShowInApps)."))
+        L.addWidget(_row(TweakID.CCLockRotationToggle,
+            "Rotation Lock Toggle",
+            "Include rotation lock in Control Center (SBCCLockRotationEnabled)."))
+        L.addWidget(_row(TweakID.CCNightShiftToggle,
+            "Night Shift Toggle",
+            "Add Night Shift quick toggle to Control Center (SBCCNightShiftEnabled)."))
+        L.addWidget(_row(TweakID.CCLowPowerToggle,
+            "Low Power Mode Toggle",
+            "Add Low Power Mode switch to Control Center (SBCCLowPowerEnabled)."))
+        L.addWidget(_row(TweakID.CCMirroringToggle,
+            "AirPlay / Mirroring Toggle",
+            "Add AirPlay mirroring shortcut to Control Center (SBCCAirPlayEnabled)."))
+        L.addWidget(_row(TweakID.CCHideBrightness,
+            "Hide Brightness Slider",
+            "Remove brightness control from Control Center (SBCCHideBrightness)."))
+        L.addWidget(_row(TweakID.CCHideVolume,
+            "Hide Volume Slider",
+            "Remove volume control from Control Center (SBCCHideVolume)."))
+        L.addWidget(_row(TweakID.CCHideWifi,
+            "Hide Wi-Fi Toggle",
+            "Remove Wi-Fi button from Control Center (SBCCHideWifi)."))
+        L.addWidget(_row(TweakID.CCHideBluetooth,
+            "Hide Bluetooth Toggle",
+            "Remove Bluetooth button from Control Center (SBCCHideBluetooth)."))
+
+        # ── Privacy & App Store ───────────────────────────────────────────────
+        L.addWidget(_hdr("Privacy, Analytics & App Store"))
+        L.addWidget(_div())
+        L.addWidget(_row(TweakID.PrivacyAnalytics,
+            "Allow Diagnostic Submission",
+            "Allow iOS to send crash reports and analytics to Apple (allowDiagnosticSubmission)."))
+        L.addWidget(_row(TweakID.PrivacyPersonalizedAds,
+            "Allow Personalised Ads",
+            "Let Apple use your data for targeted advertising (allowApplePersonalizedAdvertising)."))
+        L.addWidget(_row(TweakID.PrivacyImproveHealth,
+            "Allow Health Data Sharing",
+            "Share Health data with researchers and Apple (allowHealthDataSharing)."))
+        L.addWidget(_row(TweakID.PrivacyShareiCloud,
+            "Allow Managed App iCloud Sync",
+            "Permit managed apps to sync data through iCloud (allowManagedAppsCloudSync)."))
+        L.addWidget(_row(TweakID.PrivacyActivityContinuation,
+            "Allow Handoff / Activity Continuation",
+            "Enable Handoff between Apple devices (allowActivityContinuation)."))
+        L.addWidget(_row(TweakID.AppAutoUpdates,
+            "Automatic App Updates",
+            "Download and install app updates in background (AutomaticAppUpdateEnabled)."))
+        L.addWidget(_row(TweakID.AppAutoDownloads,
+            "Automatic App Downloads",
+            "Auto-download apps purchased on other devices (AutomaticDownloadEnabled)."))
+        L.addWidget(_row(TweakID.AppOffloadUnused,
+            "Offload Unused Apps",
+            "Remove rarely-used apps but keep their data (OffloadUnusedAppsEnabled)."))
+        L.addWidget(_row(TweakID.AppInAppPurchases,
+            "Allow In-App Purchases",
+            "Permit purchases inside apps (InAppPurchasesEnabled)."))
+        L.addWidget(_row(TweakID.AppRatingsPrompt,
+            "Disable Ratings Prompts",
+            "Block apps from asking you to rate them (DisableAppRatingsPrompt)."))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -361,6 +594,12 @@ class iOS27Page(Page):
         load_mros_alien_colors()
         load_mros_sound_engine()
         load_mros_siri_v2()
+        load_mros_home_screen()
+        load_mros_display()
+        load_mros_lock_screen()
+        load_mros_keyboard()
+        load_mros_notifications()
+        load_mros_privacy_apps()
         # auto-enable Beast Mode set on first load so checkboxes aren't blank
         for tid in _page_tweak_ids:
             if tid in tweaks:

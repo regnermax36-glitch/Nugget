@@ -606,6 +606,32 @@ MAXREGNEROS_MODE_IDS = frozenset([
     # Siri v2
     TweakID.SiriDictation, TweakID.SiriSearchEnabled,
     TweakID.SiriPersonalInsights, TweakID.SiriContextSuggestions,
+    # Home Screen
+    TweakID.HomeSearchBar, TweakID.HomeLongPressMenu,
+    TweakID.HomeSwipeToUnlock, TweakID.HomeFocusMode,
+    # Icon Shapes
+    TweakID.IconButtonShapes, TweakID.IconOnOffLabels,
+    # Display
+    TweakID.DisplayNightShift, TweakID.DisplayTrueTone,
+    TweakID.DisplayEnhanceText, TweakID.DisplayReduceFlicker,
+    # Lock Screen
+    TweakID.LockShowDate, TweakID.LockNotifPreview,
+    TweakID.LockShowMediaControls, TweakID.LockShowCamera, TweakID.LockShowFlashlight,
+    TweakID.LockBiometricOnWake,
+    # Keyboard
+    TweakID.KbAutoCorrect, TweakID.KbPredictive, TweakID.KbHaptics,
+    TweakID.KbSwipeTyping, TweakID.KbSmartPunctuation, TweakID.KbInlinePredictions,
+    # Notifications
+    TweakID.NotifBadges, TweakID.NotifSounds, TweakID.NotifVibrations,
+    TweakID.NotifPreviewAlways, TweakID.NotifGroupByApp, TweakID.NotifCriticalAlerts,
+    # Control Center
+    TweakID.CCAlwaysShow, TweakID.CCShowInApps,
+    TweakID.CCLockRotationToggle, TweakID.CCNightShiftToggle, TweakID.CCLowPowerToggle,
+    TweakID.CCMirroringToggle,
+    # Privacy
+    TweakID.PrivacyAnalytics, TweakID.PrivacyPersonalizedAds,
+    # App Store
+    TweakID.AppAutoUpdates, TweakID.AppOffloadUnused, TweakID.AppInAppPurchases,
 ])
 
 
@@ -678,6 +704,155 @@ def load_mros_siri_v2():
         TweakID.SiriPersonalInsights:    BasicPlistTweak(SI, 'PersonalInsights'),
         TweakID.SiriContextSuggestions:  BasicPlistTweak(SI, 'ContextualSuggestionsEnabled'),
         TweakID.SiriOnDeviceOnly:        BasicPlistTweak(SI, 'OnDeviceOnlyEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_home_screen():
+    """Home screen layout & icon appearance — SpringBoard + AX managed prefs."""
+    if TweakID.HomeHideIconLabels in tweaks:
+        return
+    S  = FileLocation.springboard
+    AX = FileLocation.accessibility
+    additional_tweaks = {
+        TweakID.HomeHideIconLabels:      BasicPlistTweak(S,  'SBIconTextEnabled',                        value=False),
+        TweakID.HomeHidePageDots:        BasicPlistTweak(S,  'SBPageIndicatorEnabled',                   value=False),
+        TweakID.HomeSearchBar:           BasicPlistTweak(S,  'SBShowHomeScreenSearchBar'),
+        TweakID.HomeAutoArrange:         BasicPlistTweak(S,  'SBAutoArrangeApps'),
+        TweakID.HomeLongPressMenu:       BasicPlistTweak(S,  'SBLongPressHomeScreenContextMenuEnabled'),
+        TweakID.HomeSwipeToUnlock:       BasicPlistTweak(S,  'SBSwipeToUnlockEnabled'),
+        TweakID.HomeFocusMode:           BasicPlistTweak(S,  'SBHomeFocusModeEnabled'),
+        TweakID.HomeGridColumns:         BasicPlistTweak(S,  'SBIconColumnsPortrait',                    value=5),
+        TweakID.HomeGridRows:            BasicPlistTweak(S,  'SBIconRowsPortrait',                       value=7),
+        TweakID.HomeLargeIcons:          BasicPlistTweak(S,  'SBLargeIconsEnabled'),
+        TweakID.IconButtonShapes:        BasicPlistTweak(AX, 'AXButtonShapesEnabled'),
+        TweakID.IconOnOffLabels:         BasicPlistTweak(AX, 'AXOnOffSwitchLabels'),
+        TweakID.IconGrayscale:           BasicPlistTweak(AX, 'AXGrayscaleEnabled'),
+        TweakID.IconReduceWhitePoint:    BasicPlistTweak(AX, 'AXReduceWhitePoint'),
+        TweakID.IconDifferentiateColors: BasicPlistTweak(AX, 'AXDifferentiateWithoutColor'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_display():
+    """Display & visual appearance — GlobalPreferences + AX managed prefs."""
+    if TweakID.DisplayNightShift in tweaks:
+        return
+    GP = FileLocation.globalPreferences
+    AX = FileLocation.accessibility
+    additional_tweaks = {
+        TweakID.DisplayNightShift:     BasicPlistTweak(GP, 'NightShiftEnabled'),
+        TweakID.DisplayTrueTone:       BasicPlistTweak(GP, 'TrueToneEnabled'),
+        TweakID.DisplayReduceFlicker:  BasicPlistTweak(GP, 'UIReduceFlickerEnabled'),
+        TweakID.DisplayEnhanceText:    BasicPlistTweak(GP, 'UIEnhanceTextLegibility'),
+        TweakID.DisplayLargeText:      BasicPlistTweak(GP, 'UIPreferredContentSizeCategoryName', value='UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge'),
+        TweakID.DisplayCursorThick:    BasicPlistTweak(AX, 'AXCursorThicknessEnabled'),
+        TweakID.DisplayFlashAlerts:    BasicPlistTweak(AX, 'AXFlashScreenForAlerts'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_lock_screen():
+    """Lock screen managed preferences — SpringBoard."""
+    if TweakID.LockShowDate in tweaks:
+        return
+    S = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.LockShowDate:                    BasicPlistTweak(S, 'SBLockScreenShowDate'),
+        TweakID.LockNotifPreview:                BasicPlistTweak(S, 'SBLockScreenShowNotificationPreview'),
+        TweakID.LockShowMediaControls:           BasicPlistTweak(S, 'SBLockScreenShowMediaControls'),
+        TweakID.LockShowCamera:                  BasicPlistTweak(S, 'SBLockScreenShowCameraButton'),
+        TweakID.LockShowFlashlight:              BasicPlistTweak(S, 'SBLockScreenShowFlashlightButton'),
+        TweakID.LockBiometricOnWake:             BasicPlistTweak(S, 'SBFaceIDOnWake'),
+        TweakID.LockRequirePasscodeImmediately:  BasicPlistTweak(S, 'SBRequirePasscodeImmediately'),
+        TweakID.LockEnableUsb:                   BasicPlistTweak(S, 'SBUSBRestrictedModeDisabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_keyboard():
+    """Keyboard managed preferences — com.apple.keyboard.preferences.plist."""
+    if TweakID.KbAutoCorrect in tweaks:
+        return
+    KB = FileLocation.keyboard
+    additional_tweaks = {
+        TweakID.KbAutoCorrect:       BasicPlistTweak(KB, 'KeyboardAutocorrection'),
+        TweakID.KbAutoCapitalize:    BasicPlistTweak(KB, 'KeyboardAutocapitalization'),
+        TweakID.KbPredictive:        BasicPlistTweak(KB, 'KeyboardPrediction'),
+        TweakID.KbHaptics:           BasicPlistTweak(KB, 'KeyboardHapticsEnabled'),
+        TweakID.KbSwipeTyping:       BasicPlistTweak(KB, 'KeyboardSlideToType'),
+        TweakID.KbSmartPunctuation:  BasicPlistTweak(KB, 'KeyboardSmartPunctuation'),
+        TweakID.KbDictation:         BasicPlistTweak(KB, 'KeyboardDictation'),
+        TweakID.KbEmojiSuggestions:  BasicPlistTweak(KB, 'KeyboardEmojiSuggestions'),
+        TweakID.KbInlinePredictions: BasicPlistTweak(KB, 'KeyboardInlinePredictions'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_notifications():
+    """Notification + Control Center managed preferences."""
+    if TweakID.NotifBadges in tweaks:
+        return
+    NF = FileLocation.notification
+    S  = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.NotifBadges:            BasicPlistTweak(NF, 'BadgesEnabled'),
+        TweakID.NotifSounds:            BasicPlistTweak(NF, 'SoundsEnabled'),
+        TweakID.NotifVibrations:        BasicPlistTweak(NF, 'VibrationsEnabled'),
+        TweakID.NotifPreviewAlways:     BasicPlistTweak(NF, 'PreviewsAlways'),
+        TweakID.NotifGroupByApp:        BasicPlistTweak(NF, 'GroupingByApp'),
+        TweakID.NotifPersistentAlerts:  BasicPlistTweak(NF, 'AlertTypePersistent'),
+        TweakID.NotifCriticalAlerts:    BasicPlistTweak(NF, 'CriticalAlertsEnabled'),
+        TweakID.NotifAnnounce:          BasicPlistTweak(NF, 'AnnounceNotificationsEnabled'),
+        TweakID.CCHideBrightness:       BasicPlistTweak(S,  'SBCCHideBrightness'),
+        TweakID.CCHideVolume:           BasicPlistTweak(S,  'SBCCHideVolume'),
+        TweakID.CCHideWifi:             BasicPlistTweak(S,  'SBCCHideWifi'),
+        TweakID.CCHideBluetooth:        BasicPlistTweak(S,  'SBCCHideBluetooth'),
+        TweakID.CCLockRotationToggle:   BasicPlistTweak(S,  'SBCCLockRotationEnabled'),
+        TweakID.CCNightShiftToggle:     BasicPlistTweak(S,  'SBCCNightShiftEnabled'),
+        TweakID.CCLowPowerToggle:       BasicPlistTweak(S,  'SBCCLowPowerEnabled'),
+        TweakID.CCMirroringToggle:      BasicPlistTweak(S,  'SBCCAirPlayEnabled'),
+        TweakID.CCAlwaysShow:           BasicPlistTweak(S,  'SBCCAlwaysShow'),
+        TweakID.CCShowInApps:           BasicPlistTweak(S,  'SBCCShowInApps'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_privacy_apps():
+    """Privacy / analytics / App Store managed preferences."""
+    if TweakID.PrivacyAnalytics in tweaks:
+        return
+    PV = FileLocation.privacy
+    SK = FileLocation.storeKit
+    additional_tweaks = {
+        TweakID.PrivacyAnalytics:            BasicPlistTweak(PV, 'allowDiagnosticSubmission'),
+        TweakID.PrivacyPersonalizedAds:      BasicPlistTweak(PV, 'allowApplePersonalizedAdvertising'),
+        TweakID.PrivacyImproveHealth:        BasicPlistTweak(PV, 'allowHealthDataSharing'),
+        TweakID.PrivacyShareiCloud:          BasicPlistTweak(PV, 'allowManagedAppsCloudSync'),
+        TweakID.PrivacyActivityContinuation: BasicPlistTweak(PV, 'allowActivityContinuation'),
+        TweakID.AppAutoUpdates:              BasicPlistTweak(SK, 'AutomaticAppUpdateEnabled'),
+        TweakID.AppAutoDownloads:            BasicPlistTweak(SK, 'AutomaticDownloadEnabled'),
+        TweakID.AppOffloadUnused:            BasicPlistTweak(SK, 'OffloadUnusedAppsEnabled'),
+        TweakID.AppInAppPurchases:           BasicPlistTweak(SK, 'InAppPurchasesEnabled'),
+        TweakID.AppRatingsPrompt:            BasicPlistTweak(SK, 'DisableAppRatingsPrompt'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
