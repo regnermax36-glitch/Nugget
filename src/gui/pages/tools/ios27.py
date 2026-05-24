@@ -361,4 +361,8 @@ class iOS27Page(Page):
         load_mros_alien_colors()
         load_mros_sound_engine()
         load_mros_siri_v2()
+        # auto-enable Beast Mode set on first load so checkboxes aren't blank
+        for tid in _page_tweak_ids:
+            if tid in tweaks:
+                tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)
         self._sync_checkboxes()

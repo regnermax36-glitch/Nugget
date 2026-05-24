@@ -23,6 +23,12 @@ from src.gui.pages.pages_list import Page
 from src.restore.bookrestore import BookRestoreFileTransferMethod, BookRestoreApplyMethod
 
 from src.tweaks.tweaks import tweaks, TweakID
+from src.tweaks.tweak_loader import (
+    load_ios27, load_mros_solarium_extra, load_mros_real_prefs,
+    load_mros_dock_nav, load_mros_alien_colors,
+    load_mros_sound_engine, load_mros_siri_v2,
+    _page_tweak_ids, MAXREGNEROS_MODE_IDS,
+)
 
 App_Version = "7.3.1"
 App_Build = 0
@@ -98,6 +104,23 @@ class MainWindow(QtWidgets.QMainWindow):
         div2_index = self.ui.verticalLayout.indexOf(self.ui.sidebarDiv2)
         self.ui.verticalLayout.insertWidget(div2_index, self.ios27PageBtn)
         self.ios27PageBtn.clicked.connect(self.on_ios27PageBtn_clicked)
+
+        # mROS Beast Mode quick-launch button (sidebar)
+        self.mrosBeastBtn = QtWidgets.QToolButton(self.ui.sidebar)
+        self.mrosBeastBtn.setObjectName("mrosBeastBtn")
+        self.mrosBeastBtn.setSizePolicy(sp)
+        self.mrosBeastBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.mrosBeastBtn.setText("⚡ Beast Mode")
+        self.mrosBeastBtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextOnly)
+        self.mrosBeastBtn.setStyleSheet(
+            "QToolButton{background:#1a5fb4;color:#fff;border-radius:5px;"
+            "font-weight:bold;padding:4px 8px;}"
+            "QToolButton:hover{background:#2a6ebb;}"
+            "QToolButton:pressed{background:#0f3a7a;}"
+        )
+        self.mrosBeastBtn.hide()
+        self.ui.verticalLayout.insertWidget(div2_index + 1, self.mrosBeastBtn)
+        self.mrosBeastBtn.clicked.connect(self.on_mrosBeastBtn_clicked)
 
         # Check for an update
         if is_update_available(App_Version, App_Build):
@@ -207,6 +230,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.advancedPageBtn.hide()
             self.ui.miscOptionsBtn.hide()
             self.ios27PageBtn.hide()
+            self.mrosBeastBtn.hide()
 
             self.ui.sidebarDiv2.hide()
             self.ui.applyPageBtn.hide()
@@ -363,6 +387,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.liquidGlassPageBtn.setVisible(is_iphone)
             # iOS 27 & Siri 2.0 page is available for every connected iPhone.
             self.ios27PageBtn.setVisible(is_iphone)
+            self.mrosBeastBtn.setVisible(is_iphone)
             if not is_iphone:
                 # force looping
                 tweaks[TweakID.PosterBoard].loop_video = True
@@ -560,6 +585,23 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def on_ios27PageBtn_clicked(self):
         self.pages[Page.iOS27].load()
+        self.ui.pages.setCurrentIndex(Page.iOS27.value)
+
+    def on_mrosBeastBtn_clicked(self):
+        """Activate mROS Beast Mode from the sidebar without navigating to the page."""
+        load_ios27()
+        load_mros_solarium_extra()
+        load_mros_real_prefs()
+        load_mros_dock_nav()
+        load_mros_alien_colors()
+        load_mros_sound_engine()
+        load_mros_siri_v2()
+        for tid in _page_tweak_ids:
+            if tid in tweaks:
+                tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)
+        # navigate to the mROS page so the user can see what got enabled
+        self.pages[Page.iOS27].load()
+        self.ios27PageBtn.setChecked(True)
         self.ui.pages.setCurrentIndex(Page.iOS27.value)
 
     def update_side_btn_color(self, btn: QtWidgets.QToolButton, toggled: bool):
