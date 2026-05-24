@@ -13,42 +13,97 @@ from src.tweaks.tweak_loader import (
     load_mros_home_screen, load_mros_display,
     load_mros_lock_screen, load_mros_keyboard,
     load_mros_notifications, load_mros_privacy_apps,
+    load_mros_vision_alien, load_mros_deep_system, load_mros_coremotion,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
 # module-level checkbox registry — populated during _build_ui, synced in load_page
 _checkbox_map: dict = {}
 
+# ── visionOS × AlienOS colour palette (cycles per section) ───────────────────
+_ACCENTS = [
+    '#00ffcc',  # visionOS teal     — visionOS-AlienOS engine
+    '#5eb8ff',  # sky blue          — Siri
+    '#a8d8ff',  # glass blue        — Liquid Glass
+    '#44ff88',  # alien green       — Home Screen
+    '#ff66ff',  # alien magenta     — Icon Shapes
+    '#ffd055',  # golden            — Display
+    '#ff8855',  # orange            — Lock Screen
+    '#44ffdd',  # alien cyan        — Keyboard
+    '#ff55aa',  # alien pink        — Notifications
+    '#aa88ff',  # lavender          — Control Center
+    '#bb44ff',  # alien purple      — Privacy
+    '#ff4455',  # danger red        — Deep System
+    '#66ff44',  # acid green        — Alien Colors
+    '#ff9944',  # amber             — Sound Engine
+    '#88ccff',  # pastel sky        — Dock & Nav
+    '#00ff88',  # alien lime        — CoreMotion
+]
+_sec_idx = [0]  # mutable so _hdr and _row can share it
 
-# ── helpers ──────────────────────────────────────────────────────────────────
 
-def _hdr(text: str) -> QLabel:
+# ── helpers ───────────────────────────────────────────────────────────────────
+
+def _hdr(text: str) -> QFrame:
+    accent = _ACCENTS[_sec_idx[0] % len(_ACCENTS)]
+    _sec_idx[0] += 1
+    card = QFrame()
+    card.setStyleSheet(
+        f"QFrame{{background:qlineargradient(x1:0,y1:0,x2:1,y2:0,"
+        f"stop:0 {accent}2a,stop:1 transparent);"
+        f"border-left:3px solid {accent};border-radius:5px;margin-top:8px;}}"
+    )
+    lay = QHBoxLayout(card)
+    lay.setContentsMargins(12, 7, 8, 7)
     lbl = QLabel(text)
     lbl.setStyleSheet(
-        "font-size:15px;font-weight:bold;color:#c8d8f0;margin-top:12px;")
-    return lbl
+        f"font-size:12px;font-weight:800;color:{accent};"
+        f"letter-spacing:1.5px;background:transparent;border:none;"
+    )
+    lay.addWidget(lbl)
+    lay.addStretch()
+    return card
 
 
-def _div() -> QFrame:
-    line = QFrame()
-    line.setFrameShape(QFrame.Shape.HLine)
-    line.setFrameShadow(QFrame.Shadow.Plain)
-    line.setStyleSheet("color:#3a3a4a;")
-    return line
+def _div() -> QWidget:
+    w = QWidget()
+    w.setFixedHeight(2)
+    return w
 
 
-def _row(tweak_id: TweakID, title: str, desc: str) -> QWidget:
-    card = QWidget()
+def _row(tweak_id: TweakID, title: str, desc: str) -> QFrame:
+    accent = _ACCENTS[(_sec_idx[0] - 1) % len(_ACCENTS)]
+    card = QFrame()
+    card.setObjectName("mrosRow")
+    card.setStyleSheet(
+        "QFrame#mrosRow{"
+        "background:rgba(255,255,255,15);"
+        "border-radius:10px;"
+        "border:1px solid rgba(255,255,255,22);}"
+        "QFrame#mrosRow:hover{"
+        "background:rgba(255,255,255,28);"
+        "border:1px solid rgba(255,255,255,50);}"
+    )
     lay = QVBoxLayout(card)
-    lay.setContentsMargins(0, 2, 0, 2)
-    lay.setSpacing(1)
+    lay.setContentsMargins(14, 9, 14, 9)
+    lay.setSpacing(3)
     chk = QCheckBox(title)
-    chk.setStyleSheet("font-size:13px;")
+    chk.setStyleSheet(
+        f"QCheckBox{{font-size:13px;font-weight:600;color:#e8f4ff;"
+        f"spacing:9px;background:transparent;}}"
+        f"QCheckBox::indicator{{width:17px;height:17px;border-radius:9px;"
+        f"border:2px solid {accent};background:transparent;}}"
+        f"QCheckBox::indicator:checked{{background:{accent};"
+        f"border:2px solid {accent};}}"
+    )
     chk.toggled.connect(lambda v, k=tweak_id: tweaks[k].set_enabled(v))
     _checkbox_map[tweak_id] = chk
     lay.addWidget(chk)
     lbl = QLabel(desc)
-    lbl.setStyleSheet("font-size:11px;color:#777;padding-left:20px;")
+    lbl.setStyleSheet(
+        "font-size:11px;color:#506070;padding-left:26px;"
+        "background:transparent;border:none;"
+    )
     lbl.setWordWrap(True)
     lay.addWidget(lbl)
     return card
@@ -57,8 +112,9 @@ def _row(tweak_id: TweakID, title: str, desc: str) -> QWidget:
 def _btn(label: str, color: str, hover: str, pressed: str) -> QPushButton:
     b = QPushButton(label)
     b.setStyleSheet(
-        f"QPushButton{{background:{color};color:#fff;border-radius:6px;"
-        f"padding:5px 14px;font-size:12px;font-weight:bold;}}"
+        f"QPushButton{{background:{color};color:#fff;border-radius:20px;"
+        f"padding:6px 18px;font-size:12px;font-weight:800;"
+        f"border:1px solid rgba(255,255,255,30);}}"
         f"QPushButton:hover{{background:{hover};}}"
         f"QPushButton:pressed{{background:{pressed};}}"
     )
@@ -90,29 +146,61 @@ class iOS27Page(Page):
 
     def _build_ui(self, L: QVBoxLayout):
 
-        # ── Brand header ─────────────────────────────────────────────────────
-        brand = QLabel("mROS")
-        brand.setStyleSheet(
-            "font-size:32px;font-weight:900;color:#7eb8f7;"
-            "letter-spacing:4px;margin-bottom:2px;")
-        sub = QLabel("maxregnerOS  ·  Beyond Any Phone  ·  All Pre-Enabled  ·  No BookRestore")
-        sub.setStyleSheet("font-size:11px;color:#555;margin-bottom:8px;")
-        L.addWidget(brand)
-        L.addWidget(sub)
+        # ── visionOS × AlienOS hero panel ────────────────────────────────────
+        hero = QFrame()
+        hero.setStyleSheet(
+            "QFrame{background:qlineargradient(x1:0,y1:0,x2:1,y2:1,"
+            "stop:0 #07192e,stop:0.45 #0b1e2d,stop:1 #080812);"
+            "border-radius:18px;"
+            "border:1px solid rgba(0,255,204,0.18);}"
+        )
+        hero_lay = QVBoxLayout(hero)
+        hero_lay.setContentsMargins(22, 18, 22, 18)
+        hero_lay.setSpacing(5)
 
-        # ── Action buttons ───────────────────────────────────────────────────
-        row = QHBoxLayout()
-        b_all  = _btn("⚡ mROS Beast Mode", "#1a5fb4","#2a6ebb","#0f3a7a")
-        b_on   = _btn("Enable All",          "#2d6a2d","#3d8a3d","#1f4f1f")
-        b_off  = _btn("Disable All",         "#555",   "#666",   "#444"  )
+        title_row = QHBoxLayout()
+        title_row.setSpacing(12)
+        brand_lbl = QLabel("mROS")
+        brand_lbl.setStyleSheet(
+            "font-size:38px;font-weight:900;"
+            "color:qlineargradient(x1:0,y1:0,x2:1,y2:0,"
+            "stop:0 #00ffcc,stop:0.45 #5eb8ff,stop:1 #bb44ff);"
+            "letter-spacing:7px;background:transparent;"
+        )
+        badge = QLabel("visionOS × AlienOS")
+        badge.setStyleSheet(
+            "font-size:10px;font-weight:700;color:#00ffcc;"
+            "background:rgba(0,255,204,0.10);"
+            "border:1px solid rgba(0,255,204,0.28);"
+            "border-radius:5px;padding:3px 9px;background:transparent;"
+        )
+        title_row.addWidget(brand_lbl)
+        title_row.addWidget(badge)
+        title_row.addStretch()
+        hero_lay.addLayout(title_row)
+
+        sub_lbl = QLabel(
+            "Deep System Control  ·  All Pre-Enabled  ·  No BookRestore  ·  maxregnerOS"
+        )
+        sub_lbl.setStyleSheet(
+            "font-size:11px;color:#2a4a6a;letter-spacing:0.5px;background:transparent;"
+        )
+        hero_lay.addWidget(sub_lbl)
+
+        btn_row = QHBoxLayout()
+        btn_row.setSpacing(8)
+        b_all = _btn("⚡ Beast Mode",  "#0d3f7a", "#1a5fb4", "#082a52")
+        b_on  = _btn("Enable All",     "#0d4f1a", "#1a7a2d", "#073512")
+        b_off = _btn("Disable All",    "#2a2a3a", "#3a3a4a", "#1a1a2a")
         b_all.clicked.connect(self._maxregneros_mode)
         b_on.clicked.connect(self._enable_all)
         b_off.clicked.connect(self._disable_all)
         for b in (b_all, b_on, b_off):
-            row.addWidget(b)
-        row.addStretch()
-        L.addLayout(row)
-        L.addWidget(_div())
+            btn_row.addWidget(b)
+        btn_row.addStretch()
+        hero_lay.addLayout(btn_row)
+        L.addWidget(hero)
+        L.addSpacing(4)
 
         # ── Siri ─────────────────────────────────────────────────────────────
         L.addWidget(_hdr("Siri — MDM Managed Preferences"))
@@ -558,6 +646,133 @@ class iOS27Page(Page):
             "Disable Ratings Prompts",
             "Block apps from asking you to rate them (DisableAppRatingsPrompt)."))
 
+        # ── visionOS × AlienOS Visual Engine ─────────────────────────────────
+        L.addWidget(_hdr("visionOS × AlienOS — Visual Engine"))
+        L.addWidget(_row(TweakID.VisionDepthWallpaper,
+            "Wallpaper Depth Effect",
+            "Enable 3D parallax depth on the wallpaper layer (SBWallpaperDepthEffect)."))
+        L.addWidget(_row(TweakID.VisionImmersiveBlur,
+            "Immersive Blur Mode",
+            "Apply full-screen immersive blur behind active UI sheets (SBImmersiveBlurEnabled)."))
+        L.addWidget(_row(TweakID.VisionSpatialAudio,
+            "Spatial Audio System-Wide",
+            "Enable spatial / head-tracked audio for all output (SBAudioSpatialEnabled)."))
+        L.addWidget(_row(TweakID.VisionLayeredUI,
+            "Layered Interface (visionOS-style stacking)",
+            "Render UI elements in layered z-depth stacks like visionOS (SBLayeredInterfaceEnabled)."))
+        L.addWidget(_row(TweakID.VisionDepthBlur,
+            "Depth-of-Field Blur",
+            "Background elements blur with depth-of-field bokeh (SBDepthBlurEnabled)."))
+        L.addWidget(_row(TweakID.VisionFullscreenApp,
+            "True Full-Screen Apps",
+            "Allow apps to occupy the full display edge-to-edge (SBFullScreenAppEnabled)."))
+        L.addWidget(_row(TweakID.VisionFocusedAppShadow,
+            "Focused App Drop Shadow",
+            "Show visionOS-style floating shadow under the active app (SBFocusedAppShadowEnabled)."))
+        L.addWidget(_row(TweakID.VisionWindowCornerRadius,
+            "Rounded Window Corners",
+            "Force extra-rounded corners on all app windows (SBWindowCornerRadiusEnabled)."))
+        L.addWidget(_row(TweakID.VisionEnvironmentLighting,
+            "Environment Lighting Response",
+            "UI tint adapts to ambient light colour like visionOS (SBEnvironmentLightingEnabled)."))
+        L.addWidget(_hdr("AlienOS — Colour Engine Extended"))
+        L.addWidget(_row(TweakID.AlienColorFilterType,
+            "Alien Colour Filter (Trichromacy Shift)",
+            "Shift display colour channels for an alien-spectrum look — AXColorFilterType=1 (trichromacy)."))
+        L.addWidget(_row(TweakID.AlienColorIntensity,
+            "Alien Colour Intensity — Max",
+            "Push colour filter to full intensity (AXColorFilterIntensity=1.0)."))
+        L.addWidget(_row(TweakID.AlienClassicInvert,
+            "Classic Colour Invert",
+            "Invert every pixel on the display — the original alien look (AXInvertColors)."))
+        L.addWidget(_row(TweakID.AlienPurpleSaturation,
+            "Hyper-Saturation Mode",
+            "Boost colour saturation across all system UI (AXIncreaseSaturationEnabled)."))
+        L.addWidget(_row(TweakID.AlienVibrantMode,
+            "Vibrant Overlay Mode",
+            "Force maximum vibrancy on translucent surfaces (SBVibrantModeEnabled)."))
+        L.addWidget(_row(TweakID.AlienNeonGlow,
+            "Neon Glow UI Accents",
+            "Add neon glow highlights to interactive UI elements (SBNeonGlowEnabled)."))
+
+        # ── Deep System Core ──────────────────────────────────────────────────
+        L.addWidget(_hdr("Deep System Core — Low-Level Overrides"))
+        L.addWidget(_row(TweakID.DeepBackgroundRefresh,
+            "Background App Refresh",
+            "Allow all apps to refresh content in the background (SBBackgroundAppRefreshEnabled)."))
+        L.addWidget(_row(TweakID.DeepPerformanceMode,
+            "Performance Mode",
+            "Force the SoC into sustained maximum performance state (SBPerformanceModeEnabled)."))
+        L.addWidget(_row(TweakID.DeepPowerNap,
+            "Power Nap",
+            "Device fetches mail and updates silently while locked (SBPowerNapEnabled)."))
+        L.addWidget(_row(TweakID.DeepLowMemoryWarnings,
+            "Low Memory Warnings",
+            "Show system low-memory alerts to diagnose RAM pressure (SBLowMemoryWarningEnabled)."))
+        L.addWidget(_row(TweakID.DeepUIReduceMotion,
+            "Disable UIKit Reduce Motion",
+            "Force full animations — override UIReduceMotion (UIReduceMotionEnabled=false)."))
+        L.addWidget(_row(TweakID.DeepForceTouch,
+            "Force Touch / Haptic Touch",
+            "Enable force-touch pressure sensitivity globally (SBForceTouchEnabled)."))
+        L.addWidget(_row(TweakID.DeepAirDropEveryone,
+            "AirDrop — Receive from Everyone",
+            "Set AirDrop to accept transfers from all devices (SBAirDropReceivingMode=2)."))
+        L.addWidget(_row(TweakID.DeepHandoff,
+            "Handoff / Continuity",
+            "Transfer tasks seamlessly between Apple devices (SBHandoffEnabled)."))
+        L.addWidget(_row(TweakID.DeepUniversalControl,
+            "Universal Control",
+            "Control iPad/Mac with this iPhone's input (SBUniversalControlEnabled)."))
+        L.addWidget(_row(TweakID.DeepContinuityCamera,
+            "Continuity Camera",
+            "Use iPhone as a webcam for Mac via USB/Wi-Fi (SBContinuityCameraEnabled)."))
+        L.addWidget(_row(TweakID.DeepFindMyNetwork,
+            "Find My Network",
+            "Broadcast Bluetooth beacon for Find My even when off (SBFindMyNetworkEnabled)."))
+        L.addWidget(_row(TweakID.DeepCarPlay,
+            "CarPlay Support",
+            "Enable CarPlay connection support (SBCarPlayEnabled)."))
+        L.addWidget(_row(TweakID.DeepFocusStatusShare,
+            "Share Focus Status",
+            "Let contacts see when you have a Focus active (SBFocusStatusShareEnabled)."))
+        L.addWidget(_row(TweakID.DeepPersonalHotspot,
+            "Personal Hotspot",
+            "Enable Wi-Fi / USB hotspot sharing (SBPersonalHotspotEnabled)."))
+        L.addWidget(_row(TweakID.DeepSiriSuggestions,
+            "Siri Suggestions System-Wide",
+            "Siri proactively suggests apps, contacts, shortcuts (SBSiriSuggestionsEnabled)."))
+        L.addWidget(_row(TweakID.DeepCrashReporterDisable,
+            "Disable Crash Reporter",
+            "Suppress all crash dialogs and auto-reports (SBCrashReporterDisabled)."))
+        L.addWidget(_row(TweakID.DeepAnalyticsDisable,
+            "Disable System Diagnostics",
+            "Block all telemetry and diagnostic data collection (SBDiagnosticsDisabled)."))
+
+        # ── CoreMotion — Sensor Engine ────────────────────────────────────────
+        L.addWidget(_hdr("CoreMotion — Sensor Engine"))
+        L.addWidget(_row(TweakID.MotionGyroscope,
+            "Gyroscope",
+            "Enable the three-axis gyroscope sensor (GyroscopeEnabled)."))
+        L.addWidget(_row(TweakID.MotionAccelerometer,
+            "Accelerometer",
+            "Enable the 3-axis linear acceleration sensor (AccelerometerEnabled)."))
+        L.addWidget(_row(TweakID.MotionPedometer,
+            "Pedometer / Step Counter",
+            "Enable step counting and distance tracking (PedometerEnabled)."))
+        L.addWidget(_row(TweakID.MotionAltimeter,
+            "Barometric Altimeter",
+            "Enable atmospheric pressure sensor for elevation (AltimeterEnabled)."))
+        L.addWidget(_row(TweakID.MotionDeviceMotion,
+            "Device Motion Fusion",
+            "Enable combined gyro + accel + magnetometer fusion output (DeviceMotionEnabled)."))
+        L.addWidget(_row(TweakID.MotionMagnetometer,
+            "Magnetometer / Compass",
+            "Enable magnetic field sensor used by Maps compass (MagnetometerEnabled)."))
+        L.addWidget(_row(TweakID.MotionActivityRecognition,
+            "Activity Recognition (Walk/Run/Drive)",
+            "Enable ML-based activity classification from motion data (ActivityRecognitionEnabled)."))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -600,7 +815,9 @@ class iOS27Page(Page):
         load_mros_keyboard()
         load_mros_notifications()
         load_mros_privacy_apps()
-        # auto-enable Beast Mode set on first load so checkboxes aren't blank
+        load_mros_vision_alien()
+        load_mros_deep_system()
+        load_mros_coremotion()
         for tid in _page_tweak_ids:
             if tid in tweaks:
                 tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)

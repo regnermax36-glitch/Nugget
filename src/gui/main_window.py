@@ -30,6 +30,7 @@ from src.tweaks.tweak_loader import (
     load_mros_home_screen, load_mros_display,
     load_mros_lock_screen, load_mros_keyboard,
     load_mros_notifications, load_mros_privacy_apps,
+    load_mros_vision_alien, load_mros_deep_system, load_mros_coremotion,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS,
 )
 
@@ -605,6 +606,9 @@ class MainWindow(QtWidgets.QMainWindow):
         load_mros_keyboard()
         load_mros_notifications()
         load_mros_privacy_apps()
+        load_mros_vision_alien()
+        load_mros_deep_system()
+        load_mros_coremotion()
         for tid in _page_tweak_ids:
             if tid in tweaks:
                 tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)

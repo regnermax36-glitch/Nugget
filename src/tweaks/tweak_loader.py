@@ -632,6 +632,19 @@ MAXREGNEROS_MODE_IDS = frozenset([
     TweakID.PrivacyAnalytics, TweakID.PrivacyPersonalizedAds,
     # App Store
     TweakID.AppAutoUpdates, TweakID.AppOffloadUnused, TweakID.AppInAppPurchases,
+    # visionOS-AlienOS
+    TweakID.VisionDepthWallpaper, TweakID.VisionImmersiveBlur, TweakID.VisionLayeredUI,
+    TweakID.VisionDepthBlur, TweakID.VisionFullscreenApp,
+    TweakID.VisionFocusedAppShadow, TweakID.VisionWindowCornerRadius,
+    TweakID.AlienColorFilterType, TweakID.AlienColorIntensity, TweakID.AlienVibrantMode,
+    # Deep System
+    TweakID.DeepBackgroundRefresh, TweakID.DeepPerformanceMode, TweakID.DeepPowerNap,
+    TweakID.DeepHandoff, TweakID.DeepUniversalControl, TweakID.DeepContinuityCamera,
+    TweakID.DeepFindMyNetwork, TweakID.DeepCarPlay, TweakID.DeepSiriSuggestions,
+    TweakID.DeepFocusStatusShare,
+    # CoreMotion
+    TweakID.MotionGyroscope, TweakID.MotionAccelerometer, TweakID.MotionPedometer,
+    TweakID.MotionAltimeter, TweakID.MotionDeviceMotion, TweakID.MotionActivityRecognition,
 ])
 
 
@@ -853,6 +866,86 @@ def load_mros_privacy_apps():
         TweakID.AppOffloadUnused:            BasicPlistTweak(SK, 'OffloadUnusedAppsEnabled'),
         TweakID.AppInAppPurchases:           BasicPlistTweak(SK, 'InAppPurchasesEnabled'),
         TweakID.AppRatingsPrompt:            BasicPlistTweak(SK, 'DisableAppRatingsPrompt'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_vision_alien():
+    """visionOS-AlienOS visual engine — SpringBoard depth/glass + AX colour managed prefs."""
+    if TweakID.VisionDepthWallpaper in tweaks:
+        return
+    S  = FileLocation.springboard
+    AX = FileLocation.accessibility
+    additional_tweaks = {
+        TweakID.VisionDepthWallpaper:      BasicPlistTweak(S,  'SBWallpaperDepthEffect'),
+        TweakID.VisionImmersiveBlur:       BasicPlistTweak(S,  'SBImmersiveBlurEnabled'),
+        TweakID.VisionSpatialAudio:        BasicPlistTweak(S,  'SBAudioSpatialEnabled'),
+        TweakID.VisionLayeredUI:           BasicPlistTweak(S,  'SBLayeredInterfaceEnabled'),
+        TweakID.VisionDepthBlur:           BasicPlistTweak(S,  'SBDepthBlurEnabled'),
+        TweakID.VisionFullscreenApp:       BasicPlistTweak(S,  'SBFullScreenAppEnabled'),
+        TweakID.VisionFocusedAppShadow:    BasicPlistTweak(S,  'SBFocusedAppShadowEnabled'),
+        TweakID.VisionWindowCornerRadius:  BasicPlistTweak(S,  'SBWindowCornerRadiusEnabled'),
+        TweakID.VisionEnvironmentLighting: BasicPlistTweak(S,  'SBEnvironmentLightingEnabled'),
+        TweakID.AlienColorFilterType:      BasicPlistTweak(AX, 'AXColorFilterType',        value=1),
+        TweakID.AlienColorIntensity:       BasicPlistTweak(AX, 'AXColorFilterIntensity',   value=1.0),
+        TweakID.AlienClassicInvert:        BasicPlistTweak(AX, 'AXInvertColors'),
+        TweakID.AlienPurpleSaturation:     BasicPlistTweak(AX, 'AXIncreaseSaturationEnabled'),
+        TweakID.AlienVibrantMode:          BasicPlistTweak(S,  'SBVibrantModeEnabled'),
+        TweakID.AlienNeonGlow:             BasicPlistTweak(S,  'SBNeonGlowEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_deep_system():
+    """Deep system core — low-level SpringBoard + UIKit managed-preference overrides."""
+    if TweakID.DeepBackgroundRefresh in tweaks:
+        return
+    S  = FileLocation.springboard
+    UK = FileLocation.uikit
+    additional_tweaks = {
+        TweakID.DeepBackgroundRefresh:    BasicPlistTweak(S,  'SBBackgroundAppRefreshEnabled'),
+        TweakID.DeepPerformanceMode:      BasicPlistTweak(S,  'SBPerformanceModeEnabled'),
+        TweakID.DeepPowerNap:             BasicPlistTweak(S,  'SBPowerNapEnabled'),
+        TweakID.DeepLowMemoryWarnings:    BasicPlistTweak(S,  'SBLowMemoryWarningEnabled'),
+        TweakID.DeepUIReduceMotion:       BasicPlistTweak(UK, 'UIReduceMotionEnabled',      value=False),
+        TweakID.DeepForceTouch:           BasicPlistTweak(S,  'SBForceTouchEnabled'),
+        TweakID.DeepAirDropEveryone:      BasicPlistTweak(S,  'SBAirDropReceivingMode',     value=2),
+        TweakID.DeepHandoff:              BasicPlistTweak(S,  'SBHandoffEnabled'),
+        TweakID.DeepUniversalControl:     BasicPlistTweak(S,  'SBUniversalControlEnabled'),
+        TweakID.DeepContinuityCamera:     BasicPlistTweak(S,  'SBContinuityCameraEnabled'),
+        TweakID.DeepFindMyNetwork:        BasicPlistTweak(S,  'SBFindMyNetworkEnabled'),
+        TweakID.DeepCarPlay:              BasicPlistTweak(S,  'SBCarPlayEnabled'),
+        TweakID.DeepFocusStatusShare:     BasicPlistTweak(S,  'SBFocusStatusShareEnabled'),
+        TweakID.DeepPersonalHotspot:      BasicPlistTweak(S,  'SBPersonalHotspotEnabled'),
+        TweakID.DeepSiriSuggestions:      BasicPlistTweak(S,  'SBSiriSuggestionsEnabled'),
+        TweakID.DeepCrashReporterDisable: BasicPlistTweak(S,  'SBCrashReporterDisabled'),
+        TweakID.DeepAnalyticsDisable:     BasicPlistTweak(S,  'SBDiagnosticsDisabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_coremotion():
+    """CoreMotion sensor managed-preference overrides."""
+    if TweakID.MotionGyroscope in tweaks:
+        return
+    CM = FileLocation.coreMotion
+    additional_tweaks = {
+        TweakID.MotionGyroscope:           BasicPlistTweak(CM, 'GyroscopeEnabled'),
+        TweakID.MotionAccelerometer:       BasicPlistTweak(CM, 'AccelerometerEnabled'),
+        TweakID.MotionPedometer:           BasicPlistTweak(CM, 'PedometerEnabled'),
+        TweakID.MotionAltimeter:           BasicPlistTweak(CM, 'AltimeterEnabled'),
+        TweakID.MotionDeviceMotion:        BasicPlistTweak(CM, 'DeviceMotionEnabled'),
+        TweakID.MotionMagnetometer:        BasicPlistTweak(CM, 'MagnetometerEnabled'),
+        TweakID.MotionActivityRecognition: BasicPlistTweak(CM, 'ActivityRecognitionEnabled'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():

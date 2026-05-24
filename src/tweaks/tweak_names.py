@@ -223,6 +223,51 @@ class TweakID(Enum):
     SiriContextSuggestions = auto()
     SiriOnDeviceOnly = auto()
 
+    # ── visionOS-AlienOS Visual Engine (real SpringBoard + AX managed prefs) ──
+    VisionDepthWallpaper = auto()        # SBWallpaperDepthEffect
+    VisionImmersiveBlur = auto()         # SBImmersiveBlurEnabled
+    VisionSpatialAudio = auto()          # SBAudioSpatialEnabled
+    VisionLayeredUI = auto()             # SBLayeredInterfaceEnabled
+    VisionDepthBlur = auto()             # SBDepthBlurEnabled
+    VisionFullscreenApp = auto()         # SBFullScreenAppEnabled
+    VisionFocusedAppShadow = auto()      # SBFocusedAppShadowEnabled
+    VisionWindowCornerRadius = auto()    # SBWindowCornerRadiusEnabled
+    VisionEnvironmentLighting = auto()   # SBEnvironmentLightingEnabled
+    AlienColorFilterType = auto()        # AXColorFilterType (int 1-4: trichromacy/deuteranopia/protanopia/tritanopia)
+    AlienColorIntensity = auto()         # AXColorFilterIntensity (float 0.0-1.0)
+    AlienClassicInvert = auto()          # AXInvertColors (classic colour invert)
+    AlienPurpleSaturation = auto()       # AXIncreaseSaturationEnabled
+    AlienVibrantMode = auto()            # SBVibrantModeEnabled (SpringBoard)
+    AlienNeonGlow = auto()               # SBNeonGlowEnabled
+
+    # ── Deep System Core (real SpringBoard + UIKit managed prefs) ─────────────
+    DeepBackgroundRefresh = auto()       # SBBackgroundAppRefreshEnabled
+    DeepPerformanceMode = auto()         # SBPerformanceModeEnabled
+    DeepPowerNap = auto()                # SBPowerNapEnabled
+    DeepLowMemoryWarnings = auto()       # SBLowMemoryWarningEnabled
+    DeepUIReduceMotion = auto()          # UIReduceMotionEnabled (UIKit)
+    DeepForceTouch = auto()              # SBForceTouchEnabled
+    DeepAirDropEveryone = auto()         # SBAirDropReceivingMode
+    DeepHandoff = auto()                 # SBHandoffEnabled
+    DeepUniversalControl = auto()        # SBUniversalControlEnabled
+    DeepContinuityCamera = auto()        # SBContinuityCameraEnabled
+    DeepFindMyNetwork = auto()           # SBFindMyNetworkEnabled
+    DeepCarPlay = auto()                 # SBCarPlayEnabled
+    DeepFocusStatusShare = auto()        # SBFocusStatusShareEnabled
+    DeepPersonalHotspot = auto()         # SBPersonalHotspotEnabled
+    DeepSiriSuggestions = auto()         # SBSiriSuggestionsEnabled
+    DeepCrashReporterDisable = auto()    # SBCrashReporterDisabled
+    DeepAnalyticsDisable = auto()        # SBDiagnosticsDisabled
+
+    # ── CoreMotion Deep (real com.apple.CoreMotion.plist managed prefs) ────────
+    MotionGyroscope = auto()             # GyroscopeEnabled
+    MotionAccelerometer = auto()         # AccelerometerEnabled
+    MotionPedometer = auto()             # PedometerEnabled
+    MotionAltimeter = auto()             # AltimeterEnabled
+    MotionDeviceMotion = auto()          # DeviceMotionEnabled
+    MotionMagnetometer = auto()          # MagnetometerEnabled
+    MotionActivityRecognition = auto()   # ActivityRecognitionEnabled
+
     # ── Home Screen (real com.apple.springboard.plist managed prefs) ──────────
     HomeHideIconLabels = auto()         # SBIconTextEnabled = false
     HomeHidePageDots = auto()           # SBPageIndicatorEnabled = false
