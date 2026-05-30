@@ -645,6 +645,40 @@ MAXREGNEROS_MODE_IDS = frozenset([
     # CoreMotion
     TweakID.MotionGyroscope, TweakID.MotionAccelerometer, TweakID.MotionPedometer,
     TweakID.MotionAltimeter, TweakID.MotionDeviceMotion, TweakID.MotionActivityRecognition,
+    # Apple Intelligence v2
+    TweakID.AIv2WritingTools, TweakID.AIv2Genmoji, TweakID.AIv2ImagePlayground,
+    TweakID.AIv2NotifSummaries, TweakID.AIv2PriorityNotif, TweakID.AIv2SmartReply,
+    TweakID.AIv2NLShortcuts, TweakID.AIv2ThirdPartyAI, TweakID.AIv2PersonalContext,
+    TweakID.AIv2MemoryEnabled, TweakID.AIv2ScreenAwareness, TweakID.AIv2InAppActions,
+    TweakID.AIv2PhotoExtend, TweakID.AIv2PhotoEnhance, TweakID.AIv2PhotoCleanUp,
+    # Siri iOS 27
+    TweakID.SiriDIIntegration, TweakID.SiriSplitIsland, TweakID.SiriChatInterface,
+    TweakID.SiriMultiStep, TweakID.SiriSearchOrAsk, TweakID.SiriThirdPartyAI,
+    TweakID.SiriDarkTheme, TweakID.SiriProCamera, TweakID.SiriStandaloneApp,
+    # Dynamic Island iOS 27
+    TweakID.DISplitBubbles, TweakID.DICustomizeContent, TweakID.DILiveResultPanels,
+    TweakID.DIMultiActivity, TweakID.DIExpandedDefault,
+    # Live Activities
+    TweakID.LiveActivities, TweakID.LiveActivitiesLockScreen, TweakID.LiveActivitiesStandBy,
+    # StandBy
+    TweakID.StandByEnabled, TweakID.StandByAlwaysOn, TweakID.StandByWidgets,
+    TweakID.StandByShowClock, TweakID.StandByPhotoShuffle,
+    # Camera & Visual Intelligence
+    TweakID.CameraSiriMode, TweakID.CameraVisualIntelligence,
+    TweakID.CameraPhotographicStyles, TweakID.CameraProRes, TweakID.CameraAppleLog,
+    # Satellite
+    TweakID.SatelliteSOSEnabled, TweakID.SatelliteMapsEnabled, TweakID.SatelliteAutoHandoff,
+    TweakID.Satellite5GNR, TweakID.SatelliteThirdPartyApps,
+    # iMessage
+    TweakID.MsgRCSEnabled, TweakID.MsgiMessageEnabled, TweakID.MsgReadReceipts,
+    TweakID.MsgAISmartReply, TweakID.MsgShareNamePhoto,
+    # Health
+    TweakID.HealthNutritionLogging, TweakID.HealthMentalWellbeing,
+    TweakID.HealthVitalsTrends, TweakID.HealthDataSharing,
+    # Wallet
+    TweakID.WalletCreatePass, TweakID.WalletContactlessPay, TweakID.WalletIDCard,
+    # Shortcuts
+    TweakID.ShortcutsNLCreation, TweakID.ShortcutsAIOptimize, TweakID.ShortcutsSiriIntegration,
 ])
 
 
@@ -946,6 +980,173 @@ def load_mros_coremotion():
         TweakID.MotionDeviceMotion:        BasicPlistTweak(CM, 'DeviceMotionEnabled'),
         TweakID.MotionMagnetometer:        BasicPlistTweak(CM, 'MagnetometerEnabled'),
         TweakID.MotionActivityRecognition: BasicPlistTweak(CM, 'ActivityRecognitionEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_ai_v2():
+    """Apple Intelligence v2 — iOS 27 AI managed-preference keys."""
+    if TweakID.AIv2WritingTools in tweaks:
+        return
+    AI = FileLocation.appleIntelligence
+    PH = FileLocation.photos
+    additional_tweaks = {
+        TweakID.AIv2WritingTools:      BasicPlistTweak(AI, 'WritingToolsEnabled'),
+        TweakID.AIv2Genmoji:           BasicPlistTweak(AI, 'GenmojiEnabled'),
+        TweakID.AIv2ImagePlayground:   BasicPlistTweak(AI, 'ImagePlaygroundEnabled'),
+        TweakID.AIv2NotifSummaries:    BasicPlistTweak(AI, 'NotificationSummariesEnabled'),
+        TweakID.AIv2PriorityNotif:     BasicPlistTweak(AI, 'PriorityNotificationsEnabled'),
+        TweakID.AIv2SmartReply:        BasicPlistTweak(AI, 'SmartReplyEnabled'),
+        TweakID.AIv2Proofread:         BasicPlistTweak(AI, 'ProofreadEnabled'),
+        TweakID.AIv2Rewrite:           BasicPlistTweak(AI, 'RewriteEnabled'),
+        TweakID.AIv2NLShortcuts:       BasicPlistTweak(AI, 'NaturalLanguageShortcutsEnabled'),
+        TweakID.AIv2ThirdPartyAI:      BasicPlistTweak(AI, 'ThirdPartyAIIntegrationEnabled'),
+        TweakID.AIv2PersonalContext:   BasicPlistTweak(AI, 'PersonalContextEnabled'),
+        TweakID.AIv2MemoryEnabled:     BasicPlistTweak(AI, 'MemoryEnabled'),
+        TweakID.AIv2ScreenAwareness:   BasicPlistTweak(AI, 'ScreenAwarenessEnabled'),
+        TweakID.AIv2InAppActions:      BasicPlistTweak(AI, 'InAppActionsEnabled'),
+        TweakID.AIv2PhotoExtend:       BasicPlistTweak(PH, 'PhotoExtendEnabled'),
+        TweakID.AIv2PhotoEnhance:      BasicPlistTweak(PH, 'PhotoEnhanceEnabled'),
+        TweakID.AIv2PhotoReframe:      BasicPlistTweak(PH, 'PhotoReframeEnabled'),
+        TweakID.AIv2PhotoCleanUp:      BasicPlistTweak(PH, 'PhotoCleanUpEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_siri_ios27():
+    """Siri iOS 27 redesign — Dynamic Island integration, chat interface, split bubbles."""
+    if TweakID.SiriDIIntegration in tweaks:
+        return
+    S  = FileLocation.springboard
+    SI = FileLocation.siri
+    additional_tweaks = {
+        TweakID.SiriDIIntegration:    BasicPlistTweak(S,  'SBSiriDynamicIslandEnabled'),
+        TweakID.SiriSplitIsland:      BasicPlistTweak(S,  'SBSiriSplitIslandEnabled'),
+        TweakID.SiriChatInterface:    BasicPlistTweak(SI, 'ChatInterfaceEnabled'),
+        TweakID.SiriMultiStep:        BasicPlistTweak(SI, 'MultiStepActionsEnabled'),
+        TweakID.SiriSearchOrAsk:      BasicPlistTweak(S,  'SBSearchOrAskEnabled'),
+        TweakID.SiriThirdPartyAI:     BasicPlistTweak(SI, 'ThirdPartyAIEnabled'),
+        TweakID.SiriDarkTheme:        BasicPlistTweak(S,  'SBSiriDarkThemeEnabled'),
+        TweakID.SiriProCamera:        BasicPlistTweak(SI, 'SiriCameraModeEnabled'),
+        TweakID.SiriStandaloneApp:    BasicPlistTweak(S,  'SBSiriStandaloneAppEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_dynamic_island_ios27():
+    """Dynamic Island iOS 27 — split bubbles, multi-activity, live result panels."""
+    if TweakID.DISplitBubbles in tweaks:
+        return
+    S = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.DISplitBubbles:          BasicPlistTweak(S, 'SBDISplitBubblesEnabled'),
+        TweakID.DICustomizeContent:      BasicPlistTweak(S, 'SBDICustomizeContentEnabled'),
+        TweakID.DILiveResultPanels:      BasicPlistTweak(S, 'SBDILiveResultPanelsEnabled'),
+        TweakID.DISearchingIndicator:    BasicPlistTweak(S, 'SBDISearchingIndicatorEnabled'),
+        TweakID.DIExpandedDefault:       BasicPlistTweak(S, 'SBDIExpandedByDefault'),
+        TweakID.DIMultiActivity:         BasicPlistTweak(S, 'SBDIMultiActivityEnabled'),
+        TweakID.LiveActivities:          BasicPlistTweak(S, 'SBLiveActivitiesEnabled'),
+        TweakID.LiveActivitiesLockScreen:BasicPlistTweak(S, 'SBLiveActivitiesOnLockScreen'),
+        TweakID.LiveActivitiesStandBy:   BasicPlistTweak(S, 'SBLiveActivitiesInStandBy'),
+        TweakID.LiveActivitiesAlwaysShow:BasicPlistTweak(S, 'SBLiveActivitiesAlwaysShow'),
+        TweakID.StandByEnabled:          BasicPlistTweak(S, 'SBStandByEnabled'),
+        TweakID.StandByAlwaysOn:         BasicPlistTweak(S, 'SBStandByAlwaysOn'),
+        TweakID.StandByNightMode:        BasicPlistTweak(S, 'SBStandByNightMode'),
+        TweakID.StandBySmartRotation:    BasicPlistTweak(S, 'SBStandBySmartRotation'),
+        TweakID.StandByWidgets:          BasicPlistTweak(S, 'SBStandByWidgetsEnabled'),
+        TweakID.StandByPhotoShuffle:     BasicPlistTweak(S, 'SBStandByPhotoShuffleEnabled'),
+        TweakID.StandByShowClock:        BasicPlistTweak(S, 'SBStandByShowClock'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_camera_ai():
+    """Camera AI & Visual Intelligence — iOS 27 Siri camera mode, nutrition scan."""
+    if TweakID.CameraSiriMode in tweaks:
+        return
+    CA = FileLocation.camera
+    additional_tweaks = {
+        TweakID.CameraSiriMode:           BasicPlistTweak(CA, 'SiriModeEnabled'),
+        TweakID.CameraVisualIntelligence: BasicPlistTweak(CA, 'VisualIntelligenceEnabled'),
+        TweakID.CameraNutritionScan:      BasicPlistTweak(CA, 'NutritionLabelScanEnabled'),
+        TweakID.CameraContactScan:        BasicPlistTweak(CA, 'ContactCardScanEnabled'),
+        TweakID.CameraPhotographicStyles: BasicPlistTweak(CA, 'PhotographicStylesEnabled'),
+        TweakID.CameraProRes:             BasicPlistTweak(CA, 'ProResVideoEnabled'),
+        TweakID.CameraAppleLog:           BasicPlistTweak(CA, 'AppleLogEnabled'),
+        TweakID.CameraActionMode:         BasicPlistTweak(CA, 'ActionModeEnabled'),
+        TweakID.CameraWidgetControl:      BasicPlistTweak(CA, 'WidgetControlCustomizationEnabled'),
+        TweakID.CameraAdaptiveSensor:     BasicPlistTweak(CA, 'AdaptiveSensorEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_satellite():
+    """Satellite Connectivity — iOS 27 C2 modem 5G NR-NTN features."""
+    if TweakID.SatelliteSOSEnabled in tweaks:
+        return
+    SAT = FileLocation.satellite
+    additional_tweaks = {
+        TweakID.SatelliteSOSEnabled:       BasicPlistTweak(SAT, 'EmergencySOSEnabled'),
+        TweakID.SatelliteMapsEnabled:      BasicPlistTweak(SAT, 'MapsEnabled'),
+        TweakID.SatellitePhotoMsg:         BasicPlistTweak(SAT, 'PhotoMessagingEnabled'),
+        TweakID.SatelliteThirdPartyApps:   BasicPlistTweak(SAT, 'ThirdPartyAppAccessEnabled'),
+        TweakID.SatelliteAutoHandoff:      BasicPlistTweak(SAT, 'AutomaticHandoffEnabled'),
+        TweakID.Satellite5GNR:             BasicPlistTweak(SAT, 'FiveGNRNTNEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_messages_health():
+    """iMessage iOS 27 (RCS, AI replies, satellite), Health, Wallet, Shortcuts."""
+    if TweakID.MsgRCSEnabled in tweaks:
+        return
+    MSG = FileLocation.messages
+    HLT = FileLocation.health
+    WAL = FileLocation.wallet
+    SHT = FileLocation.shortcuts
+    additional_tweaks = {
+        TweakID.MsgRCSEnabled:           BasicPlistTweak(MSG, 'RCSEnabled'),
+        TweakID.MsgReadReceipts:         BasicPlistTweak(MSG, 'ReadReceiptsEnabled'),
+        TweakID.MsgiMessageEnabled:      BasicPlistTweak(MSG, 'iMessageEnabled'),
+        TweakID.MsgAISmartReply:         BasicPlistTweak(MSG, 'AISmartReplyEnabled'),
+        TweakID.MsgFilterUnknown:        BasicPlistTweak(MSG, 'FilterUnknownSendersEnabled'),
+        TweakID.MsgFallbackSMS:          BasicPlistTweak(MSG, 'FallbackToSMSEnabled'),
+        TweakID.MsgShareNamePhoto:       BasicPlistTweak(MSG, 'ShareNameAndPhotoEnabled'),
+        TweakID.MsgSatellite:            BasicPlistTweak(MSG, 'SatelliteMessagingEnabled'),
+        TweakID.HealthNutritionLogging:  BasicPlistTweak(HLT, 'NutritionLoggingEnabled'),
+        TweakID.HealthMentalWellbeing:   BasicPlistTweak(HLT, 'MentalWellbeingEnabled'),
+        TweakID.HealthCycleTracking:     BasicPlistTweak(HLT, 'CycleTrackingEnabled'),
+        TweakID.HealthMedications:       BasicPlistTweak(HLT, 'MedicationsEnabled'),
+        TweakID.HealthVitalsTrends:      BasicPlistTweak(HLT, 'VitalsTrendsEnabled'),
+        TweakID.HealthDataSharing:       BasicPlistTweak(HLT, 'HealthSharingEnabled'),
+        TweakID.HealthFitnessSuggestions:BasicPlistTweak(HLT, 'FitnessSuggestionsEnabled'),
+        TweakID.WalletCreatePass:        BasicPlistTweak(WAL, 'CreatePassEnabled'),
+        TweakID.WalletAIEnabled:         BasicPlistTweak(WAL, 'AppleIntelligenceEnabled'),
+        TweakID.WalletContactlessPay:    BasicPlistTweak(WAL, 'ContactlessPayEnabled'),
+        TweakID.WalletIDCard:            BasicPlistTweak(WAL, 'IDCardEnabled'),
+        TweakID.WalletTransitCard:       BasicPlistTweak(WAL, 'TransitCardEnabled'),
+        TweakID.ShortcutsNLCreation:     BasicPlistTweak(SHT, 'NaturalLanguageCreationEnabled'),
+        TweakID.ShortcutsAIOptimize:     BasicPlistTweak(SHT, 'AIOptimizeEnabled'),
+        TweakID.ShortcutsSiriIntegration:BasicPlistTweak(SHT, 'SiriIntegrationEnabled'),
+        TweakID.ShortcutsCloudSync:      BasicPlistTweak(SHT, 'CloudSyncEnabled'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():

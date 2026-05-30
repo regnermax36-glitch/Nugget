@@ -14,6 +14,8 @@ from src.tweaks.tweak_loader import (
     load_mros_lock_screen, load_mros_keyboard,
     load_mros_notifications, load_mros_privacy_apps,
     load_mros_vision_alien, load_mros_deep_system, load_mros_coremotion,
+    load_mros_ai_v2, load_mros_siri_ios27, load_mros_dynamic_island_ios27,
+    load_mros_camera_ai, load_mros_satellite, load_mros_messages_health,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -773,6 +775,288 @@ class iOS27Page(Page):
             "Activity Recognition (Walk/Run/Drive)",
             "Enable ML-based activity classification from motion data (ActivityRecognitionEnabled)."))
 
+        # ── Apple Intelligence v2 (iOS 27) ────────────────────────────────────
+        L.addWidget(_hdr("Apple Intelligence v2 — iOS 27 AI Engine"))
+        L.addWidget(_row(TweakID.AIv2WritingTools,
+            "Writing Tools",
+            "AI grammar correction, tone adjustment and full rewrites system-wide (WritingToolsEnabled)."))
+        L.addWidget(_row(TweakID.AIv2Genmoji,
+            "Genmoji — AI Emoji Generation",
+            "Generate custom emoji from text descriptions via Apple Intelligence (GenmojiEnabled)."))
+        L.addWidget(_row(TweakID.AIv2ImagePlayground,
+            "Image Playground",
+            "Create AI-generated images in Messages, Notes and apps (ImagePlaygroundEnabled)."))
+        L.addWidget(_row(TweakID.AIv2NotifSummaries,
+            "Notification Summaries",
+            "AI summarises stacked notifications into one-line digests (NotificationSummariesEnabled)."))
+        L.addWidget(_row(TweakID.AIv2PriorityNotif,
+            "Priority Notifications",
+            "Apple Intelligence surfaces time-sensitive notifications at the top (PriorityNotificationsEnabled)."))
+        L.addWidget(_row(TweakID.AIv2SmartReply,
+            "Smart Reply Suggestions",
+            "AI-generated quick-reply options in Messages and Mail (SmartReplyEnabled)."))
+        L.addWidget(_row(TweakID.AIv2Proofread,
+            "Proofread Mode",
+            "Inline grammar and style suggestions as you type (ProofreadEnabled)."))
+        L.addWidget(_row(TweakID.AIv2Rewrite,
+            "Rewrite / Tone Shift",
+            "Rewrite selected text in Friendly, Professional or Concise tone (RewriteEnabled)."))
+        L.addWidget(_row(TweakID.AIv2NLShortcuts,
+            "Natural Language Shortcuts",
+            "Create Shortcuts by describing them in plain language — no blocks needed (NaturalLanguageShortcutsEnabled)."))
+        L.addWidget(_row(TweakID.AIv2ThirdPartyAI,
+            "Third-Party AI Integration (ChatGPT / Gemini / Claude)",
+            "Route AI requests to ChatGPT, Google Gemini, or Claude as default (ThirdPartyAIIntegrationEnabled)."))
+        L.addWidget(_row(TweakID.AIv2PersonalContext,
+            "Personal Context Awareness",
+            "Siri reads your calendar, emails and messages for context (PersonalContextEnabled)."))
+        L.addWidget(_row(TweakID.AIv2MemoryEnabled,
+            "AI Memory Across Conversations",
+            "Siri remembers preferences and past requests persistently (MemoryEnabled)."))
+        L.addWidget(_row(TweakID.AIv2ScreenAwareness,
+            "Siri Screen Awareness",
+            "Siri understands what is on screen and acts on it (ScreenAwarenessEnabled)."))
+        L.addWidget(_row(TweakID.AIv2InAppActions,
+            "Siri In-App Actions",
+            "Siri performs multi-step actions inside third-party apps (InAppActionsEnabled)."))
+        L.addWidget(_hdr("  Photos AI Editing (iOS 27)"))
+        L.addWidget(_row(TweakID.AIv2PhotoExtend,
+            "Extend — Generate Beyond the Frame",
+            "AI fills in scenery outside the original photo boundary (PhotoExtendEnabled)."))
+        L.addWidget(_row(TweakID.AIv2PhotoEnhance,
+            "Enhance — AI Quality Boost",
+            "Automatically improve colour, lighting and sharpness with AI (PhotoEnhanceEnabled)."))
+        L.addWidget(_row(TweakID.AIv2PhotoReframe,
+            "Reframe — Shift Perspective",
+            "Recompose spatial photos from a different angle post-capture (PhotoReframeEnabled)."))
+        L.addWidget(_row(TweakID.AIv2PhotoCleanUp,
+            "Clean Up — Remove Objects",
+            "Intelligently remove unwanted people and objects from photos (PhotoCleanUpEnabled)."))
+
+        # ── Siri iOS 27 Redesign ──────────────────────────────────────────────
+        L.addWidget(_hdr("Siri iOS 27 — Redesigned AI Assistant"))
+        L.addWidget(_row(TweakID.SiriStandaloneApp,
+            "Siri Standalone App",
+            "Enable the new dedicated Siri app introduced in iOS 27 (SBSiriStandaloneAppEnabled)."))
+        L.addWidget(_row(TweakID.SiriDIIntegration,
+            "Siri in Dynamic Island",
+            "Deep Siri integration with animated pill-shaped Dynamic Island overlay (SBSiriDynamicIslandEnabled)."))
+        L.addWidget(_row(TweakID.SiriSplitIsland,
+            "Split Island — Dual Bubbles",
+            "Dynamic Island separates into two floating bubbles for Siri + background activity (SBSiriSplitIslandEnabled)."))
+        L.addWidget(_row(TweakID.SiriChatInterface,
+            "Chatbot-Style Chat Interface",
+            "New ChatGPT-like persistent conversation interface for Siri (ChatInterfaceEnabled)."))
+        L.addWidget(_row(TweakID.SiriMultiStep,
+            "Multi-Step Actions",
+            "Siri chains actions across multiple apps in one request (MultiStepActionsEnabled)."))
+        L.addWidget(_row(TweakID.SiriSearchOrAsk,
+            "Search or Ask — Swipe Down",
+            "Swipe down from top-centre anywhere in iOS to invoke keyboard Siri (SBSearchOrAskEnabled)."))
+        L.addWidget(_row(TweakID.SiriThirdPartyAI,
+            "Third-Party AI as Siri Backend",
+            "Use ChatGPT, Gemini, or Claude to power Siri responses (ThirdPartyAIEnabled)."))
+        L.addWidget(_row(TweakID.SiriDarkTheme,
+            "Siri Dark Theme (iOS 27 style)",
+            "Enable the all-dark Siri UI with pink/purple/orange accents (SBSiriDarkThemeEnabled)."))
+        L.addWidget(_row(TweakID.SiriProCamera,
+            "Siri Camera Mode",
+            "Dedicated Siri mode in the Camera app for visual queries and scanning (SiriCameraModeEnabled)."))
+
+        # ── Dynamic Island iOS 27 + Live Activities ───────────────────────────
+        L.addWidget(_hdr("Dynamic Island iOS 27 — Smart Island & Live Activities"))
+        L.addWidget(_row(TweakID.DISplitBubbles,
+            "Split Island (Two Simultaneous Activities)",
+            "Dynamic Island divides into two separate floating bubbles (SBDISplitBubblesEnabled)."))
+        L.addWidget(_row(TweakID.DICustomizeContent,
+            "Customise Island Content",
+            "Choose which activities and apps appear in the Dynamic Island (SBDICustomizeContentEnabled)."))
+        L.addWidget(_row(TweakID.DILiveResultPanels,
+            "Live Result Panels",
+            "Siri shows rich, interactive result cards expanding from the island (SBDILiveResultPanelsEnabled)."))
+        L.addWidget(_row(TweakID.DISearchingIndicator,
+            "Searching Glow Indicator",
+            "Animated glowing dot in the island while Siri searches (SBDISearchingIndicatorEnabled)."))
+        L.addWidget(_row(TweakID.DIExpandedDefault,
+            "Island Expanded by Default",
+            "Dynamic Island stays expanded showing content without tapping (SBDIExpandedByDefault)."))
+        L.addWidget(_row(TweakID.DIMultiActivity,
+            "Multi-Activity Support",
+            "Run multiple Live Activities simultaneously on the island (SBDIMultiActivityEnabled)."))
+        L.addWidget(_hdr("  Live Activities"))
+        L.addWidget(_row(TweakID.LiveActivities,
+            "Live Activities Enabled",
+            "Allow apps to display real-time updating widgets on the island and lock screen (SBLiveActivitiesEnabled)."))
+        L.addWidget(_row(TweakID.LiveActivitiesLockScreen,
+            "Live Activities on Lock Screen",
+            "Show persistent Live Activity banners on the lock screen (SBLiveActivitiesOnLockScreen)."))
+        L.addWidget(_row(TweakID.LiveActivitiesStandBy,
+            "Live Activities in StandBy",
+            "Display Live Activities in full-screen StandBy mode (SBLiveActivitiesInStandBy)."))
+        L.addWidget(_row(TweakID.LiveActivitiesAlwaysShow,
+            "Always Show Live Activities",
+            "Never auto-hide Live Activities from the island or lock screen (SBLiveActivitiesAlwaysShow)."))
+        L.addWidget(_hdr("  StandBy Mode"))
+        L.addWidget(_row(TweakID.StandByEnabled,
+            "StandBy Enabled",
+            "Activate full-screen dock display when iPhone is charging on its side (SBStandByEnabled)."))
+        L.addWidget(_row(TweakID.StandByAlwaysOn,
+            "StandBy Always On",
+            "Keep StandBy display active without the screen dimming (SBStandByAlwaysOn)."))
+        L.addWidget(_row(TweakID.StandByNightMode,
+            "StandBy Night Mode",
+            "Switch to red-tinted display automatically in dark environments (SBStandByNightMode)."))
+        L.addWidget(_row(TweakID.StandBySmartRotation,
+            "Smart Rotation in StandBy",
+            "Auto-rotate between clock, photos and widgets based on context (SBStandBySmartRotation)."))
+        L.addWidget(_row(TweakID.StandByWidgets,
+            "StandBy Widgets",
+            "Show interactive widget panels in StandBy mode (SBStandByWidgetsEnabled)."))
+        L.addWidget(_row(TweakID.StandByPhotoShuffle,
+            "StandBy Photo Shuffle",
+            "Cycle through your photo library as a live frame in StandBy (SBStandByPhotoShuffleEnabled)."))
+        L.addWidget(_row(TweakID.StandByShowClock,
+            "Always Show Clock in StandBy",
+            "Keep the large clock visible at all times in StandBy (SBStandByShowClock)."))
+
+        # ── Camera & Visual Intelligence ──────────────────────────────────────
+        L.addWidget(_hdr("Camera & Visual Intelligence — iOS 27"))
+        L.addWidget(_row(TweakID.CameraSiriMode,
+            "Camera Siri Mode (iOS 27 — new tab)",
+            "New Siri tab in Camera for querying and scanning with AI (SiriModeEnabled)."))
+        L.addWidget(_row(TweakID.CameraVisualIntelligence,
+            "Visual Intelligence",
+            "Point camera at anything to instantly search, translate or identify it (VisualIntelligenceEnabled)."))
+        L.addWidget(_row(TweakID.CameraNutritionScan,
+            "Nutrition Label Scanning → Health",
+            "Scan food packaging to auto-log calories and macros to the Health app (NutritionLabelScanEnabled)."))
+        L.addWidget(_row(TweakID.CameraContactScan,
+            "Contact Card Scanning",
+            "Scan business cards to extract and save contact information (ContactCardScanEnabled)."))
+        L.addWidget(_row(TweakID.CameraPhotographicStyles,
+            "Photographic Styles",
+            "Apply persistent AI-driven colour and tone styles to every photo (PhotographicStylesEnabled)."))
+        L.addWidget(_row(TweakID.CameraProRes,
+            "ProRes Video Recording",
+            "Record in Apple ProRes format for professional post-production (ProResVideoEnabled)."))
+        L.addWidget(_row(TweakID.CameraAppleLog,
+            "Apple Log — Log Gamma Video",
+            "Shoot in Apple Log colour science for maximum grading headroom (AppleLogEnabled)."))
+        L.addWidget(_row(TweakID.CameraActionMode,
+            "Action Mode — Stabilisation",
+            "Ultra-stable Action Mode for sports and movement (ActionModeEnabled)."))
+        L.addWidget(_row(TweakID.CameraWidgetControl,
+            "Customisable Camera Widget Controls",
+            "Choose which controls appear in Camera widget / Control Center shortcut (WidgetControlCustomizationEnabled)."))
+        L.addWidget(_row(TweakID.CameraAdaptiveSensor,
+            "Adaptive Sensor Processing",
+            "Dynamically switch between sensor modes for optimal capture (AdaptiveSensorEnabled)."))
+
+        # ── Satellite Connectivity ────────────────────────────────────────────
+        L.addWidget(_hdr("Satellite Connectivity — iOS 27 / C2 Modem (5G NR-NTN)"))
+        L.addWidget(_row(TweakID.SatelliteSOSEnabled,
+            "Emergency SOS via Satellite",
+            "Send distress signals when there is no cellular coverage (EmergencySOSEnabled)."))
+        L.addWidget(_row(TweakID.SatelliteMapsEnabled,
+            "Apple Maps via Satellite",
+            "Use Apple Maps navigation over satellite when data is unavailable (MapsEnabled)."))
+        L.addWidget(_row(TweakID.SatellitePhotoMsg,
+            "Send Photos via Satellite",
+            "Attach and send photos through satellite messaging (PhotoMessagingEnabled)."))
+        L.addWidget(_row(TweakID.SatelliteThirdPartyApps,
+            "Third-Party App Satellite Access",
+            "Allow third-party apps to use the satellite data connection (ThirdPartyAppAccessEnabled)."))
+        L.addWidget(_row(TweakID.SatelliteAutoHandoff,
+            "Automatic Cellular ↔ Satellite Handoff",
+            "Seamlessly switch between cellular and satellite without interruption (AutomaticHandoffEnabled)."))
+        L.addWidget(_row(TweakID.Satellite5GNR,
+            "5G NR-NTN Standard (C2 Modem)",
+            "Enable the 5G Non-Terrestrial Network standard for high-speed satellite (FiveGNRNTNEnabled)."))
+
+        # ── iMessage iOS 27 ───────────────────────────────────────────────────
+        L.addWidget(_hdr("iMessage iOS 27 — RCS, AI Replies & Satellite"))
+        L.addWidget(_row(TweakID.MsgiMessageEnabled,
+            "iMessage Enabled",
+            "Use iMessage (blue bubbles) over data when available (iMessageEnabled)."))
+        L.addWidget(_row(TweakID.MsgRCSEnabled,
+            "RCS Messaging",
+            "Rich Communication Services — high-res media, read receipts over SMS (RCSEnabled)."))
+        L.addWidget(_row(TweakID.MsgReadReceipts,
+            "Read Receipts",
+            "Show when the recipient has read your message (ReadReceiptsEnabled)."))
+        L.addWidget(_row(TweakID.MsgAISmartReply,
+            "AI Smart Reply",
+            "Apple Intelligence generates context-aware quick-reply suggestions (AISmartReplyEnabled)."))
+        L.addWidget(_row(TweakID.MsgFilterUnknown,
+            "Filter Unknown Senders",
+            "Automatically separate messages from unknown contacts (FilterUnknownSendersEnabled)."))
+        L.addWidget(_row(TweakID.MsgFallbackSMS,
+            "Fallback to SMS/MMS",
+            "Send as SMS when iMessage is unavailable (FallbackToSMSEnabled)."))
+        L.addWidget(_row(TweakID.MsgShareNamePhoto,
+            "Share Name and Photo",
+            "Auto-share your contact name and photo when messaging (ShareNameAndPhotoEnabled)."))
+        L.addWidget(_row(TweakID.MsgSatellite,
+            "Satellite Messaging (iOS 27)",
+            "Send and receive iMessages over satellite when off-grid (SatelliteMessagingEnabled)."))
+
+        # ── Health iOS 27 ─────────────────────────────────────────────────────
+        L.addWidget(_hdr("Health iOS 27 — AI Nutrition, Mental Wellbeing & More"))
+        L.addWidget(_row(TweakID.HealthNutritionLogging,
+            "Nutrition Logging via Camera",
+            "Scan food labels with Visual Intelligence to auto-log to Health (NutritionLoggingEnabled)."))
+        L.addWidget(_row(TweakID.HealthMentalWellbeing,
+            "Mental Wellbeing Tracking",
+            "Log daily mood, anxiety levels and emotional state (MentalWellbeingEnabled)."))
+        L.addWidget(_row(TweakID.HealthCycleTracking,
+            "Cycle Tracking",
+            "Track menstrual cycle with period, ovulation and symptom logging (CycleTrackingEnabled)."))
+        L.addWidget(_row(TweakID.HealthMedications,
+            "Medications Tracking",
+            "Log, schedule and get reminders for medications (MedicationsEnabled)."))
+        L.addWidget(_row(TweakID.HealthVitalsTrends,
+            "Vitals Trends & Notifications",
+            "AI detects unusual patterns in heart rate, sleep and more (VitalsTrendsEnabled)."))
+        L.addWidget(_row(TweakID.HealthDataSharing,
+            "Health Data Sharing",
+            "Share your health summary with a care provider or family (HealthSharingEnabled)."))
+        L.addWidget(_row(TweakID.HealthFitnessSuggestions,
+            "AI Fitness Suggestions",
+            "Get personalised workout and activity suggestions based on your trends (FitnessSuggestionsEnabled)."))
+
+        # ── Wallet iOS 27 ─────────────────────────────────────────────────────
+        L.addWidget(_hdr("Wallet iOS 27 — Create a Pass, ID & Transit"))
+        L.addWidget(_row(TweakID.WalletCreatePass,
+            "Create a Pass (scan physical → digital)",
+            "Scan any physical ticket or membership card to create a digital pass (CreatePassEnabled)."))
+        L.addWidget(_row(TweakID.WalletAIEnabled,
+            "Apple Intelligence in Wallet",
+            "AI-assisted card management, spending insights and suggestions (AppleIntelligenceEnabled)."))
+        L.addWidget(_row(TweakID.WalletContactlessPay,
+            "Contactless Apple Pay",
+            "Enable tap-to-pay NFC transactions (ContactlessPayEnabled)."))
+        L.addWidget(_row(TweakID.WalletIDCard,
+            "Digital ID Card",
+            "Store government-issued ID and driver's licence in Wallet (IDCardEnabled)."))
+        L.addWidget(_row(TweakID.WalletTransitCard,
+            "Transit Cards",
+            "Use Wallet to pay on buses, trains and metro systems (TransitCardEnabled)."))
+
+        # ── Shortcuts iOS 27 ──────────────────────────────────────────────────
+        L.addWidget(_hdr("Shortcuts iOS 27 — AI & Natural Language"))
+        L.addWidget(_row(TweakID.ShortcutsNLCreation,
+            "Natural Language Shortcut Creation",
+            "Build automations by describing them in plain English — no blocks required (NaturalLanguageCreationEnabled)."))
+        L.addWidget(_row(TweakID.ShortcutsAIOptimize,
+            "AI-Optimise Shortcuts",
+            "Apple Intelligence suggests improvements to existing shortcuts (AIOptimizeEnabled)."))
+        L.addWidget(_row(TweakID.ShortcutsSiriIntegration,
+            "Deep Siri Integration",
+            "Run any Shortcut by voice through the new iOS 27 Siri app (SiriIntegrationEnabled)."))
+        L.addWidget(_row(TweakID.ShortcutsCloudSync,
+            "Shortcuts Cloud Sync",
+            "Sync all shortcuts across iPhone, iPad and Mac via iCloud (CloudSyncEnabled)."))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -818,6 +1102,12 @@ class iOS27Page(Page):
         load_mros_vision_alien()
         load_mros_deep_system()
         load_mros_coremotion()
+        load_mros_ai_v2()
+        load_mros_siri_ios27()
+        load_mros_dynamic_island_ios27()
+        load_mros_camera_ai()
+        load_mros_satellite()
+        load_mros_messages_health()
         for tid in _page_tweak_ids:
             if tid in tweaks:
                 tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)

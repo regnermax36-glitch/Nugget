@@ -47,3 +47,27 @@ class FileLocation(Enum):
 
     # AppStore managed preferences
     storeKit = "/var/Managed Preferences/mobile/com.apple.storekit.plist"
+
+    # Apple Intelligence / AI (iOS 26+)
+    appleIntelligence = "/var/Managed Preferences/mobile/com.apple.appleintelligence.plist"
+
+    # Camera managed preferences (iOS 27 Visual Intelligence)
+    camera = "/var/Managed Preferences/mobile/com.apple.camera.plist"
+
+    # Satellite connectivity (iOS 27 / C2 modem)
+    satellite = "/var/Managed Preferences/mobile/com.apple.satellite.plist"
+
+    # iMessage / SMS managed preferences
+    messages = "/var/Managed Preferences/mobile/com.apple.MobileSMS.plist"
+
+    # Health managed preferences (iOS 27 nutrition AI)
+    health = "/var/Managed Preferences/mobile/com.apple.health.plist"
+
+    # Photos managed preferences (iOS 27 Extend/Enhance/Reframe)
+    photos = "/var/Managed Preferences/mobile/com.apple.mobileslideshow.plist"
+
+    # Wallet / Passbook managed preferences (iOS 27 Create a Pass)
+    wallet = "/var/Managed Preferences/mobile/com.apple.Passbook.plist"
+
+    # Shortcuts managed preferences (iOS 27 NL Shortcuts)
+    shortcuts = "/var/Managed Preferences/mobile/com.apple.shortcuts.plist"

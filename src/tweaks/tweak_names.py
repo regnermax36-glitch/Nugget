@@ -352,3 +352,111 @@ class TweakID(Enum):
     AppOffloadUnused = auto()           # OffloadUnusedAppsEnabled
     AppInAppPurchases = auto()          # InAppPurchasesEnabled
     AppRatingsPrompt = auto()           # DisableAppRatingsPrompt
+
+    # ── Apple Intelligence v2 (iOS 27 — com.apple.appleintelligence.plist) ────
+    AIv2WritingTools = auto()           # WritingToolsEnabled
+    AIv2Genmoji = auto()                # GenmojiEnabled
+    AIv2ImagePlayground = auto()        # ImagePlaygroundEnabled
+    AIv2NotifSummaries = auto()         # NotificationSummariesEnabled
+    AIv2PriorityNotif = auto()          # PriorityNotificationsEnabled
+    AIv2SmartReply = auto()             # SmartReplyEnabled
+    AIv2Proofread = auto()              # ProofreadEnabled
+    AIv2Rewrite = auto()                # RewriteEnabled
+    AIv2NLShortcuts = auto()            # NaturalLanguageShortcutsEnabled
+    AIv2ThirdPartyAI = auto()           # ThirdPartyAIIntegrationEnabled
+    AIv2PersonalContext = auto()        # PersonalContextEnabled
+    AIv2MemoryEnabled = auto()          # MemoryEnabled
+    AIv2ScreenAwareness = auto()        # ScreenAwarenessEnabled
+    AIv2InAppActions = auto()           # InAppActionsEnabled
+
+    # Photos AI Editing (iOS 27 — com.apple.mobileslideshow.plist)
+    AIv2PhotoExtend = auto()            # PhotoExtendEnabled (generate beyond frame)
+    AIv2PhotoEnhance = auto()           # PhotoEnhanceEnabled (AI quality boost)
+    AIv2PhotoReframe = auto()           # PhotoReframeEnabled (shift perspective)
+    AIv2PhotoCleanUp = auto()           # PhotoCleanUpEnabled (remove objects)
+
+    # ── Siri iOS 27 Redesign (SpringBoard + com.apple.siri.plist) ─────────────
+    SiriDIIntegration = auto()          # SBSiriDynamicIslandEnabled
+    SiriSplitIsland = auto()            # SBSiriSplitIslandEnabled (dual bubbles)
+    SiriChatInterface = auto()          # ChatInterfaceEnabled
+    SiriMultiStep = auto()              # MultiStepActionsEnabled
+    SiriSearchOrAsk = auto()            # SearchOrAskEnabled (swipe-down)
+    SiriThirdPartyAI = auto()           # ThirdPartyAIEnabled (ChatGPT/Gemini/Claude)
+    SiriDarkTheme = auto()              # SBSiriDarkThemeEnabled
+    SiriProCamera = auto()              # SiriCameraModeEnabled (new Camera Siri mode)
+    SiriStandaloneApp = auto()          # SBSiriStandaloneAppEnabled
+
+    # ── Dynamic Island iOS 27 (SpringBoard) ───────────────────────────────────
+    DISplitBubbles = auto()             # SBDISplitBubblesEnabled (two simultaneous)
+    DICustomizeContent = auto()         # SBDICustomizeContentEnabled
+    DILiveResultPanels = auto()         # SBDILiveResultPanelsEnabled
+    DISearchingIndicator = auto()       # SBDISearchingIndicatorEnabled
+    DIExpandedDefault = auto()          # SBDIExpandedByDefault
+    DIMultiActivity = auto()            # SBDIMultiActivityEnabled
+
+    # ── Live Activities iOS 27 (SpringBoard) ──────────────────────────────────
+    LiveActivities = auto()             # SBLiveActivitiesEnabled
+    LiveActivitiesLockScreen = auto()   # SBLiveActivitiesOnLockScreen
+    LiveActivitiesStandBy = auto()      # SBLiveActivitiesInStandBy
+    LiveActivitiesAlwaysShow = auto()   # SBLiveActivitiesAlwaysShow
+
+    # ── StandBy Mode (SpringBoard) ────────────────────────────────────────────
+    StandByEnabled = auto()             # SBStandByEnabled
+    StandByAlwaysOn = auto()            # SBStandByAlwaysOn
+    StandByNightMode = auto()           # SBStandByNightMode
+    StandBySmartRotation = auto()       # SBStandBySmartRotation
+    StandByWidgets = auto()             # SBStandByWidgetsEnabled
+    StandByPhotoShuffle = auto()        # SBStandByPhotoShuffleEnabled
+    StandByShowClock = auto()           # SBStandByShowClock
+
+    # ── Camera & Visual Intelligence (com.apple.camera.plist) ────────────────
+    CameraSiriMode = auto()             # SiriModeEnabled (new iOS 27 camera tab)
+    CameraVisualIntelligence = auto()   # VisualIntelligenceEnabled
+    CameraNutritionScan = auto()        # NutritionLabelScanEnabled
+    CameraContactScan = auto()          # ContactCardScanEnabled
+    CameraPhotographicStyles = auto()   # PhotographicStylesEnabled
+    CameraProRes = auto()               # ProResVideoEnabled
+    CameraAppleLog = auto()             # AppleLogEnabled
+    CameraActionMode = auto()           # ActionModeEnabled
+    CameraWidgetControl = auto()        # WidgetControlCustomizationEnabled
+    CameraAdaptiveSensor = auto()       # AdaptiveSensorEnabled
+
+    # ── Satellite Connectivity (iOS 27 / C2 modem — com.apple.satellite.plist) ─
+    SatelliteSOSEnabled = auto()        # EmergencySOSEnabled
+    SatelliteMapsEnabled = auto()       # MapsEnabled (Maps via satellite)
+    SatellitePhotoMsg = auto()          # PhotoMessagingEnabled
+    SatelliteThirdPartyApps = auto()    # ThirdPartyAppAccessEnabled
+    SatelliteAutoHandoff = auto()       # AutomaticHandoffEnabled (cellular↔satellite)
+    Satellite5GNR = auto()              # FiveGNRNTNEnabled (5G NR-NTN standard)
+
+    # ── iMessage iOS 27 (com.apple.MobileSMS.plist) ───────────────────────────
+    MsgRCSEnabled = auto()              # RCSEnabled
+    MsgReadReceipts = auto()            # ReadReceiptsEnabled
+    MsgiMessageEnabled = auto()         # iMessageEnabled
+    MsgAISmartReply = auto()            # AISmartReplyEnabled
+    MsgFilterUnknown = auto()           # FilterUnknownSendersEnabled
+    MsgFallbackSMS = auto()             # FallbackToSMSEnabled
+    MsgShareNamePhoto = auto()          # ShareNameAndPhotoEnabled
+    MsgSatellite = auto()               # SatelliteMessagingEnabled (iOS 27)
+
+    # ── Health iOS 27 (com.apple.health.plist) ────────────────────────────────
+    HealthNutritionLogging = auto()     # NutritionLoggingEnabled (camera-scan to log)
+    HealthMentalWellbeing = auto()      # MentalWellbeingEnabled
+    HealthCycleTracking = auto()        # CycleTrackingEnabled
+    HealthMedications = auto()          # MedicationsEnabled
+    HealthVitalsTrends = auto()         # VitalsTrendsEnabled
+    HealthDataSharing = auto()          # HealthSharingEnabled
+    HealthFitnessSuggestions = auto()   # FitnessSuggestionsEnabled
+
+    # ── Wallet iOS 27 (com.apple.Passbook.plist) ──────────────────────────────
+    WalletCreatePass = auto()           # CreatePassEnabled (scan physical → digital)
+    WalletAIEnabled = auto()            # AppleIntelligenceEnabled
+    WalletContactlessPay = auto()       # ContactlessPayEnabled
+    WalletIDCard = auto()               # IDCardEnabled (digital ID)
+    WalletTransitCard = auto()          # TransitCardEnabled
+
+    # ── Shortcuts iOS 27 (com.apple.shortcuts.plist) ──────────────────────────
+    ShortcutsNLCreation = auto()        # NaturalLanguageCreationEnabled
+    ShortcutsAIOptimize = auto()        # AIOptimizeEnabled
+    ShortcutsSiriIntegration = auto()   # SiriIntegrationEnabled
+    ShortcutsCloudSync = auto()         # CloudSyncEnabled

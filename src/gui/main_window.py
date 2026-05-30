@@ -31,6 +31,8 @@ from src.tweaks.tweak_loader import (
     load_mros_lock_screen, load_mros_keyboard,
     load_mros_notifications, load_mros_privacy_apps,
     load_mros_vision_alien, load_mros_deep_system, load_mros_coremotion,
+    load_mros_ai_v2, load_mros_siri_ios27, load_mros_dynamic_island_ios27,
+    load_mros_camera_ai, load_mros_satellite, load_mros_messages_health,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS,
 )
 
@@ -609,6 +611,12 @@ class MainWindow(QtWidgets.QMainWindow):
         load_mros_vision_alien()
         load_mros_deep_system()
         load_mros_coremotion()
+        load_mros_ai_v2()
+        load_mros_siri_ios27()
+        load_mros_dynamic_island_ios27()
+        load_mros_camera_ai()
+        load_mros_satellite()
+        load_mros_messages_health()
         for tid in _page_tweak_ids:
             if tid in tweaks:
                 tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)
