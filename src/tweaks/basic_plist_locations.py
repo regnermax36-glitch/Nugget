@@ -7,13 +7,13 @@ class FileLocation(Enum):
 
     # Feature Flags
     featureflags = "/var/preferences/FeatureFlags/Global.plist"
-    
+
     # Springboard Options
     springboard = "/var/Managed Preferences/mobile/com.apple.springboard.plist"
     footnote = "/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/SharedDeviceConfiguration.plist"
     airdrop = "/var/Managed Preferences/mobile/com.apple.sharingd.plist"
     nanoregistry = "/var/mobile/Library/Preferences/com.apple.NanoRegistry.plist"
-    
+
     # Internal Options
     globalPreferences = "/var/Managed Preferences/mobile/.GlobalPreferences.plist"
     appStore = "/var/Managed Preferences/mobile/com.apple.AppStore.plist"
@@ -27,15 +27,8 @@ class FileLocation(Enum):
     disabledDaemons = "/var/db/com.apple.xpc.launchd/disabled.plist"
     screentime = "/var/mobile/Library/Preferences/ScreenTimeAgent.plist"
 
-    # Sound Studio
-    avfoundation = "/var/Managed Preferences/mobile/com.apple.avfoundation.plist"
-    coreaudio = "/var/Managed Preferences/mobile/com.apple.coreaudio.plist"
-    mediaRemote = "/var/Managed Preferences/mobile/com.apple.mediaremote.plist"
+    # Cellular & Modem
     coreTelephony = "/var/Managed Preferences/mobile/com.apple.coretelephony.plist"
-
-    # Siri 2.0
-    siri = "/var/Managed Preferences/mobile/com.apple.siri.plist"
-    siriAssistant = "/var/Managed Preferences/mobile/com.apple.assistant.plist"
 
     # Risky Options
     ota = "/var/Managed Preferences/mobile/com.apple.MobileAsset.plist"

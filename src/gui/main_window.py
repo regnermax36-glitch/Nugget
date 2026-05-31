@@ -85,7 +85,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Create sidebar buttons for the new pages
         self._soundStudioBtn = self._make_sidebar_btn("    Sound Studio")
-        self._siriTwoBtn = self._make_sidebar_btn("    Siri 2.0 / iOS 26-27")
+        self._siriTwoBtn = self._make_sidebar_btn("    Home Screen & Cell.")
         self._soundStudioBtn.hide()
         self._siriTwoBtn.hide()
         # Insert before the apply button divider (sidebarDiv2)

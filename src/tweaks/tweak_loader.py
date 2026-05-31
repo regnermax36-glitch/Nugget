@@ -418,137 +418,122 @@ def load_liquidglass():
     }
     tweaks.update(additional_tweaks)
 
-def load_siri_two():
-    if TweakID.Siri2NewUI in tweaks:
-        return
-    # All use BasicPlistTweak → Managed Preferences paths so sparserestore
-    # is used (the original apply method), not BookRestore.
-    additional_tweaks = {
-        TweakID.Siri2NewUI: AdvancedPlistTweak(
-            FileLocation.siri,
-            {"SiriNewConversationalUI": True, "SiriVisualRefresh2026": True}
-        ),
-        TweakID.Siri2VoiceDesign: AdvancedPlistTweak(
-            FileLocation.siri,
-            {"SiriVoiceDesign2": True, "SiriNeuralVoiceQuality": True}
-        ),
-        TweakID.Siri2MeshBackground: AdvancedPlistTweak(
-            FileLocation.siriAssistant,
-            {"SiriMeshAnimatedBackground": True, "SiriAmbientBackground": True}
-        ),
-        TweakID.Siri2GlassOrb: AdvancedPlistTweak(
-            FileLocation.siriAssistant,
-            {"SiriGlassOrbDesign": True, "SiriSolariumOrb": True}
-        ),
-        TweakID.Siri2OnDeviceExtended: AdvancedPlistTweak(
-            FileLocation.siri,
-            {"SiriOnDeviceExtendedContext": True, "SiriLocalInferenceExtended": True}
-        ),
-        TweakID.Siri2ProactiveContext: AdvancedPlistTweak(
-            FileLocation.siri,
-            {"SiriProactiveContextEngine": True, "SiriScreenAwarenessV2": True}
-        ),
-    }
-    tweaks.update(additional_tweaks)
-
 def load_sound_studio():
     if TweakID.SoundKeyboardFeedback in tweaks:
         return
     additional_tweaks = {
-        # Keyboard click sounds
+        # UIKit — SpringBoard reads UIKeyboardSoundFeedback from UIKit managed prefs
         TweakID.SoundKeyboardFeedback: BasicPlistTweak(
             FileLocation.uikit,
             key="UIKeyboardSoundFeedback",
             value=True
         ),
-        # Screenshot shutter sound disable
+        # Screenshot capture sound (SBCaptureController reads this key)
         TweakID.SoundScreenshotDisable: BasicPlistTweak(
             FileLocation.springboard,
             key="SBCaptureControllerScreenCaptureSoundDisabled"
         ),
-        # Charge connected sound
+        # Charging reminder chime (SBChargingManager reads this key)
         TweakID.SoundChargeAlert: BasicPlistTweak(
             FileLocation.springboard,
             key="SBChargingReminderSoundEnabled"
         ),
-        # Slow charge alert sound
+        # Slow-charge alert (SBChargingManager reads this key)
         TweakID.SoundSlowChargeAlert: BasicPlistTweak(
             FileLocation.springboard,
             key="SBSlowChargeAlertSoundEnabled"
         ),
-        # Low battery voice announcement
-        TweakID.SoundLowBatteryVoice: BasicPlistTweak(
-            FileLocation.globalPreferences,
-            key="SBLowBatteryVoiceAnnouncementEnabled"
-        ),
-        # Ringer + haptic sync on silent
+        # Ringer vibration sync (SBRingerControl reads this key)
         TweakID.SoundRingerHapticSync: BasicPlistTweak(
             FileLocation.springboard,
             key="SBRingerAudioVibrateSync"
         ),
-        # Force spatial audio for media
-        TweakID.SoundSpatialAudioForce: BasicPlistTweak(
-            FileLocation.avfoundation,
-            key="AVForceSpatialAudioEnabled"
-        ),
-        # Enhanced call voice processing
-        TweakID.SoundCallVoiceEnhance: BasicPlistTweak(
-            FileLocation.coreTelephony,
-            key="CTEnhancedVoiceProcessingEnabled"
-        ),
-        # System UI sound effects (taps, alerts)
-        TweakID.SoundSystemUIEffects: BasicPlistTweak(
-            FileLocation.globalPreferences,
-            key="com.apple.sound.uisounds.enable"
-        ),
-        # Volume change HUD sound
+        # Volume HUD feedback sound (SBVolumeControl reads this key)
         TweakID.SoundVolumeHUD: BasicPlistTweak(
             FileLocation.springboard,
             key="SBVolumeHUDSoundEnabled"
         ),
-        # Bluetooth connect/disconnect chime
-        TweakID.SoundBTConnectionChime: BasicPlistTweak(
+    }
+    tweaks.update(additional_tweaks)
+
+def load_homescreen_dock():
+    if TweakID.HomeScreenRotation in tweaks:
+        return
+    additional_tweaks = {
+        # Landscape home screen (SBOrientationLockManager reads this key)
+        TweakID.HomeScreenRotation: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBAllowHomeScreenRotation"
+        ),
+        # Hide icon text labels (SBIconView reads this key)
+        TweakID.HideIconLabels: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBHideHomeScreenIconLabels"
+        ),
+        # Hide dock background blur (SBDockView reads this key)
+        TweakID.HideDockBackground: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBHideDockBackground"
+        ),
+        # Hide notification badge dots on icons (SBIconBadgeView reads this key)
+        TweakID.HideNotificationBadges: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBHideIconBadges"
+        ),
+        # Disable app switcher background blur (SBAppSwitcherController reads this key)
+        TweakID.DisableAppSwitcherBlur: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBDisableAppSwitcherBlurBackground"
+        ),
+        # Battery percentage in status bar (SBStatusBarStateAggregator reads this key)
+        TweakID.ShowBatteryPercentage: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBShowBatteryPercentage"
+        ),
+        # UIAnimationDragCoefficient = 0.5 → 2× faster system animations
+        # This key is read from .GlobalPreferences by UIKit at launch
+        TweakID.AnimationSpeedFast: BasicPlistTweak(
             FileLocation.globalPreferences,
-            key="SBBluetoothConnectionChimeEnabled"
+            key="UIAnimationDragCoefficient",
+            value=0.5
         ),
-        # Duck other apps during media playback
-        TweakID.SoundDuckOthers: BasicPlistTweak(
-            FileLocation.avfoundation,
-            key="AVAudioSessionDuckOthersOnPlayback"
-        ),
-        # Media playback acoustic analysis
-        TweakID.SoundMediaPlaybackAnalysis: BasicPlistTweak(
-            FileLocation.avfoundation,
-            key="AVMediaPlaybackHeadphoneAnalysisEnabled"
+        # UIAnimationDragCoefficient = 10.0 → slow-motion (useful for debugging)
+        TweakID.AnimationSpeedSlow: BasicPlistTweak(
+            FileLocation.globalPreferences,
+            key="UIAnimationDragCoefficient",
+            value=10.0
         ),
     }
     tweaks.update(additional_tweaks)
 
-def load_ios2627_layout():
-    if TweakID.iOS26FloatingSheetUI in tweaks:
+def load_cellular():
+    if TweakID.CellularDataRoaming in tweaks:
         return
-    # All use BasicPlistTweak → Managed Preferences paths so sparserestore
-    # is used (the original apply method), not BookRestore.
+    # com.apple.coretelephony managed preferences — read by CommCenter / CoreTelephony
     additional_tweaks = {
-        TweakID.iOS26FloatingSheetUI: AdvancedPlistTweak(
-            FileLocation.uikit,
-            {"UIFloatingSheetPresentation": True, "UIAdaptiveSheetCornerRadius": True}
+        TweakID.CellularDataRoaming: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="DataRoamingEnabled"
         ),
-        TweakID.iOS26CompactTabBar: AdvancedPlistTweak(
-            FileLocation.springboard,
-            {"SBCompactTabBarLayout": True, "SBTabBarSolarium": True}
+        TweakID.Cellular5G: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="5GEnabled"
         ),
-        TweakID.iOS27FluidTransitions: AdvancedPlistTweak(
-            FileLocation.uikit,
-            {"UIFluidNavigationTransitions": True, "UIZoomTransitionV2": True}
+        TweakID.CellularVoLTE: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="VoLTEEnabled"
         ),
-        TweakID.iOS27AdaptiveSidebar: AdvancedPlistTweak(
-            FileLocation.uikit,
-            {"UIAdaptiveSidebarLayout": True, "UISidebarCollapsible": True}
+        TweakID.CellularWiFiCalling: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="WiFiCallingEnabled"
         ),
-        TweakID.iOS27SwipeNavigation: AdvancedPlistTweak(
-            FileLocation.springboard,
-            {"SBSwipeNavigationV2": True, "SBGestureNavEnhanced": True}
+        TweakID.CellularHDVoice: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="HDVoiceEnabled"
+        ),
+        TweakID.CellularLTE: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="LTEEnabled"
         ),
     }
     tweaks.update(additional_tweaks)
@@ -610,6 +595,6 @@ def load_all_tweaks(version: str):
     load_internal()
     load_daemons()
     load_risky()
-    load_siri_two()
     load_sound_studio()
-    load_ios2627_layout()
+    load_homescreen_dock()
+    load_cellular()

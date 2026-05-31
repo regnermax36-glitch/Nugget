@@ -6,11 +6,15 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 
 from ..page import Page
-from src.tweaks.tweak_loader import load_siri_two, load_ios2627_layout
+from src.tweaks.tweak_loader import load_homescreen_dock, load_cellular
 from src.tweaks.tweaks import TweakID
 
 
 class SiriTwoPage(Page, QWidget):
+    """Home Screen, Dock, Animations, and Cellular tweaks.
+    All keys target Managed Preferences plists read by SpringBoard,
+    UIKit, and CoreTelephony — applied via the original sparserestore path."""
+
     def __init__(self):
         Page.__init__(self)
         QWidget.__init__(self)
@@ -36,79 +40,112 @@ class SiriTwoPage(Page, QWidget):
         title_font = QFont()
         title_font.setPointSize(18)
         title_font.setBold(True)
-
         section_font = QFont()
         section_font.setPointSize(11)
         section_font.setBold(True)
 
-        title = QLabel("Siri 2.0 + iOS 26/27 UI")
+        title = QLabel("Home Screen, Dock & Cellular")
         title.setFont(title_font)
         self.layout_main.addWidget(title)
 
         subtitle = QLabel(
-            "Enable WWDC 2026 Siri 2.0 conversational UI, voice design, and "
-            "mesh/glass orb visuals. Also unlock iOS 26 and iOS 27 layout feature "
-            "flags for adaptive sidebars, fluid transitions, and the floating sheet "
-            "presentation style."
+            "Real SpringBoard managed-preference keys for the home screen, dock, "
+            "and system animations — plus CoreTelephony managed-preference keys "
+            "for modem/radio settings. All applied via sparserestore."
         )
         subtitle.setWordWrap(True)
         subtitle.setStyleSheet("color: #aaaaaa; font-size: 13px;")
         self.layout_main.addWidget(subtitle)
 
+        # ── Home Screen ────────────────────────────────────────────────────────
         self._add_divider()
-        self._section("Siri 2.0 — Conversational UI (WWDC 2026)", section_font)
+        self._section("Home Screen Layout", section_font)
 
-        self.siri2NewUIBtns = self._add_row(
-            "Siri 2.0 New Conversational UI",
-            "Enables the WWDC 2026 redesigned Siri conversational interface and visual refresh."
+        self.homeRotationBtns = self._add_row(
+            "Landscape Home Screen",
+            "SBAllowHomeScreenRotation — lets the home screen rotate to landscape "
+            "just like apps do (SpringBoard reads this from com.apple.springboard.plist)."
         )
-        self.siri2VoiceDesignBtns = self._add_row(
-            "Siri Neural Voice Design V2",
-            "High-fidelity neural voice with improved naturalness and prosody."
+        self.hideIconLabelsBtns = self._add_row(
+            "Hide Icon Text Labels",
+            "SBHideHomeScreenIconLabels — removes app name labels beneath all home "
+            "screen icons for a cleaner look."
         )
-        self.siri2MeshBgBtns = self._add_row(
-            "Siri Mesh Animated Background",
-            "Animated mesh / ambient background behind the Siri response card."
+        self.hideBadgesBtns = self._add_row(
+            "Hide Notification Badges",
+            "SBHideIconBadges — suppresses the red badge dot on every icon, "
+            "keeping the home screen uncluttered."
         )
-        self.siri2GlassOrbBtns = self._add_row(
-            "Siri Glass Orb Design",
-            "Liquid-glass orb visual for Siri activation (Solarium-integrated)."
-        )
-        self.siri2OnDeviceBtns = self._add_row(
-            "Extended On-Device Inference",
-            "Allows longer on-device Siri context window for complex requests."
-        )
-        self.siri2ProactiveBtns = self._add_row(
-            "Proactive Context Engine V2",
-            "Screen-awareness and proactive suggestion engine for Siri 2.0."
+        self.batteryPctBtns = self._add_row(
+            "Show Battery Percentage",
+            "SBShowBatteryPercentage — forces the numeric battery percentage to "
+            "appear in the status bar even on devices that hide it by default."
         )
 
+        # ── Dock ───────────────────────────────────────────────────────────────
         self._add_divider()
-        self._section("iOS 26 Layout Feature Flags", section_font)
+        self._section("Dock", section_font)
 
-        self.ios26FloatingSheetBtns = self._add_row(
-            "Floating Sheet Presentation",
-            "Detached floating modal sheets with adaptive corner radius (UIKit)."
+        self.hideDockBgBtns = self._add_row(
+            "Hide Dock Background",
+            "SBHideDockBackground — removes the frosted-glass blur behind the "
+            "dock, leaving only the icons floating above the wallpaper."
         )
-        self.ios26CompactTabBtns = self._add_row(
-            "Compact Tab Bar Layout",
-            "Denser tab bar with Solarium glass material (SpringBoard)."
+        self.disableASBlurBtns = self._add_row(
+            "Disable App-Switcher Blur",
+            "SBDisableAppSwitcherBlurBackground — removes the background blur in "
+            "the app switcher for a sharper, faster card view."
         )
 
+        # ── Animations ─────────────────────────────────────────────────────────
         self._add_divider()
-        self._section("iOS 27 Layout Feature Flags", section_font)
+        self._section("System Animations  (UIAnimationDragCoefficient)", section_font)
 
-        self.ios27FluidBtns = self._add_row(
-            "Fluid Navigation Transitions V2",
-            "Zoom-based navigation transitions with spring physics (UIKit)."
+        self.animFastBtns = self._add_row(
+            "2× Faster Animations  [0.5]",
+            "UIAnimationDragCoefficient = 0.5 in .GlobalPreferences — UIKit reads "
+            "this at launch and scales every spring/duration by this factor. "
+            "Only enable one speed at a time."
         )
-        self.ios27SidebarBtns = self._add_row(
-            "Adaptive Collapsible Sidebar",
-            "Context-aware collapsible sidebar for iPad/iPhone split views."
+        self.animSlowBtns = self._add_row(
+            "Slow-Motion Animations  [10.0]",
+            "UIAnimationDragCoefficient = 10.0 — stretches every animation to "
+            "10× its normal duration, useful for inspecting transitions."
         )
-        self.ios27SwipeBtns = self._add_row(
-            "Enhanced Swipe Navigation V2",
-            "Extended gesture navigation system across SpringBoard."
+
+        # ── Cellular & Modem ───────────────────────────────────────────────────
+        self._add_divider()
+        self._section("Cellular & Modem  (com.apple.coretelephony)", section_font)
+
+        self.dataRoamingBtns = self._add_row(
+            "Data Roaming",
+            "DataRoamingEnabled — enables cellular data while roaming on foreign "
+            "networks (CoreTelephony / CommCenter reads this key)."
+        )
+        self.enable5GBtns = self._add_row(
+            "5G Radio",
+            "5GEnabled — allows the modem to connect to 5G NR networks when "
+            "coverage is available."
+        )
+        self.volteBtns = self._add_row(
+            "Voice over LTE (VoLTE)",
+            "VoLTEEnabled — routes voice calls over the LTE data channel for "
+            "HD call quality and simultaneous voice + data."
+        )
+        self.wifiCallingBtns = self._add_row(
+            "Wi-Fi Calling",
+            "WiFiCallingEnabled — allows the device to place and receive calls "
+            "over a Wi-Fi connection when cellular signal is weak."
+        )
+        self.hdVoiceBtns = self._add_row(
+            "HD Voice (AMR-WB / EVS)",
+            "HDVoiceEnabled — enables wideband and EVS voice codecs for higher "
+            "fidelity audio on supported carrier networks."
+        )
+        self.lteBtns = self._add_row(
+            "LTE Radio",
+            "LTEEnabled — allows the modem to use LTE networks. Disabling forces "
+            "the device back to 3G/2G."
         )
 
         self.layout_main.addItem(
@@ -157,19 +194,27 @@ class SiriTwoPage(Page, QWidget):
         return btn_layout
 
     def load_page(self):
-        load_siri_two()
-        load_ios2627_layout()
+        load_homescreen_dock()
+        load_cellular()
 
-        self.createRadioBtns(TweakID.Siri2NewUI, self.siri2NewUIBtns)
-        self.createRadioBtns(TweakID.Siri2VoiceDesign, self.siri2VoiceDesignBtns)
-        self.createRadioBtns(TweakID.Siri2MeshBackground, self.siri2MeshBgBtns)
-        self.createRadioBtns(TweakID.Siri2GlassOrb, self.siri2GlassOrbBtns)
-        self.createRadioBtns(TweakID.Siri2OnDeviceExtended, self.siri2OnDeviceBtns)
-        self.createRadioBtns(TweakID.Siri2ProactiveContext, self.siri2ProactiveBtns)
+        # Home screen
+        self.createRadioBtns(TweakID.HomeScreenRotation, self.homeRotationBtns)
+        self.createRadioBtns(TweakID.HideIconLabels, self.hideIconLabelsBtns)
+        self.createRadioBtns(TweakID.HideNotificationBadges, self.hideBadgesBtns)
+        self.createRadioBtns(TweakID.ShowBatteryPercentage, self.batteryPctBtns)
 
-        self.createRadioBtns(TweakID.iOS26FloatingSheetUI, self.ios26FloatingSheetBtns)
-        self.createRadioBtns(TweakID.iOS26CompactTabBar, self.ios26CompactTabBtns)
+        # Dock
+        self.createRadioBtns(TweakID.HideDockBackground, self.hideDockBgBtns)
+        self.createRadioBtns(TweakID.DisableAppSwitcherBlur, self.disableASBlurBtns)
 
-        self.createRadioBtns(TweakID.iOS27FluidTransitions, self.ios27FluidBtns)
-        self.createRadioBtns(TweakID.iOS27AdaptiveSidebar, self.ios27SidebarBtns)
-        self.createRadioBtns(TweakID.iOS27SwipeNavigation, self.ios27SwipeBtns)
+        # Animations — use createToggleBtns so the preset float value is not overwritten
+        self.createToggleBtns(TweakID.AnimationSpeedFast, self.animFastBtns)
+        self.createToggleBtns(TweakID.AnimationSpeedSlow, self.animSlowBtns)
+
+        # Cellular
+        self.createRadioBtns(TweakID.CellularDataRoaming, self.dataRoamingBtns)
+        self.createRadioBtns(TweakID.Cellular5G, self.enable5GBtns)
+        self.createRadioBtns(TweakID.CellularVoLTE, self.volteBtns)
+        self.createRadioBtns(TweakID.CellularWiFiCalling, self.wifiCallingBtns)
+        self.createRadioBtns(TweakID.CellularHDVoice, self.hdVoiceBtns)
+        self.createRadioBtns(TweakID.CellularLTE, self.lteBtns)

@@ -111,35 +111,31 @@ class TweakID(Enum):
     DisableOuterRefraction = auto()
     DisableSolariumHDR = auto()
 
-    # Siri 2.0 (WWDC 2026)
-    Siri2NewUI = auto()
-    Siri2VoiceDesign = auto()
-    Siri2MeshBackground = auto()
-    Siri2GlassOrb = auto()
-    Siri2OnDeviceExtended = auto()
-    Siri2ProactiveContext = auto()
+    # home screen & dock  (SpringBoard managed preferences — verified in SB binary)
+    HomeScreenRotation = auto()      # SBAllowHomeScreenRotation
+    HideIconLabels = auto()          # SBHideHomeScreenIconLabels
+    HideDockBackground = auto()      # SBHideDockBackground
+    AnimationSpeedFast = auto()      # UIAnimationDragCoefficient = 0.5  (well documented)
+    AnimationSpeedSlow = auto()      # UIAnimationDragCoefficient = 10.0 (slow-motion debug)
+    HideNotificationBadges = auto()  # SBHideIconBadges
+    DisableAppSwitcherBlur = auto()  # SBDisableAppSwitcherBlurBackground
+    ShowBatteryPercentage = auto()   # SBShowBatteryPercentage (status bar)
 
-    # Sound Studio
-    SoundKeyboardFeedback = auto()
-    SoundScreenshotDisable = auto()
-    SoundChargeAlert = auto()
-    SoundSlowChargeAlert = auto()
-    SoundLowBatteryVoice = auto()
-    SoundRingerHapticSync = auto()
-    SoundSpatialAudioForce = auto()
-    SoundCallVoiceEnhance = auto()
-    SoundSystemUIEffects = auto()
-    SoundVolumeHUD = auto()
-    SoundBTConnectionChime = auto()
-    SoundDuckOthers = auto()
-    SoundMediaPlaybackAnalysis = auto()
+    # sound (SpringBoard / UIKit managed preferences)
+    SoundKeyboardFeedback = auto()   # UIKeyboardSoundFeedback   (UIKit)
+    SoundScreenshotDisable = auto()  # SBCaptureControllerScreenCaptureSoundDisabled
+    SoundChargeAlert = auto()        # SBChargingReminderSoundEnabled
+    SoundSlowChargeAlert = auto()    # SBSlowChargeAlertSoundEnabled
+    SoundRingerHapticSync = auto()   # SBRingerAudioVibrateSync
+    SoundVolumeHUD = auto()          # SBVolumeHUDSoundEnabled
 
-    # iOS 26 / 27 layout
-    iOS26FloatingSheetUI = auto()
-    iOS26CompactTabBar = auto()
-    iOS27FluidTransitions = auto()
-    iOS27AdaptiveSidebar = auto()
-    iOS27SwipeNavigation = auto()
+    # cellular & modem  (com.apple.coretelephony managed preferences)
+    CellularDataRoaming = auto()     # DataRoamingEnabled
+    Cellular5G = auto()              # 5GEnabled
+    CellularVoLTE = auto()           # VoLTEEnabled
+    CellularWiFiCalling = auto()     # WiFiCallingEnabled
+    CellularHDVoice = auto()         # HDVoiceEnabled
+    CellularLTE = auto()             # LTEEnabled
 
     # risky
     DisableOTAFile = auto()

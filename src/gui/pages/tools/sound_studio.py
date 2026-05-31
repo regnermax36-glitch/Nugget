@@ -36,7 +36,6 @@ class SoundStudioPage(Page, QWidget):
         title_font = QFont()
         title_font.setPointSize(18)
         title_font.setBold(True)
-
         section_font = QFont()
         section_font.setPointSize(11)
         section_font.setBold(True)
@@ -46,79 +45,53 @@ class SoundStudioPage(Page, QWidget):
         self.layout_main.addWidget(title)
 
         subtitle = QLabel(
-            "MaxRegner revolutionary audio customization — control every system "
-            "sound, voice quality, spatial audio, and media playback behavior."
+            "Real SpringBoard and UIKit managed-preference keys that control "
+            "system sound behaviour. All changes apply via sparserestore — "
+            "no BookRestore required."
         )
         subtitle.setWordWrap(True)
         subtitle.setStyleSheet("color: #aaaaaa; font-size: 13px;")
         self.layout_main.addWidget(subtitle)
 
         self._add_divider()
-
-        self._section("Keyboard & UI Feedback", section_font)
+        self._section("Input", section_font)
         self.keyboardFeedbackBtns = self._add_row(
             "Keyboard Click Sounds",
-            "Enable tactile click sounds on every keystroke (UIKit)."
-        )
-        self.systemUIEffectsBtns = self._add_row(
-            "System UI Sound Effects",
-            "Global tap / alert / notification chime layer."
-        )
-        self.volumeHUDBtns = self._add_row(
-            "Volume Change HUD Sound",
-            "Play a tone when the ringer volume changes."
+            "UIKeyboardSoundFeedback — UIKit plays a click on every keystroke."
         )
 
         self._add_divider()
-        self._section("Alerts & Notifications", section_font)
+        self._section("Camera & Screenshots", section_font)
         self.screenshotDisableBtns = self._add_row(
-            "Disable Screenshot Shutter",
-            "Silence the camera click when taking a screenshot."
+            "Disable Screenshot Shutter Sound",
+            "SBCaptureControllerScreenCaptureSoundDisabled — silences the camera "
+            "shutter when taking a screenshot (applies regardless of ringer mode)."
         )
+
+        self._add_divider()
+        self._section("Charging", section_font)
         self.chargeAlertBtns = self._add_row(
-            "Charge Connected Chime",
-            "Play a sound when power is plugged in."
+            "Charge-Connected Chime",
+            "SBChargingReminderSoundEnabled — plays the charging tone whenever "
+            "power is plugged in."
         )
         self.slowChargeAlertBtns = self._add_row(
-            "Slow Charge Warning Sound",
-            "Alert when device is charging slowly."
-        )
-        self.lowBatteryVoiceBtns = self._add_row(
-            "Low Battery Voice Announcement",
-            "Speak the battery percentage aloud when critically low."
-        )
-        self.btChimeBtns = self._add_row(
-            "Bluetooth Connection Chime",
-            "Play a tone on BT device connect / disconnect."
+            "Slow-Charge Warning Sound",
+            "SBSlowChargeAlertSoundEnabled — alerts when the device is charging "
+            "below expected wattage (e.g. low-power USB port)."
         )
 
         self._add_divider()
-        self._section("Ringer & Haptics", section_font)
+        self._section("Ringer & Volume", section_font)
         self.ringerHapticBtns = self._add_row(
-            "Ringer + Haptic Sync",
-            "Keep vibration in sync with ringer audio waveform for richer feel."
+            "Ringer + Haptic Waveform Sync",
+            "SBRingerAudioVibrateSync — keeps the haptic engine locked in phase "
+            "with the ringer audio waveform for a tighter feel."
         )
-
-        self._add_divider()
-        self._section("Spatial & Hi-Fi Audio", section_font)
-        self.spatialAudioBtns = self._add_row(
-            "Force Spatial Audio",
-            "Force AVFoundation spatial audio engine for all media output."
-        )
-        self.duckOthersBtns = self._add_row(
-            "Duck Other Apps During Playback",
-            "Lower background app audio while media plays."
-        )
-        self.headphoneAnalysisBtns = self._add_row(
-            "Headphone Acoustic Analysis",
-            "Real-time headphone audio analysis for playback optimization."
-        )
-
-        self._add_divider()
-        self._section("Voice & Calls", section_font)
-        self.callVoiceEnhanceBtns = self._add_row(
-            "Enhanced Call Voice Processing",
-            "Enable advanced CoreTelephony noise reduction and voice clarity."
+        self.volumeHUDBtns = self._add_row(
+            "Volume-Change HUD Sound",
+            "SBVolumeHUDSoundEnabled — plays a brief tone when the volume is "
+            "adjusted via the hardware buttons."
         )
 
         self.layout_main.addItem(
@@ -168,17 +141,9 @@ class SoundStudioPage(Page, QWidget):
 
     def load_page(self):
         load_sound_studio()
-
         self.createRadioBtns(TweakID.SoundKeyboardFeedback, self.keyboardFeedbackBtns)
-        self.createRadioBtns(TweakID.SoundSystemUIEffects, self.systemUIEffectsBtns)
-        self.createRadioBtns(TweakID.SoundVolumeHUD, self.volumeHUDBtns)
         self.createRadioBtns(TweakID.SoundScreenshotDisable, self.screenshotDisableBtns)
         self.createRadioBtns(TweakID.SoundChargeAlert, self.chargeAlertBtns)
         self.createRadioBtns(TweakID.SoundSlowChargeAlert, self.slowChargeAlertBtns)
-        self.createRadioBtns(TweakID.SoundLowBatteryVoice, self.lowBatteryVoiceBtns)
-        self.createRadioBtns(TweakID.SoundBTConnectionChime, self.btChimeBtns)
         self.createRadioBtns(TweakID.SoundRingerHapticSync, self.ringerHapticBtns)
-        self.createRadioBtns(TweakID.SoundSpatialAudioForce, self.spatialAudioBtns)
-        self.createRadioBtns(TweakID.SoundDuckOthers, self.duckOthersBtns)
-        self.createRadioBtns(TweakID.SoundMediaPlaybackAnalysis, self.headphoneAnalysisBtns)
-        self.createRadioBtns(TweakID.SoundCallVoiceEnhance, self.callVoiceEnhanceBtns)
+        self.createRadioBtns(TweakID.SoundVolumeHUD, self.volumeHUDBtns)

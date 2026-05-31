@@ -21,6 +21,19 @@ class Page:
         spacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         container.addItem(spacer)
 
+    def createToggleBtns(self, key: TweakID, container: QHBoxLayout):
+        """Like createRadioBtns but only toggles enabled — never replaces the preset value.
+        Use this for tweaks whose value is a float/int set at construction time."""
+        defaultBtn = QRadioButton(QCoreApplication.tr("Default"))
+        defaultBtn.setChecked(True)
+        defaultBtn.clicked.connect(lambda _, k=key: tweaks[k].set_enabled(False))
+        enabledBtn = QRadioButton(QCoreApplication.tr("Enabled"))
+        enabledBtn.clicked.connect(lambda _, k=key: tweaks[k].set_enabled(True))
+        container.addWidget(defaultBtn)
+        container.addWidget(enabledBtn)
+        spacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        container.addItem(spacer)
+
     def load(self):
         if not self.loaded:
             self.load_page()
