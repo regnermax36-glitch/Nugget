@@ -703,12 +703,12 @@ def load_mros_dock_nav():
         return
     S  = FileLocation.springboard
     additional_tweaks = {
-        TweakID.DockSolarium:             FeatureFlagTweak('Dock',       ['Solarium']),
-        TweakID.DockHidden:               BasicPlistTweak(S, 'SBForceDockHidden'),
-        TweakID.DockMagnification:        BasicPlistTweak(S, 'SBDockMagnificationEnabled'),
+        TweakID.DockSolarium:             FeatureFlagTweak('Dock',          ['Solarium']),
+        TweakID.DockHidden:               FeatureFlagTweak('Dock',          ['HideOnHomeScreen']),
+        TweakID.DockMagnification:        FeatureFlagTweak('Dock',          ['Magnification']),
         TweakID.NavGestureSwipeBack:      BasicPlistTweak(S, 'SBNeverBreadcrumb', value=False),
-        TweakID.NavGestureLongPress:      BasicPlistTweak(S, 'SBLongPressHomeMenuEnabled'),
-        TweakID.NavGestureAssistiveTouch: BasicPlistTweak(S, 'SBAssistiveTouchEnabled'),
+        TweakID.NavGestureLongPress:      FeatureFlagTweak('SpringBoard',   ['LongPressContextMenu']),
+        TweakID.NavGestureAssistiveTouch: BasicPlistTweak(FileLocation.accessibility, 'AXAssistiveTouchEnabled'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -743,11 +743,11 @@ def load_mros_sound_engine():
     S  = FileLocation.springboard
     GP = FileLocation.globalPreferences
     additional_tweaks = {
-        TweakID.SoundEngineBoostVolume:      BasicPlistTweak(GP, 'SBVolumeBoostEnabled'),
-        TweakID.SoundEngineMuteSwitch:       BasicPlistTweak(S,  'SBSilentModeEnabled'),
-        TweakID.SoundEngineVibrateOnRing:    BasicPlistTweak(S,  'SBVibrateOnRing'),
-        TweakID.SoundEngineVibrateOnSilent:  BasicPlistTweak(S,  'SBVibrateOnSilent'),
-        TweakID.SoundEngineKeyClicks:        BasicPlistTweak(S,  'SBKeyClickEnabled'),
+        TweakID.SoundEngineBoostVolume:     FeatureFlagTweak('SpringBoard',  ['VolumeBoostEnabled']),
+        TweakID.SoundEngineMuteSwitch:      FeatureFlagTweak('SpringBoard',  ['SilentModeToggleEnabled']),
+        TweakID.SoundEngineVibrateOnRing:   FeatureFlagTweak('SpringBoard',  ['VibrateOnRing']),
+        TweakID.SoundEngineVibrateOnSilent: FeatureFlagTweak('SpringBoard',  ['VibrateOnSilent']),
+        TweakID.SoundEngineKeyClicks:       FeatureFlagTweak('SpringBoard',  ['KeyboardClickSounds']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -761,11 +761,11 @@ def load_mros_siri_v2():
         return
     SI = FileLocation.siri
     additional_tweaks = {
-        TweakID.SiriDictation:           BasicPlistTweak(SI, 'DictationEnabled'),
-        TweakID.SiriSearchEnabled:       BasicPlistTweak(SI, 'SearchEnabled'),
-        TweakID.SiriPersonalInsights:    BasicPlistTweak(SI, 'PersonalInsights'),
-        TweakID.SiriContextSuggestions:  BasicPlistTweak(SI, 'ContextualSuggestionsEnabled'),
-        TweakID.SiriOnDeviceOnly:        BasicPlistTweak(SI, 'OnDeviceOnlyEnabled'),
+        TweakID.SiriDictation:           FeatureFlagTweak('Siri',      ['DictationEnabled']),
+        TweakID.SiriSearchEnabled:       FeatureFlagTweak('Spotlight', ['SiriSuggestions']),
+        TweakID.SiriPersonalInsights:    FeatureFlagTweak('Siri',      ['PersonalInsights']),
+        TweakID.SiriContextSuggestions:  FeatureFlagTweak('Siri',      ['ContextualSuggestions']),
+        TweakID.SiriOnDeviceOnly:        FeatureFlagTweak('Siri',      ['OnDeviceProcessing']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -780,21 +780,21 @@ def load_mros_home_screen():
     S  = FileLocation.springboard
     AX = FileLocation.accessibility
     additional_tweaks = {
-        TweakID.HomeHideIconLabels:      BasicPlistTweak(S,  'SBIconTextEnabled',                        value=False),
-        TweakID.HomeHidePageDots:        BasicPlistTweak(S,  'SBPageIndicatorEnabled',                   value=False),
-        TweakID.HomeSearchBar:           BasicPlistTweak(S,  'SBShowHomeScreenSearchBar'),
-        TweakID.HomeAutoArrange:         BasicPlistTweak(S,  'SBAutoArrangeApps'),
-        TweakID.HomeLongPressMenu:       BasicPlistTweak(S,  'SBLongPressHomeScreenContextMenuEnabled'),
-        TweakID.HomeSwipeToUnlock:       BasicPlistTweak(S,  'SBSwipeToUnlockEnabled'),
-        TweakID.HomeFocusMode:           BasicPlistTweak(S,  'SBHomeFocusModeEnabled'),
-        TweakID.HomeGridColumns:         BasicPlistTweak(S,  'SBIconColumnsPortrait',                    value=5),
-        TweakID.HomeGridRows:            BasicPlistTweak(S,  'SBIconRowsPortrait',                       value=7),
-        TweakID.HomeLargeIcons:          BasicPlistTweak(S,  'SBLargeIconsEnabled'),
-        TweakID.IconButtonShapes:        BasicPlistTweak(AX, 'AXButtonShapesEnabled'),
-        TweakID.IconOnOffLabels:         BasicPlistTweak(AX, 'AXOnOffSwitchLabels'),
-        TweakID.IconGrayscale:           BasicPlistTweak(AX, 'AXGrayscaleEnabled'),
-        TweakID.IconReduceWhitePoint:    BasicPlistTweak(AX, 'AXReduceWhitePoint'),
-        TweakID.IconDifferentiateColors: BasicPlistTweak(AX, 'AXDifferentiateWithoutColor'),
+        TweakID.HomeHideIconLabels:      FeatureFlagTweak('SpringBoard', ['HideIconLabels']),
+        TweakID.HomeHidePageDots:        FeatureFlagTweak('SpringBoard', ['HidePageIndicator']),
+        TweakID.HomeSearchBar:           FeatureFlagTweak('Spotlight',   ['HomeScreenSearchBar']),
+        TweakID.HomeAutoArrange:         FeatureFlagTweak('SpringBoard', ['AutoArrangeApps']),
+        TweakID.HomeLongPressMenu:       FeatureFlagTweak('SpringBoard', ['LongPressContextMenu']),
+        TweakID.HomeSwipeToUnlock:       FeatureFlagTweak('SpringBoard', ['SwipeToUnlock']),
+        TweakID.HomeFocusMode:           FeatureFlagTweak('SpringBoard', ['FocusModeHomeScreen']),
+        TweakID.HomeGridColumns:         FeatureFlagTweak('SpringBoard', ['FiveColumnIconLayout']),
+        TweakID.HomeGridRows:            FeatureFlagTweak('SpringBoard', ['SevenRowIconLayout']),
+        TweakID.HomeLargeIcons:          FeatureFlagTweak('SpringBoard', ['LargeIconLayout']),
+        TweakID.IconButtonShapes:        BasicPlistTweak(FileLocation.accessibility, 'AXButtonShapesEnabled'),
+        TweakID.IconOnOffLabels:         BasicPlistTweak(FileLocation.accessibility, 'AXOnOffSwitchLabels'),
+        TweakID.IconGrayscale:           BasicPlistTweak(FileLocation.accessibility, 'AXGrayscaleEnabled'),
+        TweakID.IconReduceWhitePoint:    BasicPlistTweak(FileLocation.accessibility, 'AXReduceWhitePoint'),
+        TweakID.IconDifferentiateColors: BasicPlistTweak(FileLocation.accessibility, 'AXDifferentiateWithoutColor'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -809,13 +809,13 @@ def load_mros_display():
     GP = FileLocation.globalPreferences
     AX = FileLocation.accessibility
     additional_tweaks = {
-        TweakID.DisplayNightShift:     BasicPlistTweak(GP, 'NightShiftEnabled'),
-        TweakID.DisplayTrueTone:       BasicPlistTweak(GP, 'TrueToneEnabled'),
-        TweakID.DisplayReduceFlicker:  BasicPlistTweak(GP, 'UIReduceFlickerEnabled'),
-        TweakID.DisplayEnhanceText:    BasicPlistTweak(GP, 'UIEnhanceTextLegibility'),
-        TweakID.DisplayLargeText:      BasicPlistTweak(GP, 'UILargeContentSizeEnabled'),
-        TweakID.DisplayCursorThick:    BasicPlistTweak(AX, 'AXCursorThicknessEnabled'),
-        TweakID.DisplayFlashAlerts:    BasicPlistTweak(AX, 'AXFlashScreenForAlerts'),
+        TweakID.DisplayNightShift:     FeatureFlagTweak('CoreBrightness', ['NightShiftEnabled']),
+        TweakID.DisplayTrueTone:       FeatureFlagTweak('CoreBrightness', ['TrueToneEnabled']),
+        TweakID.DisplayReduceFlicker:  BasicPlistTweak(FileLocation.accessibility, 'AXReduceFlicker'),
+        TweakID.DisplayEnhanceText:    BasicPlistTweak(FileLocation.accessibility, 'AXEnhanceTextLegibility'),
+        TweakID.DisplayLargeText:      BasicPlistTweak(FileLocation.accessibility, 'AXLargeContentViewerEnabled'),
+        TweakID.DisplayCursorThick:    BasicPlistTweak(FileLocation.accessibility, 'AXCursorThicknessEnabled'),
+        TweakID.DisplayFlashAlerts:    BasicPlistTweak(FileLocation.accessibility, 'AXFlashScreenForAlerts'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -829,14 +829,14 @@ def load_mros_lock_screen():
         return
     S = FileLocation.springboard
     additional_tweaks = {
-        TweakID.LockShowDate:                    BasicPlistTweak(S, 'SBLockScreenShowDate'),
-        TweakID.LockNotifPreview:                BasicPlistTweak(S, 'SBLockScreenShowNotificationPreview'),
-        TweakID.LockShowMediaControls:           BasicPlistTweak(S, 'SBLockScreenShowMediaControls'),
-        TweakID.LockShowCamera:                  BasicPlistTweak(S, 'SBLockScreenShowCameraButton'),
-        TweakID.LockShowFlashlight:              BasicPlistTweak(S, 'SBLockScreenShowFlashlightButton'),
-        TweakID.LockBiometricOnWake:             BasicPlistTweak(S, 'SBFaceIDOnWake'),
-        TweakID.LockRequirePasscodeImmediately:  BasicPlistTweak(S, 'SBRequirePasscodeImmediately'),
-        TweakID.LockEnableUsb:                   BasicPlistTweak(S, 'SBUSBRestrictedModeDisabled'),
+        TweakID.LockShowDate:                    FeatureFlagTweak('SpringBoard', ['LockScreenShowDate']),
+        TweakID.LockNotifPreview:                FeatureFlagTweak('SpringBoard', ['LockScreenNotificationPreview']),
+        TweakID.LockShowMediaControls:           FeatureFlagTweak('SpringBoard', ['LockScreenMediaControls']),
+        TweakID.LockShowCamera:                  FeatureFlagTweak('SpringBoard', ['LockScreenCameraShortcut']),
+        TweakID.LockShowFlashlight:              FeatureFlagTweak('SpringBoard', ['LockScreenFlashlightShortcut']),
+        TweakID.LockBiometricOnWake:             FeatureFlagTweak('BiometricKit', ['FaceIDOnWake']),
+        TweakID.LockRequirePasscodeImmediately:  FeatureFlagTweak('SpringBoard', ['ImmediatePasscodeRequired']),
+        TweakID.LockEnableUsb:                   FeatureFlagTweak('SpringBoard', ['USBAccessoryAlwaysAllowed']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -850,15 +850,15 @@ def load_mros_keyboard():
         return
     KB = FileLocation.keyboard
     additional_tweaks = {
-        TweakID.KbAutoCorrect:       BasicPlistTweak(KB, 'KeyboardAutocorrection'),
-        TweakID.KbAutoCapitalize:    BasicPlistTweak(KB, 'KeyboardAutocapitalization'),
-        TweakID.KbPredictive:        BasicPlistTweak(KB, 'KeyboardPrediction'),
-        TweakID.KbHaptics:           BasicPlistTweak(KB, 'KeyboardHapticsEnabled'),
-        TweakID.KbSwipeTyping:       BasicPlistTweak(KB, 'KeyboardSlideToType'),
-        TweakID.KbSmartPunctuation:  BasicPlistTweak(KB, 'KeyboardSmartPunctuation'),
-        TweakID.KbDictation:         BasicPlistTweak(KB, 'KeyboardDictation'),
-        TweakID.KbEmojiSuggestions:  BasicPlistTweak(KB, 'KeyboardEmojiSuggestions'),
-        TweakID.KbInlinePredictions: BasicPlistTweak(KB, 'KeyboardInlinePredictions'),
+        TweakID.KbAutoCorrect:       FeatureFlagTweak('Keyboard', ['AutoCorrection']),
+        TweakID.KbAutoCapitalize:    FeatureFlagTweak('Keyboard', ['AutoCapitalization']),
+        TweakID.KbPredictive:        FeatureFlagTweak('Keyboard', ['PredictiveEnabled']),
+        TweakID.KbHaptics:           FeatureFlagTweak('Keyboard', ['HapticFeedback']),
+        TweakID.KbSwipeTyping:       FeatureFlagTweak('Keyboard', ['SlideToType']),
+        TweakID.KbSmartPunctuation:  FeatureFlagTweak('Keyboard', ['SmartPunctuation']),
+        TweakID.KbDictation:         FeatureFlagTweak('Keyboard', ['DictationEnabled']),
+        TweakID.KbEmojiSuggestions:  FeatureFlagTweak('Keyboard', ['EmojiSuggestions']),
+        TweakID.KbInlinePredictions: FeatureFlagTweak('Keyboard', ['InlinePredictions']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -873,24 +873,24 @@ def load_mros_notifications():
     NF = FileLocation.notification
     S  = FileLocation.springboard
     additional_tweaks = {
-        TweakID.NotifBadges:            BasicPlistTweak(NF, 'BadgesEnabled'),
-        TweakID.NotifSounds:            BasicPlistTweak(NF, 'SoundsEnabled'),
-        TweakID.NotifVibrations:        BasicPlistTweak(NF, 'VibrationsEnabled'),
-        TweakID.NotifPreviewAlways:     BasicPlistTweak(NF, 'PreviewsAlways'),
-        TweakID.NotifGroupByApp:        BasicPlistTweak(NF, 'GroupingByApp'),
-        TweakID.NotifPersistentAlerts:  BasicPlistTweak(NF, 'AlertTypePersistent'),
-        TweakID.NotifCriticalAlerts:    BasicPlistTweak(NF, 'CriticalAlertsEnabled'),
-        TweakID.NotifAnnounce:          BasicPlistTweak(NF, 'AnnounceNotificationsEnabled'),
-        TweakID.CCHideBrightness:       BasicPlistTweak(S,  'SBCCHideBrightness'),
-        TweakID.CCHideVolume:           BasicPlistTweak(S,  'SBCCHideVolume'),
-        TweakID.CCHideWifi:             BasicPlistTweak(S,  'SBCCHideWifi'),
-        TweakID.CCHideBluetooth:        BasicPlistTweak(S,  'SBCCHideBluetooth'),
-        TweakID.CCLockRotationToggle:   BasicPlistTweak(S,  'SBCCLockRotationEnabled'),
-        TweakID.CCNightShiftToggle:     BasicPlistTweak(S,  'SBCCNightShiftEnabled'),
-        TweakID.CCLowPowerToggle:       BasicPlistTweak(S,  'SBCCLowPowerEnabled'),
-        TweakID.CCMirroringToggle:      BasicPlistTweak(S,  'SBCCAirPlayEnabled'),
-        TweakID.CCAlwaysShow:           BasicPlistTweak(S,  'SBCCAlwaysShow'),
-        TweakID.CCShowInApps:           BasicPlistTweak(S,  'SBCCShowInApps'),
+        TweakID.NotifBadges:            FeatureFlagTweak('UserNotificationsUI', ['BadgesEnabled']),
+        TweakID.NotifSounds:            FeatureFlagTweak('UserNotificationsUI', ['SoundsEnabled']),
+        TweakID.NotifVibrations:        FeatureFlagTweak('UserNotificationsUI', ['VibrationsEnabled']),
+        TweakID.NotifPreviewAlways:     FeatureFlagTweak('UserNotificationsUI', ['AlwaysShowPreview']),
+        TweakID.NotifGroupByApp:        FeatureFlagTweak('UserNotificationsUI', ['GroupByApp']),
+        TweakID.NotifPersistentAlerts:  FeatureFlagTweak('UserNotificationsUI', ['PersistentAlerts']),
+        TweakID.NotifCriticalAlerts:    FeatureFlagTweak('UserNotificationsUI', ['CriticalAlerts']),
+        TweakID.NotifAnnounce:          FeatureFlagTweak('UserNotificationsUI', ['AnnounceNotifications']),
+        TweakID.CCHideBrightness:       FeatureFlagTweak('ControlCenter',       ['HideBrightnessSlider']),
+        TweakID.CCHideVolume:           FeatureFlagTweak('ControlCenter',       ['HideVolumeSlider']),
+        TweakID.CCHideWifi:             FeatureFlagTweak('ControlCenter',       ['HideWifiToggle']),
+        TweakID.CCHideBluetooth:        FeatureFlagTweak('ControlCenter',       ['HideBluetoothToggle']),
+        TweakID.CCLockRotationToggle:   FeatureFlagTweak('ControlCenter',       ['RotationLockToggle']),
+        TweakID.CCNightShiftToggle:     FeatureFlagTweak('ControlCenter',       ['NightShiftToggle']),
+        TweakID.CCLowPowerToggle:       FeatureFlagTweak('ControlCenter',       ['LowPowerToggle']),
+        TweakID.CCMirroringToggle:      FeatureFlagTweak('ControlCenter',       ['AirPlayToggle']),
+        TweakID.CCAlwaysShow:           FeatureFlagTweak('ControlCenter',       ['AlwaysShow']),
+        TweakID.CCShowInApps:           FeatureFlagTweak('ControlCenter',       ['ShowInApps']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -929,21 +929,21 @@ def load_mros_vision_alien():
     S  = FileLocation.springboard
     AX = FileLocation.accessibility
     additional_tweaks = {
-        TweakID.VisionDepthWallpaper:      BasicPlistTweak(S,  'SBWallpaperDepthEffect'),
-        TweakID.VisionImmersiveBlur:       BasicPlistTweak(S,  'SBImmersiveBlurEnabled'),
-        TweakID.VisionSpatialAudio:        BasicPlistTweak(S,  'SBAudioSpatialEnabled'),
-        TweakID.VisionLayeredUI:           BasicPlistTweak(S,  'SBLayeredInterfaceEnabled'),
-        TweakID.VisionDepthBlur:           BasicPlistTweak(S,  'SBDepthBlurEnabled'),
-        TweakID.VisionFullscreenApp:       BasicPlistTweak(S,  'SBFullScreenAppEnabled'),
-        TweakID.VisionFocusedAppShadow:    BasicPlistTweak(S,  'SBFocusedAppShadowEnabled'),
-        TweakID.VisionWindowCornerRadius:  BasicPlistTweak(S,  'SBWindowCornerRadiusEnabled'),
-        TweakID.VisionEnvironmentLighting: BasicPlistTweak(S,  'SBEnvironmentLightingEnabled'),
-        TweakID.AlienColorFilterType:      BasicPlistTweak(AX, 'AXColorFilterEnabled'),
-        TweakID.AlienColorIntensity:       BasicPlistTweak(AX, 'AXEnhanceBackgroundContrastEnabled'),
-        TweakID.AlienClassicInvert:        BasicPlistTweak(AX, 'AXInvertColors'),
-        TweakID.AlienPurpleSaturation:     BasicPlistTweak(AX, 'AXIncreaseSaturationEnabled'),
-        TweakID.AlienVibrantMode:          BasicPlistTweak(S,  'SBVibrantModeEnabled'),
-        TweakID.AlienNeonGlow:             BasicPlistTweak(S,  'SBNeonGlowEnabled'),
+        TweakID.VisionDepthWallpaper:      FeatureFlagTweak('SpringBoard', ['WallpaperDepthEffect']),
+        TweakID.VisionImmersiveBlur:       FeatureFlagTweak('SpringBoard', ['ImmersiveBlur']),
+        TweakID.VisionSpatialAudio:        FeatureFlagTweak('CoreAudio',   ['SpatialAudio']),
+        TweakID.VisionLayeredUI:           FeatureFlagTweak('SpringBoard', ['LayeredInterface']),
+        TweakID.VisionDepthBlur:           FeatureFlagTweak('SpringBoard', ['DepthBlurEffect']),
+        TweakID.VisionFullscreenApp:       FeatureFlagTweak('SpringBoard', ['FullScreenAppMode']),
+        TweakID.VisionFocusedAppShadow:    FeatureFlagTweak('SpringBoard', ['FocusedAppShadow']),
+        TweakID.VisionWindowCornerRadius:  FeatureFlagTweak('SpringBoard', ['LargeWindowCornerRadius']),
+        TweakID.VisionEnvironmentLighting: FeatureFlagTweak('SpringBoard', ['EnvironmentLighting']),
+        TweakID.AlienColorFilterType:      BasicPlistTweak(FileLocation.accessibility, 'AXColorFilterEnabled'),
+        TweakID.AlienColorIntensity:       BasicPlistTweak(FileLocation.accessibility, 'AXEnhanceBackgroundContrastEnabled'),
+        TweakID.AlienClassicInvert:        BasicPlistTweak(FileLocation.accessibility, 'AXInvertColors'),
+        TweakID.AlienPurpleSaturation:     BasicPlistTweak(FileLocation.accessibility, 'AXIncreaseSaturationEnabled'),
+        TweakID.AlienVibrantMode:          FeatureFlagTweak('SpringBoard', ['VibrantMode']),
+        TweakID.AlienNeonGlow:             FeatureFlagTweak('SpringBoard', ['NeonGlowEffect']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -958,23 +958,23 @@ def load_mros_deep_system():
     S  = FileLocation.springboard
     UK = FileLocation.uikit
     additional_tweaks = {
-        TweakID.DeepBackgroundRefresh:    BasicPlistTweak(S,  'SBBackgroundAppRefreshEnabled'),
-        TweakID.DeepPerformanceMode:      BasicPlistTweak(S,  'SBPerformanceModeEnabled'),
-        TweakID.DeepPowerNap:             BasicPlistTweak(S,  'SBPowerNapEnabled'),
-        TweakID.DeepLowMemoryWarnings:    BasicPlistTweak(S,  'SBLowMemoryWarningEnabled'),
+        TweakID.DeepBackgroundRefresh:    FeatureFlagTweak('SpringBoard',       ['BackgroundAppRefresh']),
+        TweakID.DeepPerformanceMode:      FeatureFlagTweak('SpringBoard',       ['PerformanceMode']),
+        TweakID.DeepPowerNap:             FeatureFlagTweak('SpringBoard',       ['PowerNap']),
+        TweakID.DeepLowMemoryWarnings:    FeatureFlagTweak('SpringBoard',       ['LowMemoryWarnings']),
         TweakID.DeepUIReduceMotion:       BasicPlistTweak(FileLocation.accessibility, 'AXReduceMotionEnabled', value=False),
-        TweakID.DeepForceTouch:           BasicPlistTweak(S,  'SBForceTouchEnabled'),
-        TweakID.DeepAirDropEveryone:      BasicPlistTweak(S,  'SBAirDropReceivingMode',     value=2),
-        TweakID.DeepHandoff:              BasicPlistTweak(S,  'SBHandoffEnabled'),
-        TweakID.DeepUniversalControl:     BasicPlistTweak(S,  'SBUniversalControlEnabled'),
-        TweakID.DeepContinuityCamera:     BasicPlistTweak(S,  'SBContinuityCameraEnabled'),
-        TweakID.DeepFindMyNetwork:        BasicPlistTweak(S,  'SBFindMyNetworkEnabled'),
-        TweakID.DeepCarPlay:              BasicPlistTweak(S,  'SBCarPlayEnabled'),
-        TweakID.DeepFocusStatusShare:     BasicPlistTweak(S,  'SBFocusStatusShareEnabled'),
-        TweakID.DeepPersonalHotspot:      BasicPlistTweak(S,  'SBPersonalHotspotEnabled'),
-        TweakID.DeepSiriSuggestions:      BasicPlistTweak(S,  'SBSiriSuggestionsEnabled'),
-        TweakID.DeepCrashReporterDisable: BasicPlistTweak(S,  'SBCrashReporterDisabled'),
-        TweakID.DeepAnalyticsDisable:     BasicPlistTweak(S,  'SBDiagnosticsDisabled'),
+        TweakID.DeepForceTouch:           FeatureFlagTweak('SpringBoard',       ['ForceTouchEnabled']),
+        TweakID.DeepAirDropEveryone:      BasicPlistTweak(FileLocation.springboard, 'SBAirDropReceivingMode', value=2),
+        TweakID.DeepHandoff:              FeatureFlagTweak('ActivityContinuation', ['HandoffEnabled']),
+        TweakID.DeepUniversalControl:     FeatureFlagTweak('SpringBoard',       ['UniversalControlEnabled']),
+        TweakID.DeepContinuityCamera:     FeatureFlagTweak('SpringBoard',       ['ContinuityCameraEnabled']),
+        TweakID.DeepFindMyNetwork:        FeatureFlagTweak('FindMy',            ['FindMyNetworkEnabled']),
+        TweakID.DeepCarPlay:              FeatureFlagTweak('SpringBoard',       ['CarPlayEnabled']),
+        TweakID.DeepFocusStatusShare:     FeatureFlagTweak('Focus',             ['StatusShareEnabled']),
+        TweakID.DeepPersonalHotspot:      FeatureFlagTweak('SpringBoard',       ['PersonalHotspotEnabled']),
+        TweakID.DeepSiriSuggestions:      FeatureFlagTweak('Siri',              ['SiriSuggestions']),
+        TweakID.DeepCrashReporterDisable: BasicPlistTweak(FileLocation.springboard, 'SBCrashReporterDisabled'),
+        TweakID.DeepAnalyticsDisable:     BasicPlistTweak(FileLocation.springboard, 'SBDiagnosticsDisabled'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -1041,15 +1041,15 @@ def load_mros_siri_ios27():
     S  = FileLocation.springboard
     SI = FileLocation.siri
     additional_tweaks = {
-        TweakID.SiriDIIntegration:    BasicPlistTweak(S,  'SBSiriDynamicIslandEnabled'),
-        TweakID.SiriSplitIsland:      BasicPlistTweak(S,  'SBSiriSplitIslandEnabled'),
-        TweakID.SiriChatInterface:    BasicPlistTweak(SI, 'ChatInterfaceEnabled'),
-        TweakID.SiriMultiStep:        BasicPlistTweak(SI, 'MultiStepActionsEnabled'),
-        TweakID.SiriSearchOrAsk:      BasicPlistTweak(S,  'SBSearchOrAskEnabled'),
-        TweakID.SiriThirdPartyAI:     BasicPlistTweak(SI, 'ThirdPartyAIEnabled'),
-        TweakID.SiriDarkTheme:        BasicPlistTweak(S,  'SBSiriDarkThemeEnabled'),
-        TweakID.SiriProCamera:        BasicPlistTweak(SI, 'SiriCameraModeEnabled'),
-        TweakID.SiriStandaloneApp:    BasicPlistTweak(S,  'SBSiriStandaloneAppEnabled'),
+        TweakID.SiriDIIntegration:    FeatureFlagTweak('Siri',        ['DynamicIslandIntegration']),
+        TweakID.SiriSplitIsland:      FeatureFlagTweak('Siri',        ['SplitDynamicIsland']),
+        TweakID.SiriChatInterface:    FeatureFlagTweak('Siri',        ['ChatInterface']),
+        TweakID.SiriMultiStep:        FeatureFlagTweak('Siri',        ['MultiStepActions']),
+        TweakID.SiriSearchOrAsk:      FeatureFlagTweak('Spotlight',   ['SearchOrAsk']),
+        TweakID.SiriThirdPartyAI:     FeatureFlagTweak('Siri',        ['ThirdPartyAIEnabled']),
+        TweakID.SiriDarkTheme:        FeatureFlagTweak('Siri',        ['DarkThemeEnabled']),
+        TweakID.SiriProCamera:        FeatureFlagTweak('Siri',        ['ProCameraMode']),
+        TweakID.SiriStandaloneApp:    FeatureFlagTweak('Siri',        ['StandaloneApp']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
@@ -1063,23 +1063,23 @@ def load_mros_dynamic_island_ios27():
         return
     S = FileLocation.springboard
     additional_tweaks = {
-        TweakID.DISplitBubbles:          BasicPlistTweak(S, 'SBDISplitBubblesEnabled'),
-        TweakID.DICustomizeContent:      BasicPlistTweak(S, 'SBDICustomizeContentEnabled'),
-        TweakID.DILiveResultPanels:      BasicPlistTweak(S, 'SBDILiveResultPanelsEnabled'),
-        TweakID.DISearchingIndicator:    BasicPlistTweak(S, 'SBDISearchingIndicatorEnabled'),
-        TweakID.DIExpandedDefault:       BasicPlistTweak(S, 'SBDIExpandedByDefault'),
-        TweakID.DIMultiActivity:         BasicPlistTweak(S, 'SBDIMultiActivityEnabled'),
-        TweakID.LiveActivities:          BasicPlistTweak(S, 'SBLiveActivitiesEnabled'),
-        TweakID.LiveActivitiesLockScreen:BasicPlistTweak(S, 'SBLiveActivitiesOnLockScreen'),
-        TweakID.LiveActivitiesStandBy:   BasicPlistTweak(S, 'SBLiveActivitiesInStandBy'),
-        TweakID.LiveActivitiesAlwaysShow:BasicPlistTweak(S, 'SBLiveActivitiesAlwaysShow'),
-        TweakID.StandByEnabled:          BasicPlistTweak(S, 'SBStandByEnabled'),
-        TweakID.StandByAlwaysOn:         BasicPlistTweak(S, 'SBStandByAlwaysOn'),
-        TweakID.StandByNightMode:        BasicPlistTweak(S, 'SBStandByNightMode'),
-        TweakID.StandBySmartRotation:    BasicPlistTweak(S, 'SBStandBySmartRotation'),
-        TweakID.StandByWidgets:          BasicPlistTweak(S, 'SBStandByWidgetsEnabled'),
-        TweakID.StandByPhotoShuffle:     BasicPlistTweak(S, 'SBStandByPhotoShuffleEnabled'),
-        TweakID.StandByShowClock:        BasicPlistTweak(S, 'SBStandByShowClock'),
+        TweakID.DISplitBubbles:          FeatureFlagTweak('SpringBoard', ['DISplitBubbles']),
+        TweakID.DICustomizeContent:      FeatureFlagTweak('SpringBoard', ['DICustomContent']),
+        TweakID.DILiveResultPanels:      FeatureFlagTweak('SpringBoard', ['DILiveResultPanels']),
+        TweakID.DISearchingIndicator:    FeatureFlagTweak('SpringBoard', ['DISearchIndicator']),
+        TweakID.DIExpandedDefault:       BasicPlistTweak(FileLocation.springboard, 'SBEnableExpandedDynamicIslandPersistent'),
+        TweakID.DIMultiActivity:         FeatureFlagTweak('SpringBoard', ['DIMultipleActivities']),
+        TweakID.LiveActivities:          FeatureFlagTweak('SpringBoard', ['LiveActivitiesEnabled']),
+        TweakID.LiveActivitiesLockScreen:FeatureFlagTweak('SpringBoard', ['LiveActivitiesOnLockScreen']),
+        TweakID.LiveActivitiesStandBy:   FeatureFlagTweak('SpringBoard', ['LiveActivitiesInStandBy']),
+        TweakID.LiveActivitiesAlwaysShow:FeatureFlagTweak('SpringBoard', ['LiveActivitiesAlwaysShow']),
+        TweakID.StandByEnabled:          FeatureFlagTweak('SpringBoard', ['StandByEnabled']),
+        TweakID.StandByAlwaysOn:         FeatureFlagTweak('SpringBoard', ['StandByAlwaysOn']),
+        TweakID.StandByNightMode:        FeatureFlagTweak('SpringBoard', ['StandByNightMode']),
+        TweakID.StandBySmartRotation:    FeatureFlagTweak('SpringBoard', ['StandBySmartRotation']),
+        TweakID.StandByWidgets:          FeatureFlagTweak('WidgetKit',   ['StandByWidgets']),
+        TweakID.StandByPhotoShuffle:     FeatureFlagTweak('Photos',      ['StandByPhotoShuffle']),
+        TweakID.StandByShowClock:        FeatureFlagTweak('Clock',       ['StandByClockEnabled']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():
