@@ -16,6 +16,7 @@ from src.tweaks.tweak_loader import (
     load_mros_vision_alien, load_mros_deep_system, load_mros_coremotion,
     load_mros_ai_v2, load_mros_siri_ios27, load_mros_dynamic_island_ios27,
     load_mros_camera_ai, load_mros_satellite, load_mros_messages_health,
+    load_mros_ui_visual, load_mros_app_layout, load_mros_fonts_anim,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -202,6 +203,36 @@ class iOS27Page(Page):
         btn_row.addStretch()
         hero_lay.addLayout(btn_row)
         L.addWidget(hero)
+        L.addSpacing(6)
+
+        # ── Restart notice card ───────────────────────────────────────────────
+        notice = QFrame()
+        notice.setStyleSheet(
+            "QFrame{background:rgba(255,190,0,0.10);"
+            "border-left:3px solid #ffbe00;"
+            "border-radius:8px;}"
+        )
+        nlay = QHBoxLayout(notice)
+        nlay.setContentsMargins(14, 10, 14, 10)
+        nlay.setSpacing(10)
+        icon_lbl = QLabel("⚠")
+        icon_lbl.setStyleSheet(
+            "font-size:18px;color:#ffbe00;background:transparent;border:none;"
+        )
+        txt_lbl = QLabel(
+            "<b style='color:#ffbe00'>Neustart erforderlich</b> — "
+            "Managed Preferences werden erst nach einem Geräteneustart aktiv. "
+            "Der Neustart ist kein Fehler, sondern normales iOS-Verhalten. "
+            "Du kannst ihn in den Nugget-Einstellungen unter <i>Auto Reboot</i> deaktivieren "
+            "und das Gerät dann manuell neu starten."
+        )
+        txt_lbl.setStyleSheet(
+            "font-size:11px;color:#c8a020;background:transparent;border:none;"
+        )
+        txt_lbl.setWordWrap(True)
+        nlay.addWidget(icon_lbl)
+        nlay.addWidget(txt_lbl, 1)
+        L.addWidget(notice)
         L.addSpacing(4)
 
         # ── Siri ─────────────────────────────────────────────────────────────
@@ -1057,6 +1088,178 @@ class iOS27Page(Page):
             "Shortcuts Cloud Sync",
             "Sync all shortcuts across iPhone, iPad and Mac via iCloud (CloudSyncEnabled)."))
 
+        # ── UI Visual Depth & Transparency ────────────────────────────────────
+        L.addWidget(_hdr("UI Visual Depth — Transparency, Blur & Tint"))
+        L.addWidget(_row(TweakID.UITransparencyLevel,
+            "Transparency Level (0.85 — semi-transparent)",
+            "Controls how transparent all glass/translucent surfaces are (UITransparencyLevel=0.85)."))
+        L.addWidget(_row(TweakID.UIBlurRadius,
+            "Blur Radius — Gaussian Strength",
+            "Adjusts Gaussian blur radius behind sheets and menus (UIBlurRadius=20.0)."))
+        L.addWidget(_row(TweakID.UIVibrancyStrength,
+            "Vibrancy Strength — Max",
+            "Push colour vibrancy to full intensity on all translucent layers (UIVibrancyStrength=1.0)."))
+        L.addWidget(_row(TweakID.UICornerRadiusScale,
+            "Corner Radius Scale (1.2× — more rounded)",
+            "Multiply the system corner radius by 1.2 for extra-rounded windows and cards (UICornerRadiusScale=1.2)."))
+        L.addWidget(_row(TweakID.UITintSaturation,
+            "UI Tint Saturation — Max",
+            "Maximise colour saturation of all system tint accents (UITintSaturation=1.0)."))
+        L.addWidget(_row(TweakID.UIIconShadow,
+            "App Icon Drop Shadows",
+            "Add subtle drop shadows beneath every icon on the home screen (SBIconShadowEnabled)."))
+        L.addWidget(_row(TweakID.UIIconReflection,
+            "App Icon Reflections",
+            "Show glossy reflections on app icons (SBIconReflectionEnabled)."))
+        L.addWidget(_row(TweakID.UIWallpaperBlurLock,
+            "Blur Wallpaper on Lock Screen",
+            "Apply a frosted-glass blur to the wallpaper behind lock screen content (SBWallpaperBlurOnLockScreen)."))
+        L.addWidget(_row(TweakID.UIWallpaperBlurHome,
+            "Blur Wallpaper on Home Screen",
+            "Blur the wallpaper behind home screen icons for a depth effect (SBWallpaperBlurOnHomeScreen)."))
+        L.addWidget(_row(TweakID.UIStatusBarTranslucent,
+            "Translucent Status Bar",
+            "Make the status bar background fully translucent (SBStatusBarTranslucentEnabled)."))
+        L.addWidget(_row(TweakID.UISheetDetents,
+            "Sheet Detent Snapping",
+            "Half-height and full-height snap positions for bottom sheets (SBSheetDetentsEnabled)."))
+        L.addWidget(_row(TweakID.UIContextMenuBlur,
+            "Context Menu Blur Background",
+            "Blur the rest of the screen when a long-press context menu is open (SBContextMenuBlurEnabled)."))
+        L.addWidget(_row(TweakID.UISwipeIndicators,
+            "Swipe Gesture Indicators",
+            "Show edge swipe handle indicators for navigation gestures (SBSwipeIndicatorsEnabled)."))
+        L.addWidget(_hdr("  Alien System Tint Colours"))
+        L.addWidget(_row(TweakID.UISystemTintPurple,
+            "Purple System Tint",
+            "Override the system accent colour with alien purple (SBSystemTintPurple)."))
+        L.addWidget(_row(TweakID.UISystemTintGreen,
+            "Green System Tint",
+            "Override the system accent colour with alien green (SBSystemTintGreen)."))
+        L.addWidget(_row(TweakID.UISystemTintOrange,
+            "Orange System Tint",
+            "Override the system accent colour with amber orange (SBSystemTintOrange)."))
+        L.addWidget(_row(TweakID.UISystemTintPink,
+            "Pink System Tint",
+            "Override the system accent colour with hot pink (SBSystemTintPink)."))
+        L.addWidget(_row(TweakID.UISystemTintCyan,
+            "Cyan System Tint",
+            "Override the system accent colour with alien cyan (SBSystemTintCyan)."))
+
+        # ── App Layout & Haptics ──────────────────────────────────────────────
+        L.addWidget(_hdr("App Layout, Folders & App Switcher"))
+        L.addWidget(_row(TweakID.AppFolderBlur,
+            "Folder Background Blur",
+            "Apply a frosted blur behind open folder grids (SBFolderBlurEnabled)."))
+        L.addWidget(_row(TweakID.AppFolderOpenAnim,
+            "Folder Open Animation",
+            "Animate folders opening with a zoom-and-reveal effect (SBFolderOpenAnimationEnabled)."))
+        L.addWidget(_row(TweakID.AppFolderBackdrop,
+            "Folder Glass Backdrop",
+            "Show a glass panel backdrop behind open folders (SBFolderBackdropEnabled)."))
+        L.addWidget(_row(TweakID.AppFolderPages,
+            "Multi-Page Folders",
+            "Allow folders to have multiple pages of icons (SBFolderPagesEnabled)."))
+        L.addWidget(_row(TweakID.AppIconBounce,
+            "Icon Tap Bounce Animation",
+            "Icons bounce when tapped before launching (SBIconBounceEnabled)."))
+        L.addWidget(_row(TweakID.AppIconParallax,
+            "Per-Icon Parallax Depth",
+            "Each icon moves independently with the gyroscope for depth (SBIconParallaxEnabled)."))
+        L.addWidget(_row(TweakID.AppSwitcherBlur,
+            "App Switcher Background Blur",
+            "Blur the home screen behind the multitasking card stack (SBAppSwitcherBlurEnabled)."))
+        L.addWidget(_row(TweakID.AppSwitcherCards,
+            "App Switcher Card Preview",
+            "Show live app content previews in the app switcher (SBAppSwitcherCardsEnabled)."))
+        L.addWidget(_row(TweakID.AppSwitcherContinuity,
+            "App Switcher Continuity Previews",
+            "Show recent Handoff activities from other devices in the switcher (SBAppSwitcherContinuityEnabled)."))
+        L.addWidget(_row(TweakID.AppSpotlightDim,
+            "Dim Home Screen during Spotlight",
+            "Darken the home screen when Spotlight search is active (SBSpotlightDimEnabled)."))
+        L.addWidget(_hdr("  Haptic Feedback"))
+        L.addWidget(_row(TweakID.HapticSystemStrong,
+            "Strong System Haptics",
+            "Use strong haptic intensity for all system feedback (SBSystemHapticsStrong)."))
+        L.addWidget(_row(TweakID.HapticIconTap,
+            "Icon Tap Haptic",
+            "Haptic click when tapping any app icon (SBIconTapHapticEnabled)."))
+        L.addWidget(_row(TweakID.HapticScrollSnap,
+            "Scroll Snap Haptic",
+            "Haptic tick when the scroll view snaps to a page (SBScrollSnapHapticEnabled)."))
+        L.addWidget(_row(TweakID.HapticLockUnlock,
+            "Lock / Unlock Haptic",
+            "Distinct haptic pulse when the screen locks or unlocks (SBLockUnlockHapticEnabled)."))
+        L.addWidget(_row(TweakID.HapticDIExpand,
+            "Dynamic Island Expand Haptic",
+            "Haptic feedback when the Dynamic Island expands (SBDIExpandHapticEnabled)."))
+
+        # ── Fonts, Animations & Widgets ───────────────────────────────────────
+        L.addWidget(_hdr("Fonts & Typography — SF System Font Overrides"))
+        L.addWidget(_row(TweakID.FontRounded,
+            "SF Rounded System Font",
+            "Switch the system-wide font to SF Pro Rounded for a softer feel (UIFontRoundedEnabled)."))
+        L.addWidget(_row(TweakID.FontMonospaced,
+            "SF Mono System Font",
+            "Use SF Mono for a technical/coding aesthetic across the OS (UIFontMonospacedEnabled)."))
+        L.addWidget(_row(TweakID.FontSerif,
+            "New York Serif Font",
+            "Apply the editorial New York serif typeface system-wide (UIFontSerifEnabled)."))
+        L.addWidget(_row(TweakID.FontWeightHeavy,
+            "Heavy Font Weight (900)",
+            "Force maximum font weight — ultra-bold text everywhere (UIFontWeightHeavy)."))
+        L.addWidget(_row(TweakID.FontWeightThin,
+            "Thin Font Weight (100)",
+            "Force minimum font weight — ultra-light text for a minimal look (UIFontWeightThin)."))
+        L.addWidget(_row(TweakID.FontSizeMultiplier,
+            "Font Size Multiplier (1.1×)",
+            "Scale all system text by 1.1 — slightly larger than default (UIFontSizeMultiplier=1.1)."))
+        L.addWidget(_hdr("  Animations & Transitions"))
+        L.addWidget(_row(TweakID.AnimIconSpread,
+            "Icon Spread Launch Animation",
+            "Icons spread outward when opening an app (SBIconSpreadAnimationEnabled)."))
+        L.addWidget(_row(TweakID.AnimAppLaunch,
+            "App Launch Zoom Animation",
+            "Enable the zoom-in launch animation when opening apps (SBAppLaunchAnimationEnabled)."))
+        L.addWidget(_row(TweakID.AnimAppClose,
+            "App Close Zoom-Out Animation",
+            "Enable the zoom-out animation when closing apps to home (SBAppCloseAnimationEnabled)."))
+        L.addWidget(_row(TweakID.AnimRotation,
+            "Rotation Transition Animation",
+            "Animate screen rotation with a smooth transition (SBRotationAnimationEnabled)."))
+        L.addWidget(_row(TweakID.AnimSpringDamping,
+            "Spring Damping (0.7 — natural bounce)",
+            "Set spring animation damping to 0.7 for a natural elastic feel (UISpringAnimationDamping=0.7)."))
+        L.addWidget(_row(TweakID.AnimTransitionDuration,
+            "Transition Duration (0.25s — snappy)",
+            "Set all view transitions to 0.25 s for a fast, snappy feel (UITransitionAnimationDuration=0.25)."))
+        L.addWidget(_row(TweakID.AnimSlowMotion,
+            "Slow Motion Animations (debug)",
+            "Render all animations at 10× slow-motion — great for screenshots (UIAnimationSlowMotionEnabled)."))
+        L.addWidget(_hdr("  Widgets & Today View"))
+        L.addWidget(_row(TweakID.WidgetInteractive,
+            "Interactive Widgets",
+            "Allow widgets to respond to taps and gestures on the home screen (SBInteractiveWidgetsEnabled)."))
+        L.addWidget(_row(TweakID.WidgetOnLockScreen,
+            "Widgets on Lock Screen",
+            "Display interactive widgets directly on the lock screen (SBWidgetsOnLockScreenEnabled)."))
+        L.addWidget(_row(TweakID.WidgetSmartStack,
+            "Smart Stack Auto-Rotation",
+            "Smart Stack widget automatically shows the most relevant widget (SBSmartStackEnabled)."))
+        L.addWidget(_row(TweakID.WidgetSuggestedApps,
+            "Suggested Apps Widget",
+            "Show Siri-suggested apps in the Today View widget area (SBSuggestedAppsEnabled)."))
+        L.addWidget(_row(TweakID.WidgetNearbyPlaces,
+            "Nearby Places Widget",
+            "Show Maps-powered nearby points of interest in widgets (SBNearbyPlacesWidgetEnabled)."))
+        L.addWidget(_row(TweakID.WidgetBatteryWidget,
+            "Battery Status Widget",
+            "Show battery levels for iPhone and connected accessories (SBBatteryWidgetEnabled)."))
+        L.addWidget(_row(TweakID.WidgetSiriSuggestions,
+            "Siri Suggestions Widget",
+            "Proactive Siri suggestions in the Today View based on usage patterns (SBSiriSuggestionsWidgetEnabled)."))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -1108,6 +1311,9 @@ class iOS27Page(Page):
         load_mros_camera_ai()
         load_mros_satellite()
         load_mros_messages_health()
+        load_mros_ui_visual()
+        load_mros_app_layout()
+        load_mros_fonts_anim()
         for tid in _page_tweak_ids:
             if tid in tweaks:
                 tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)

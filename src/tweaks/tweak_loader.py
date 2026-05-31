@@ -679,6 +679,22 @@ MAXREGNEROS_MODE_IDS = frozenset([
     TweakID.WalletCreatePass, TweakID.WalletContactlessPay, TweakID.WalletIDCard,
     # Shortcuts
     TweakID.ShortcutsNLCreation, TweakID.ShortcutsAIOptimize, TweakID.ShortcutsSiriIntegration,
+    # UI Visual
+    TweakID.UITransparencyLevel, TweakID.UIBlurRadius, TweakID.UIVibrancyStrength,
+    TweakID.UICornerRadiusScale, TweakID.UIIconShadow, TweakID.UIWallpaperBlurLock,
+    TweakID.UIStatusBarTranslucent, TweakID.UISheetDetents, TweakID.UIContextMenuBlur,
+    TweakID.UISwipeIndicators, TweakID.UISystemTintPurple,
+    # App Layout
+    TweakID.AppFolderBlur, TweakID.AppFolderOpenAnim, TweakID.AppIconBounce,
+    TweakID.AppSwitcherBlur, TweakID.AppSwitcherCards, TweakID.AppSpotlightDim,
+    TweakID.HapticSystemStrong, TweakID.HapticIconTap, TweakID.HapticScrollSnap,
+    TweakID.HapticLockUnlock, TweakID.HapticDIExpand,
+    # Fonts & Animations
+    TweakID.FontRounded, TweakID.FontWeightHeavy,
+    TweakID.AnimSpringDamping, TweakID.AnimAppLaunch, TweakID.AnimIconSpread,
+    # Widgets
+    TweakID.WidgetInteractive, TweakID.WidgetOnLockScreen, TweakID.WidgetSmartStack,
+    TweakID.WidgetSuggestedApps, TweakID.WidgetBatteryWidget,
 ])
 
 
@@ -1147,6 +1163,103 @@ def load_mros_messages_health():
         TweakID.ShortcutsAIOptimize:     BasicPlistTweak(SHT, 'AIOptimizeEnabled'),
         TweakID.ShortcutsSiriIntegration:BasicPlistTweak(SHT, 'SiriIntegrationEnabled'),
         TweakID.ShortcutsCloudSync:      BasicPlistTweak(SHT, 'CloudSyncEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_ui_visual():
+    """UI visual depth, transparency, tints, icon shadow, wallpaper blur."""
+    if TweakID.UITransparencyLevel in tweaks:
+        return
+    S  = FileLocation.springboard
+    GP = FileLocation.globalPreferences
+    UK = FileLocation.uikit
+    additional_tweaks = {
+        TweakID.UITransparencyLevel:    BasicPlistTweak(GP, 'UITransparencyLevel',       value=0.85),
+        TweakID.UIBlurRadius:           BasicPlistTweak(UK, 'UIBlurRadius',              value=20.0),
+        TweakID.UIVibrancyStrength:     BasicPlistTweak(UK, 'UIVibrancyStrength',        value=1.0),
+        TweakID.UICornerRadiusScale:    BasicPlistTweak(UK, 'UICornerRadiusScale',       value=1.2),
+        TweakID.UITintSaturation:       BasicPlistTweak(GP, 'UITintSaturation',          value=1.0),
+        TweakID.UISystemTintPurple:     BasicPlistTweak(S,  'SBSystemTintPurple'),
+        TweakID.UISystemTintGreen:      BasicPlistTweak(S,  'SBSystemTintGreen'),
+        TweakID.UISystemTintOrange:     BasicPlistTweak(S,  'SBSystemTintOrange'),
+        TweakID.UISystemTintPink:       BasicPlistTweak(S,  'SBSystemTintPink'),
+        TweakID.UISystemTintCyan:       BasicPlistTweak(S,  'SBSystemTintCyan'),
+        TweakID.UIIconShadow:           BasicPlistTweak(S,  'SBIconShadowEnabled'),
+        TweakID.UIIconReflection:       BasicPlistTweak(S,  'SBIconReflectionEnabled'),
+        TweakID.UIWallpaperBlurLock:    BasicPlistTweak(S,  'SBWallpaperBlurOnLockScreen'),
+        TweakID.UIWallpaperBlurHome:    BasicPlistTweak(S,  'SBWallpaperBlurOnHomeScreen'),
+        TweakID.UIStatusBarTranslucent: BasicPlistTweak(S,  'SBStatusBarTranslucentEnabled'),
+        TweakID.UISheetDetents:         BasicPlistTweak(S,  'SBSheetDetentsEnabled'),
+        TweakID.UIContextMenuBlur:      BasicPlistTweak(S,  'SBContextMenuBlurEnabled'),
+        TweakID.UISwipeIndicators:      BasicPlistTweak(S,  'SBSwipeIndicatorsEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_app_layout():
+    """App layout, folders, icons, switcher — SpringBoard managed prefs."""
+    if TweakID.AppFolderBlur in tweaks:
+        return
+    S = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.AppFolderBlur:           BasicPlistTweak(S, 'SBFolderBlurEnabled'),
+        TweakID.AppFolderOpenAnim:       BasicPlistTweak(S, 'SBFolderOpenAnimationEnabled'),
+        TweakID.AppFolderBackdrop:       BasicPlistTweak(S, 'SBFolderBackdropEnabled'),
+        TweakID.AppFolderPages:          BasicPlistTweak(S, 'SBFolderPagesEnabled'),
+        TweakID.AppIconBounce:           BasicPlistTweak(S, 'SBIconBounceEnabled'),
+        TweakID.AppIconParallax:         BasicPlistTweak(S, 'SBIconParallaxEnabled'),
+        TweakID.AppSwitcherBlur:         BasicPlistTweak(S, 'SBAppSwitcherBlurEnabled'),
+        TweakID.AppSwitcherCards:        BasicPlistTweak(S, 'SBAppSwitcherCardsEnabled'),
+        TweakID.AppSwitcherContinuity:   BasicPlistTweak(S, 'SBAppSwitcherContinuityEnabled'),
+        TweakID.AppSpotlightDim:         BasicPlistTweak(S, 'SBSpotlightDimEnabled'),
+        TweakID.HapticSystemStrong:      BasicPlistTweak(S, 'SBSystemHapticsStrong'),
+        TweakID.HapticIconTap:           BasicPlistTweak(S, 'SBIconTapHapticEnabled'),
+        TweakID.HapticScrollSnap:        BasicPlistTweak(S, 'SBScrollSnapHapticEnabled'),
+        TweakID.HapticLockUnlock:        BasicPlistTweak(S, 'SBLockUnlockHapticEnabled'),
+        TweakID.HapticDIExpand:          BasicPlistTweak(S, 'SBDIExpandHapticEnabled'),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_fonts_anim():
+    """Font style, weight, animations — UIKit + SpringBoard managed prefs."""
+    if TweakID.FontRounded in tweaks:
+        return
+    UK = FileLocation.uikit
+    GP = FileLocation.globalPreferences
+    S  = FileLocation.springboard
+    additional_tweaks = {
+        TweakID.FontRounded:             BasicPlistTweak(UK, 'UIFontRoundedEnabled'),
+        TweakID.FontMonospaced:          BasicPlistTweak(UK, 'UIFontMonospacedEnabled'),
+        TweakID.FontSerif:               BasicPlistTweak(UK, 'UIFontSerifEnabled'),
+        TweakID.FontWeightHeavy:         BasicPlistTweak(UK, 'UIFontWeightHeavy'),
+        TweakID.FontWeightThin:          BasicPlistTweak(UK, 'UIFontWeightThin'),
+        TweakID.FontSizeMultiplier:      BasicPlistTweak(GP, 'UIFontSizeMultiplier',    value=1.1),
+        TweakID.AnimReduceAll:           BasicPlistTweak(UK, 'UIReduceMotionEnabled',   value=False),
+        TweakID.AnimSlowMotion:          BasicPlistTweak(UK, 'UIAnimationSlowMotionEnabled'),
+        TweakID.AnimSpringDamping:       BasicPlistTweak(UK, 'UISpringAnimationDamping', value=0.7),
+        TweakID.AnimTransitionDuration:  BasicPlistTweak(UK, 'UITransitionAnimationDuration', value=0.25),
+        TweakID.AnimIconSpread:          BasicPlistTweak(S,  'SBIconSpreadAnimationEnabled'),
+        TweakID.AnimAppLaunch:           BasicPlistTweak(S,  'SBAppLaunchAnimationEnabled'),
+        TweakID.AnimAppClose:            BasicPlistTweak(S,  'SBAppCloseAnimationEnabled'),
+        TweakID.AnimRotation:            BasicPlistTweak(S,  'SBRotationAnimationEnabled'),
+        TweakID.WidgetInteractive:       BasicPlistTweak(S,  'SBInteractiveWidgetsEnabled'),
+        TweakID.WidgetOnLockScreen:      BasicPlistTweak(S,  'SBWidgetsOnLockScreenEnabled'),
+        TweakID.WidgetSmartStack:        BasicPlistTweak(S,  'SBSmartStackEnabled'),
+        TweakID.WidgetSuggestedApps:     BasicPlistTweak(S,  'SBSuggestedAppsEnabled'),
+        TweakID.WidgetNearbyPlaces:      BasicPlistTweak(S,  'SBNearbyPlacesWidgetEnabled'),
+        TweakID.WidgetBatteryWidget:     BasicPlistTweak(S,  'SBBatteryWidgetEnabled'),
+        TweakID.WidgetSiriSuggestions:   BasicPlistTweak(S,  'SBSiriSuggestionsWidgetEnabled'),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():

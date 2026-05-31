@@ -460,3 +460,72 @@ class TweakID(Enum):
     ShortcutsAIOptimize = auto()        # AIOptimizeEnabled
     ShortcutsSiriIntegration = auto()   # SiriIntegrationEnabled
     ShortcutsCloudSync = auto()         # CloudSyncEnabled
+
+    # ── UI Visual Depth & Transparency (GlobalPreferences + SpringBoard) ───────
+    UITransparencyLevel = auto()        # UITransparencyLevel (float 0.0-1.0)
+    UIBlurRadius = auto()               # UIBlurRadius (float)
+    UIVibrancyStrength = auto()         # UIVibrancyStrength
+    UICornerRadiusScale = auto()        # UICornerRadiusScale (float, 1.0=default)
+    UITintSaturation = auto()           # UITintSaturation
+    UISystemTintBlue = auto()           # UISystemTintColor (blue → keep default)
+    UISystemTintPurple = auto()         # SBSystemTintPurple
+    UISystemTintGreen = auto()          # SBSystemTintGreen
+    UISystemTintOrange = auto()         # SBSystemTintOrange
+    UISystemTintPink = auto()           # SBSystemTintPink
+    UISystemTintCyan = auto()           # SBSystemTintCyan
+    UIIconShadow = auto()               # SBIconShadowEnabled
+    UIIconReflection = auto()           # SBIconReflectionEnabled
+    UIWallpaperBlurLock = auto()        # SBWallpaperBlurOnLockScreen
+    UIWallpaperBlurHome = auto()        # SBWallpaperBlurOnHomeScreen
+    UIStatusBarTranslucent = auto()     # SBStatusBarTranslucentEnabled
+    UITabBarFloating = auto()           # UseFloatingTabBar (already exists — skip)
+    UISheetDetents = auto()             # SBSheetDetentsEnabled (bottom sheet snapping)
+    UIContextMenuBlur = auto()          # SBContextMenuBlurEnabled
+    UISwipeIndicators = auto()          # SBSwipeIndicatorsEnabled
+
+    # ── App Layout & Folders (SpringBoard) ────────────────────────────────────
+    AppFolderBlur = auto()              # SBFolderBlurEnabled
+    AppFolderOpenAnim = auto()          # SBFolderOpenAnimationEnabled
+    AppFolderBackdrop = auto()          # SBFolderBackdropEnabled
+    AppFolderPages = auto()             # SBFolderPagesEnabled
+    AppIconBounce = auto()              # SBIconBounceEnabled
+    AppIconParallax = auto()            # SBIconParallaxEnabled (per-icon parallax)
+    AppSwitcherBlur = auto()            # SBAppSwitcherBlurEnabled
+    AppSwitcherCards = auto()           # SBAppSwitcherCardsEnabled
+    AppSwitcherContinuity = auto()      # SBAppSwitcherContinuityEnabled
+    AppSpotlightDim = auto()            # SBSpotlightDimEnabled
+
+    # ── Haptics & Feedback (SpringBoard + GlobalPreferences) ──────────────────
+    HapticSystemStrong = auto()         # SBSystemHapticsStrong
+    HapticIconTap = auto()              # SBIconTapHapticEnabled
+    HapticScrollSnap = auto()           # SBScrollSnapHapticEnabled
+    HapticKeyboard = auto()             # already have KbHaptics — skip
+    HapticLockUnlock = auto()           # SBLockUnlockHapticEnabled
+    HapticDIExpand = auto()             # SBDIExpandHapticEnabled
+
+    # ── Fonts & Typography (UIKit + GlobalPreferences) ────────────────────────
+    FontRounded = auto()                # UIFontRoundedEnabled (SF Rounded)
+    FontMonospaced = auto()             # UIFontMonospacedEnabled (SF Mono)
+    FontSerif = auto()                  # UIFontSerifEnabled (New York)
+    FontWeightHeavy = auto()            # UIFontWeightHeavy (900)
+    FontWeightThin = auto()             # UIFontWeightThin (100)
+    FontSizeMultiplier = auto()         # UIFontSizeMultiplier (float)
+
+    # ── Animations & Motion (SpringBoard + UIKit) ──────────────────────────────
+    AnimReduceAll = auto()              # UIReduceMotionEnabled (all animations off)
+    AnimSlowMotion = auto()             # UIAnimationSlowMotionEnabled (debug slow)
+    AnimSpringDamping = auto()          # UISpringAnimationDamping (float)
+    AnimTransitionDuration = auto()     # UITransitionAnimationDuration (float)
+    AnimIconSpread = auto()             # SBIconSpreadAnimationEnabled
+    AnimAppLaunch = auto()              # SBAppLaunchAnimationEnabled
+    AnimAppClose = auto()               # SBAppCloseAnimationEnabled
+    AnimRotation = auto()               # SBRotationAnimationEnabled
+
+    # ── Widgets & Today View (SpringBoard) ────────────────────────────────────
+    WidgetInteractive = auto()          # SBInteractiveWidgetsEnabled
+    WidgetOnLockScreen = auto()         # SBWidgetsOnLockScreenEnabled
+    WidgetSmartStack = auto()           # SBSmartStackEnabled
+    WidgetSuggestedApps = auto()        # SBSuggestedAppsEnabled
+    WidgetNearbyPlaces = auto()         # SBNearbyPlacesWidgetEnabled
+    WidgetBatteryWidget = auto()        # SBBatteryWidgetEnabled
+    WidgetSiriSuggestions = auto()      # SBSiriSuggestionsWidgetEnabled
