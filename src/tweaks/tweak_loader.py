@@ -561,7 +561,7 @@ def load_mros_real_prefs():
     GP = FileLocation.globalPreferences
     additional_tweaks = {
         TweakID.SysCoreProMotion:   BasicPlistTweak(S,  'SBProMotionEnabled'),
-        TweakID.SysCoreAnimSpeed:   BasicPlistTweak(GP, 'UIAnimationDragCoefficient', value=0.35),
+        TweakID.SysCoreAnimSpeed:   BasicPlistTweak(GP, 'UIFastAnimationsEnabled'),
         TweakID.SysCoreMTLOverlay:  BasicPlistTweak(GP, 'MTOverlayEnabled'),
         TweakID.SysCoreHideCarrier: BasicPlistTweak(S,  'SBHideCarrierText'),
         TweakID.SysCoreDevSettings: BasicPlistTweak(S,  'SBShowDeveloperSettings'),
@@ -636,7 +636,7 @@ MAXREGNEROS_MODE_IDS = frozenset([
     TweakID.VisionDepthWallpaper, TweakID.VisionImmersiveBlur, TweakID.VisionLayeredUI,
     TweakID.VisionDepthBlur, TweakID.VisionFullscreenApp,
     TweakID.VisionFocusedAppShadow, TweakID.VisionWindowCornerRadius,
-    TweakID.AlienColorFilterType, TweakID.AlienColorIntensity, TweakID.AlienVibrantMode,
+    TweakID.AlienVibrantMode,
     # Deep System
     TweakID.DeepBackgroundRefresh, TweakID.DeepPerformanceMode, TweakID.DeepPowerNap,
     TweakID.DeepHandoff, TweakID.DeepUniversalControl, TweakID.DeepContinuityCamera,
@@ -680,10 +680,9 @@ MAXREGNEROS_MODE_IDS = frozenset([
     # Shortcuts
     TweakID.ShortcutsNLCreation, TweakID.ShortcutsAIOptimize, TweakID.ShortcutsSiriIntegration,
     # UI Visual
-    TweakID.UITransparencyLevel, TweakID.UIBlurRadius, TweakID.UIVibrancyStrength,
-    TweakID.UICornerRadiusScale, TweakID.UIIconShadow, TweakID.UIWallpaperBlurLock,
+    TweakID.UIIconShadow, TweakID.UIWallpaperBlurLock,
     TweakID.UIStatusBarTranslucent, TweakID.UISheetDetents, TweakID.UIContextMenuBlur,
-    TweakID.UISwipeIndicators, TweakID.UISystemTintPurple,
+    TweakID.UISwipeIndicators,
     # App Layout
     TweakID.AppFolderBlur, TweakID.AppFolderOpenAnim, TweakID.AppIconBounce,
     TweakID.AppSwitcherBlur, TweakID.AppSwitcherCards, TweakID.AppSpotlightDim,
@@ -691,7 +690,7 @@ MAXREGNEROS_MODE_IDS = frozenset([
     TweakID.HapticLockUnlock, TweakID.HapticDIExpand,
     # Fonts & Animations
     TweakID.FontRounded, TweakID.FontWeightHeavy,
-    TweakID.AnimSpringDamping, TweakID.AnimAppLaunch, TweakID.AnimIconSpread,
+    TweakID.AnimAppLaunch, TweakID.AnimIconSpread,
     # Widgets
     TweakID.WidgetInteractive, TweakID.WidgetOnLockScreen, TweakID.WidgetSmartStack,
     TweakID.WidgetSuggestedApps, TweakID.WidgetBatteryWidget,
@@ -814,7 +813,7 @@ def load_mros_display():
         TweakID.DisplayTrueTone:       BasicPlistTweak(GP, 'TrueToneEnabled'),
         TweakID.DisplayReduceFlicker:  BasicPlistTweak(GP, 'UIReduceFlickerEnabled'),
         TweakID.DisplayEnhanceText:    BasicPlistTweak(GP, 'UIEnhanceTextLegibility'),
-        TweakID.DisplayLargeText:      BasicPlistTweak(GP, 'UIPreferredContentSizeCategoryName', value='UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge'),
+        TweakID.DisplayLargeText:      BasicPlistTweak(GP, 'UILargeContentSizeEnabled'),
         TweakID.DisplayCursorThick:    BasicPlistTweak(AX, 'AXCursorThicknessEnabled'),
         TweakID.DisplayFlashAlerts:    BasicPlistTweak(AX, 'AXFlashScreenForAlerts'),
     }
@@ -939,8 +938,8 @@ def load_mros_vision_alien():
         TweakID.VisionFocusedAppShadow:    BasicPlistTweak(S,  'SBFocusedAppShadowEnabled'),
         TweakID.VisionWindowCornerRadius:  BasicPlistTweak(S,  'SBWindowCornerRadiusEnabled'),
         TweakID.VisionEnvironmentLighting: BasicPlistTweak(S,  'SBEnvironmentLightingEnabled'),
-        TweakID.AlienColorFilterType:      BasicPlistTweak(AX, 'AXColorFilterType',        value=1),
-        TweakID.AlienColorIntensity:       BasicPlistTweak(AX, 'AXColorFilterIntensity',   value=1.0),
+        TweakID.AlienColorFilterType:      BasicPlistTweak(AX, 'AXColorFilterEnabled'),
+        TweakID.AlienColorIntensity:       BasicPlistTweak(AX, 'AXEnhanceBackgroundContrastEnabled'),
         TweakID.AlienClassicInvert:        BasicPlistTweak(AX, 'AXInvertColors'),
         TweakID.AlienPurpleSaturation:     BasicPlistTweak(AX, 'AXIncreaseSaturationEnabled'),
         TweakID.AlienVibrantMode:          BasicPlistTweak(S,  'SBVibrantModeEnabled'),
@@ -963,7 +962,7 @@ def load_mros_deep_system():
         TweakID.DeepPerformanceMode:      BasicPlistTweak(S,  'SBPerformanceModeEnabled'),
         TweakID.DeepPowerNap:             BasicPlistTweak(S,  'SBPowerNapEnabled'),
         TweakID.DeepLowMemoryWarnings:    BasicPlistTweak(S,  'SBLowMemoryWarningEnabled'),
-        TweakID.DeepUIReduceMotion:       BasicPlistTweak(UK, 'UIReduceMotionEnabled',      value=False),
+        TweakID.DeepUIReduceMotion:       BasicPlistTweak(FileLocation.accessibility, 'AXReduceMotionEnabled', value=False),
         TweakID.DeepForceTouch:           BasicPlistTweak(S,  'SBForceTouchEnabled'),
         TweakID.DeepAirDropEveryone:      BasicPlistTweak(S,  'SBAirDropReceivingMode',     value=2),
         TweakID.DeepHandoff:              BasicPlistTweak(S,  'SBHandoffEnabled'),
@@ -1178,11 +1177,11 @@ def load_mros_ui_visual():
     GP = FileLocation.globalPreferences
     UK = FileLocation.uikit
     additional_tweaks = {
-        TweakID.UITransparencyLevel:    BasicPlistTweak(GP, 'UITransparencyLevel',       value=0.85),
-        TweakID.UIBlurRadius:           BasicPlistTweak(UK, 'UIBlurRadius',              value=20.0),
-        TweakID.UIVibrancyStrength:     BasicPlistTweak(UK, 'UIVibrancyStrength',        value=1.0),
-        TweakID.UICornerRadiusScale:    BasicPlistTweak(UK, 'UICornerRadiusScale',       value=1.2),
-        TweakID.UITintSaturation:       BasicPlistTweak(GP, 'UITintSaturation',          value=1.0),
+        TweakID.UITransparencyLevel:    BasicPlistTweak(GP, 'UITranslucencyEnabled'),
+        TweakID.UIBlurRadius:           BasicPlistTweak(UK, 'UIMaximumBlurEnabled'),
+        TweakID.UIVibrancyStrength:     BasicPlistTweak(UK, 'UIVibrancyEnabled'),
+        TweakID.UICornerRadiusScale:    BasicPlistTweak(UK, 'UILargeCornerRadiusEnabled'),
+        TweakID.UITintSaturation:       BasicPlistTweak(GP, 'UIVibrantColorsEnabled'),
         TweakID.UISystemTintPurple:     BasicPlistTweak(S,  'SBSystemTintPurple'),
         TweakID.UISystemTintGreen:      BasicPlistTweak(S,  'SBSystemTintGreen'),
         TweakID.UISystemTintOrange:     BasicPlistTweak(S,  'SBSystemTintOrange'),
@@ -1244,11 +1243,11 @@ def load_mros_fonts_anim():
         TweakID.FontSerif:               BasicPlistTweak(UK, 'UIFontSerifEnabled'),
         TweakID.FontWeightHeavy:         BasicPlistTweak(UK, 'UIFontWeightHeavy'),
         TweakID.FontWeightThin:          BasicPlistTweak(UK, 'UIFontWeightThin'),
-        TweakID.FontSizeMultiplier:      BasicPlistTweak(GP, 'UIFontSizeMultiplier',    value=1.1),
-        TweakID.AnimReduceAll:           BasicPlistTweak(UK, 'UIReduceMotionEnabled',   value=False),
+        TweakID.FontSizeMultiplier:      BasicPlistTweak(GP, 'UILargeFontSizeEnabled'),
+        TweakID.AnimReduceAll:           BasicPlistTweak(FileLocation.accessibility, 'AXReduceMotionEnabled'),
         TweakID.AnimSlowMotion:          BasicPlistTweak(UK, 'UIAnimationSlowMotionEnabled'),
-        TweakID.AnimSpringDamping:       BasicPlistTweak(UK, 'UISpringAnimationDamping', value=0.7),
-        TweakID.AnimTransitionDuration:  BasicPlistTweak(UK, 'UITransitionAnimationDuration', value=0.25),
+        TweakID.AnimSpringDamping:       BasicPlistTweak(UK, 'UISpringAnimationEnabled'),
+        TweakID.AnimTransitionDuration:  BasicPlistTweak(UK, 'UITransitionAnimationEnabled'),
         TweakID.AnimIconSpread:          BasicPlistTweak(S,  'SBIconSpreadAnimationEnabled'),
         TweakID.AnimAppLaunch:           BasicPlistTweak(S,  'SBAppLaunchAnimationEnabled'),
         TweakID.AnimAppClose:            BasicPlistTweak(S,  'SBAppCloseAnimationEnabled'),
