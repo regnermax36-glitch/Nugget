@@ -17,6 +17,7 @@ from src.tweaks.tweak_loader import (
     load_mros_ai_v2, load_mros_siri_ios27, load_mros_dynamic_island_ios27,
     load_mros_camera_ai, load_mros_satellite, load_mros_messages_health,
     load_mros_ui_visual, load_mros_app_layout, load_mros_fonts_anim,
+    load_mros_ios27_beta_upgrade, load_mros_ios27_visual_redesign,
     _page_tweak_ids, MAXREGNEROS_MODE_IDS
 )
 
@@ -25,22 +26,28 @@ _checkbox_map: dict = {}
 
 # ── visionOS × AlienOS colour palette (cycles per section) ───────────────────
 _ACCENTS = [
-    '#00ffcc',  # visionOS teal     — visionOS-AlienOS engine
-    '#5eb8ff',  # sky blue          — Siri
-    '#a8d8ff',  # glass blue        — Liquid Glass
-    '#44ff88',  # alien green       — Home Screen
-    '#ff66ff',  # alien magenta     — Icon Shapes
-    '#ffd055',  # golden            — Display
-    '#ff8855',  # orange            — Lock Screen
-    '#44ffdd',  # alien cyan        — Keyboard
-    '#ff55aa',  # alien pink        — Notifications
-    '#aa88ff',  # lavender          — Control Center
-    '#bb44ff',  # alien purple      — Privacy
-    '#ff4455',  # danger red        — Deep System
-    '#66ff44',  # acid green        — Alien Colors
-    '#ff9944',  # amber             — Sound Engine
-    '#88ccff',  # pastel sky        — Dock & Nav
-    '#00ff88',  # alien lime        — CoreMotion
+    '#00ffcc',  # visionOS teal
+    '#5eb8ff',  # sky blue
+    '#a8d8ff',  # glass blue
+    '#44ff88',  # alien green
+    '#ff66ff',  # alien magenta
+    '#ffd055',  # golden
+    '#ff8855',  # orange
+    '#44ffdd',  # alien cyan
+    '#ff55aa',  # alien pink
+    '#aa88ff',  # lavender
+    '#bb44ff',  # alien purple
+    '#ff4455',  # danger red
+    '#66ff44',  # acid green
+    '#ff9944',  # amber
+    '#88ccff',  # pastel sky
+    '#00ff88',  # alien lime
+    '#ff2244',  # iOS 27 red
+    '#ff6600',  # iOS 27 orange
+    '#ffe033',  # iOS 27 gold
+    '#33eeff',  # iOS 27 ice blue
+    '#cc44ff',  # iOS 27 ultra violet
+    '#44ffaa',  # iOS 27 spring
 ]
 _sec_idx = [0]  # mutable so _hdr and _row can share it
 
@@ -153,9 +160,9 @@ class iOS27Page(Page):
         hero = QFrame()
         hero.setStyleSheet(
             "QFrame{background:qlineargradient(x1:0,y1:0,x2:1,y2:1,"
-            "stop:0 #07192e,stop:0.45 #0b1e2d,stop:1 #080812);"
+            "stop:0 #07192e,stop:0.3 #0e0a20,stop:0.7 #160a08,stop:1 #0a1a10);"
             "border-radius:18px;"
-            "border:1px solid rgba(0,255,204,0.18);}"
+            "border:1px solid rgba(255,34,68,0.28);}"
         )
         hero_lay = QVBoxLayout(hero)
         hero_lay.setContentsMargins(22, 18, 22, 18)
@@ -163,30 +170,37 @@ class iOS27Page(Page):
 
         title_row = QHBoxLayout()
         title_row.setSpacing(12)
-        brand_lbl = QLabel("mROS")
+        brand_lbl = QLabel("iOS 27")
         brand_lbl.setStyleSheet(
             "font-size:38px;font-weight:900;"
             "color:qlineargradient(x1:0,y1:0,x2:1,y2:0,"
-            "stop:0 #00ffcc,stop:0.45 #5eb8ff,stop:1 #bb44ff);"
-            "letter-spacing:7px;background:transparent;"
+            "stop:0 #ff2244,stop:0.4 #ff6600,stop:0.75 #ffe033,stop:1 #00ffcc);"
+            "letter-spacing:5px;background:transparent;"
         )
-        badge = QLabel("visionOS × AlienOS")
-        badge.setStyleSheet(
-            "font-size:10px;font-weight:700;color:#00ffcc;"
-            "background:rgba(0,255,204,0.10);"
+        badge_ios27 = QLabel("DEVELOPER BETA")
+        badge_ios27.setStyleSheet(
+            "font-size:9px;font-weight:800;color:#ff2244;"
+            "border:1px solid rgba(255,34,68,0.5);"
+            "border-radius:5px;padding:3px 9px;background:rgba(255,34,68,0.08);"
+            "letter-spacing:1.5px;"
+        )
+        badge_mros = QLabel("mROS · visionOS × AlienOS")
+        badge_mros.setStyleSheet(
+            "font-size:9px;font-weight:700;color:#00ffcc;"
             "border:1px solid rgba(0,255,204,0.28);"
-            "border-radius:5px;padding:3px 9px;background:transparent;"
+            "border-radius:5px;padding:3px 9px;background:rgba(0,255,204,0.06);"
         )
         title_row.addWidget(brand_lbl)
-        title_row.addWidget(badge)
+        title_row.addWidget(badge_ios27)
+        title_row.addWidget(badge_mros)
         title_row.addStretch()
         hero_lay.addLayout(title_row)
 
         sub_lbl = QLabel(
-            "Deep System Control  ·  All Pre-Enabled  ·  No BookRestore  ·  maxregnerOS"
+            "Complete iOS 27 Rewrite  ·  Beta Enrollment  ·  Visual Redesign  ·  Deep System  ·  maxregnerOS"
         )
         sub_lbl.setStyleSheet(
-            "font-size:11px;color:#2a4a6a;letter-spacing:0.5px;background:transparent;"
+            "font-size:11px;color:#3a2a2a;letter-spacing:0.5px;background:transparent;"
         )
         hero_lay.addWidget(sub_lbl)
 
@@ -1260,6 +1274,113 @@ class iOS27Page(Page):
             "Siri Suggestions Widget",
             "Proactive Siri suggestions in the Today View based on usage patterns (SBSiriSuggestionsWidgetEnabled)."))
 
+        # ── iOS 27 Developer Beta Enrollment ─────────────────────────────────
+        upgrade_banner = QFrame()
+        upgrade_banner.setStyleSheet(
+            "QFrame{background:qlineargradient(x1:0,y1:0,x2:1,y2:0,"
+            "stop:0 rgba(255,34,68,0.18),stop:0.5 rgba(255,102,0,0.12),stop:1 rgba(255,224,51,0.08));"
+            "border-left:4px solid #ff2244;"
+            "border-radius:10px;margin-top:10px;}"
+        )
+        ub_lay = QHBoxLayout(upgrade_banner)
+        ub_lay.setContentsMargins(16, 12, 16, 12)
+        ub_icon = QLabel("🚀")
+        ub_icon.setStyleSheet("font-size:22px;background:transparent;border:none;")
+        ub_text = QLabel(
+            "<b style='color:#ff2244;font-size:13px'>iOS 27 System Upgrade</b><br>"
+            "<span style='color:#cc6644;font-size:11px'>"
+            "Rewrite your iPhone to iOS 27 — Developer Beta enrollment, "
+            "visual engine redesign, AI v3, new color system, fluid motion physics. "
+            "Beta Enrollment writes to the OTA seed plist — apply, reboot, and check Settings → General → Software Update."
+            "</span>"
+        )
+        ub_text.setWordWrap(True)
+        ub_text.setStyleSheet("background:transparent;border:none;")
+        ub_lay.addWidget(ub_icon)
+        ub_lay.addWidget(ub_text, 1)
+        L.addWidget(upgrade_banner)
+
+        L.addWidget(_hdr("  iOS 27 — Beta Enrollment & Device Upgrade"))
+        L.addWidget(_row(TweakID.iOS27BetaEnroll,
+            "iOS 27 Developer Beta Enrollment",
+            "Writes OTA seed audience UUID + update server URL to com.apple.MobileAsset.plist. "
+            "After apply + reboot, go to Settings → General → Software Update to pull iOS 27 developer beta."))
+        L.addWidget(_row(TweakID.iOS27DevFeatures,
+            "Developer Build Feature Flags",
+            "Unlocks internal developer-only feature flags hidden in release builds (SpringBoard.DeveloperBuild)."))
+        L.addWidget(_row(TweakID.iOS27EligOverride,
+            "AI Eligibility Override",
+            "Overrides version eligibility checks so Apple Intelligence features activate on any device (IntelligencePlatform.EligibilityOverride)."))
+        L.addWidget(_row(TweakID.iOS27OnDeviceAI,
+            "Private Compute v2",
+            "Enhanced on-device AI processing — all Apple Intelligence inference runs locally, no server (IntelligencePlatform.OnDevicePrivateCompute)."))
+        L.addWidget(_row(TweakID.iOS27ContextEngine,
+            "Context Awareness Engine",
+            "Siri and Apple Intelligence maintain cross-app context memory for smarter responses (Siri.ContextAwarenessEngine)."))
+        L.addWidget(_row(TweakID.iOS27NeuralCamera,
+            "Neural Camera Pipeline v3",
+            "Activates the iOS 27 neural camera stack — ProCamera computational photography pipeline (Camera.NeuralPipelineV3)."))
+        L.addWidget(_row(TweakID.iOS27ProDisplay,
+            "Peak Brightness & HDR3",
+            "Enables peak outdoor brightness and HDR3 tone-mapping for ProMotion displays (CoreBrightness.PeakBrightnessEnabled)."))
+        L.addWidget(_row(TweakID.iOS27AlwaysOnV2,
+            "Always-On Display v2",
+            "iOS 27 ambient color clock — full-color ambient mode with Smart AOD switching (SpringBoard.AlwaysOnDisplayV2)."))
+        L.addWidget(_row(TweakID.iOS27LiveTranslate,
+            "Live Inline Translation",
+            "Real-time translation overlaid on any text in any app without leaving the current view (Translate.LiveInlineTranslation)."))
+        L.addWidget(_row(TweakID.iOS27MultiWindow,
+            "Multi-Window iPhone",
+            "Split-view multi-window support on iPhone — run two apps side-by-side (SpringBoard.MultiWindowiPhone)."))
+        L.addWidget(_row(TweakID.iOS27CarPlayV3,
+            "CarPlay v3 — AI Integration",
+            "CarPlay v3 with Apple Intelligence route suggestions and voice-driven smart controls (CarPlay.AIIntegrationV3)."))
+        L.addWidget(_row(TweakID.iOS27AirDropV3,
+            "AirDrop v3 — NameDrop Enhanced",
+            "Enhanced NameDrop with spatial awareness — share contact info, playlists, and tickets via proximity (Sharing.NameDropEnhanced)."))
+
+        # ── iOS 27 Visual Redesign ────────────────────────────────────────────
+        L.addWidget(_hdr("  iOS 27 — Visual Redesign & New Color System"))
+        L.addWidget(_row(TweakID.iOS27NewVisualEngine,
+            "New Visual Rendering Engine",
+            "SwiftUI v5 rendering engine — hardware-accelerated glass layers with real-time depth compositing (SwiftUI.NewRenderingEngine)."))
+        L.addWidget(_row(TweakID.iOS27FluidMotion,
+            "Fluid Spring Physics",
+            "All iOS 27 animations run on the new fluid spring physics engine — natural, momentum-driven motion (SwiftUI.FluidSpringPhysics)."))
+        L.addWidget(_row(TweakID.iOS27AdaptiveColor,
+            "Adaptive Color Temperature",
+            "Dynamic color temperature adjusts system-wide accent colors based on ambient light and time of day (CoreBrightness.AdaptiveColorTemperature)."))
+        L.addWidget(_row(TweakID.iOS27LockscreenV3,
+            "Lock Screen v3",
+            "iOS 27 interactive lock screen — live activity widgets, depth layers, and customizable ambient clock (SpringBoard.LockscreenV3)."))
+        L.addWidget(_row(TweakID.iOS27HomeV3,
+            "Home Screen v3 — Adaptive Grid",
+            "iOS 27 home screen with intelligent adaptive icon grid, focus-aware layout, and live widget regions (SpringBoard.HomeScreenV3)."))
+        L.addWidget(_row(TweakID.iOS27DISplitV2,
+            "Dynamic Island Multi-App v2",
+            "Dynamic Island v2 — two simultaneous app bubbles side-by-side with independent live activities (SpringBoard.DIMultiAppV2)."))
+        L.addWidget(_row(TweakID.iOS27CCv3,
+            "Control Center v3 — Modular",
+            "Redesigned modular Control Center — drag-and-drop tiles, nested menus, per-app CC profiles (ControlCenter.ModularDesignV3)."))
+        L.addWidget(_row(TweakID.iOS27NotifV3,
+            "Notifications v3 — AI Summaries",
+            "iOS 27 grouped notification summaries powered by Apple Intelligence — reduces noise, surfaces what matters (UserNotificationsUI.AIGroupedSummaries)."))
+        L.addWidget(_row(TweakID.iOS27SpotlightAI,
+            "Spotlight v3 + Apple Intelligence",
+            "Full Apple Intelligence integration in Spotlight — natural language queries, in-app actions, proactive answers (Spotlight.AppleIntelligenceV3)."))
+        L.addWidget(_row(TweakID.iOS27WallpaperEngine,
+            "AI Wallpaper Engine",
+            "Generate custom wallpapers on-device with Apple Intelligence — scene-aware depth layers and motion parallax (SpringBoard.AIWallpaperEngine)."))
+        L.addWidget(_row(TweakID.iOS27IntelligentTyping,
+            "Neural Keyboard Predictions",
+            "iOS 27 keyboard uses on-device neural model for context-aware inline completions across all languages (Keyboard.NeuralPredictions)."))
+        L.addWidget(_row(TweakID.iOS27FocusV3,
+            "Focus Mode v3 — Smart Automation",
+            "Intelligent Focus scheduling — automatically activates the right Focus based on calendar, location, and behavior (Focus.IntelligentAutomation)."))
+        L.addWidget(_row(TweakID.iOS27ShareSheetV3,
+            "Share Sheet v3 — Redesigned",
+            "Completely redesigned Share Sheet with AI-suggested recipients, app actions, and quick copy with context (Sharing.RedesignedShareSheet)."))
+
     # ── callbacks ────────────────────────────────────────────────────────────
 
     def _enable_all(self):
@@ -1314,6 +1435,8 @@ class iOS27Page(Page):
         load_mros_ui_visual()
         load_mros_app_layout()
         load_mros_fonts_anim()
+        load_mros_ios27_beta_upgrade()
+        load_mros_ios27_visual_redesign()
         for tid in _page_tweak_ids:
             if tid in tweaks:
                 tweaks[tid].set_enabled(tid in MAXREGNEROS_MODE_IDS)

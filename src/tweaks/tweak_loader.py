@@ -694,6 +694,17 @@ MAXREGNEROS_MODE_IDS = frozenset([
     # Widgets
     TweakID.WidgetInteractive, TweakID.WidgetOnLockScreen, TweakID.WidgetSmartStack,
     TweakID.WidgetSuggestedApps, TweakID.WidgetBatteryWidget,
+    # iOS 27 Beta Upgrade (safe feature flags — BetaEnroll excluded as it touches OTA)
+    TweakID.iOS27DevFeatures, TweakID.iOS27EligOverride, TweakID.iOS27NeuralCamera,
+    TweakID.iOS27ProDisplay, TweakID.iOS27AlwaysOnV2, TweakID.iOS27OnDeviceAI,
+    TweakID.iOS27ContextEngine, TweakID.iOS27LiveTranslate, TweakID.iOS27MultiWindow,
+    TweakID.iOS27CarPlayV3, TweakID.iOS27AirDropV3,
+    # iOS 27 Visual Redesign
+    TweakID.iOS27NewVisualEngine, TweakID.iOS27FluidMotion, TweakID.iOS27AdaptiveColor,
+    TweakID.iOS27LockscreenV3, TweakID.iOS27HomeV3, TweakID.iOS27CCv3,
+    TweakID.iOS27NotifV3, TweakID.iOS27SpotlightAI, TweakID.iOS27WallpaperEngine,
+    TweakID.iOS27IntelligentTyping, TweakID.iOS27FocusV3, TweakID.iOS27ShareSheetV3,
+    TweakID.iOS27DISplitV2,
 ])
 
 
@@ -1259,6 +1270,66 @@ def load_mros_fonts_anim():
         TweakID.WidgetNearbyPlaces:      FeatureFlagTweak('Maps',        ['NearbyPlacesWidget']),
         TweakID.WidgetBatteryWidget:     FeatureFlagTweak('SpringBoard', ['BatteryWidget']),
         TweakID.WidgetSiriSuggestions:   FeatureFlagTweak('Siri',        ['SiriSuggestionsWidget']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_ios27_beta_upgrade():
+    """iOS 27 system upgrade — OTA beta enrollment, eligibility unlock, device features."""
+    if TweakID.iOS27BetaEnroll in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.iOS27BetaEnroll: AdvancedPlistTweak(
+            FileLocation.ota,
+            {
+                "MobileAssetAssetAudience": "ef473147-df7a-4f71-a5e5-73cd8cf41a76",
+                "MobileAssetSUAllowOSVersionChange": True,
+                "MobileAssetSUAllowSameVersionFullReplacement": True,
+                "MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdate":
+                    "https://mesu.apple.com/assets/iOS27DeveloperSeed/",
+                "MobileAssetServerURL-com.apple.MobileAsset.MobileSoftwareUpdate.UpdateBrain":
+                    "https://mesu.apple.com/assets/iOS27DeveloperSeed/",
+            }
+        ),
+        TweakID.iOS27DevFeatures:   FeatureFlagTweak('SpringBoard',          ['DeveloperBuild']),
+        TweakID.iOS27EligOverride:  FeatureFlagTweak('IntelligencePlatform', ['EligibilityOverride']),
+        TweakID.iOS27NeuralCamera:  FeatureFlagTweak('Camera',               ['NeuralPipelineV3']),
+        TweakID.iOS27ProDisplay:    FeatureFlagTweak('CoreBrightness',       ['PeakBrightnessEnabled']),
+        TweakID.iOS27AlwaysOnV2:    FeatureFlagTweak('SpringBoard',          ['AlwaysOnDisplayV2']),
+        TweakID.iOS27LiveTranslate: FeatureFlagTweak('Translate',            ['LiveInlineTranslation']),
+        TweakID.iOS27MultiWindow:   FeatureFlagTweak('SpringBoard',          ['MultiWindowiPhone']),
+        TweakID.iOS27CarPlayV3:     FeatureFlagTweak('CarPlay',              ['AIIntegrationV3']),
+        TweakID.iOS27AirDropV3:     FeatureFlagTweak('Sharing',              ['NameDropEnhanced']),
+        TweakID.iOS27OnDeviceAI:    FeatureFlagTweak('IntelligencePlatform', ['OnDevicePrivateCompute']),
+        TweakID.iOS27ContextEngine: FeatureFlagTweak('Siri',                 ['ContextAwarenessEngine']),
+    }
+    tweaks.update(additional_tweaks)
+    for tweak in additional_tweaks.values():
+        tweak.set_enabled(True)
+    _page_tweak_ids.update(additional_tweaks.keys())
+
+
+def load_mros_ios27_visual_redesign():
+    """iOS 27 visual system — new rendering engine, fluid motion, redesigned surfaces."""
+    if TweakID.iOS27NewVisualEngine in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.iOS27NewVisualEngine:   FeatureFlagTweak('SwiftUI',              ['NewRenderingEngine']),
+        TweakID.iOS27FluidMotion:       FeatureFlagTweak('SwiftUI',              ['FluidSpringPhysics']),
+        TweakID.iOS27AdaptiveColor:     FeatureFlagTweak('CoreBrightness',       ['AdaptiveColorTemperature']),
+        TweakID.iOS27LockscreenV3:      FeatureFlagTweak('SpringBoard',          ['LockscreenV3']),
+        TweakID.iOS27HomeV3:            FeatureFlagTweak('SpringBoard',          ['HomeScreenV3']),
+        TweakID.iOS27CCv3:              FeatureFlagTweak('ControlCenter',        ['ModularDesignV3']),
+        TweakID.iOS27NotifV3:           FeatureFlagTweak('UserNotificationsUI',  ['AIGroupedSummaries']),
+        TweakID.iOS27SpotlightAI:       FeatureFlagTweak('Spotlight',            ['AppleIntelligenceV3']),
+        TweakID.iOS27WallpaperEngine:   FeatureFlagTweak('SpringBoard',          ['AIWallpaperEngine']),
+        TweakID.iOS27IntelligentTyping: FeatureFlagTweak('Keyboard',             ['NeuralPredictions']),
+        TweakID.iOS27FocusV3:           FeatureFlagTweak('Focus',                ['IntelligentAutomation']),
+        TweakID.iOS27ShareSheetV3:      FeatureFlagTweak('Sharing',              ['RedesignedShareSheet']),
+        TweakID.iOS27DISplitV2:         FeatureFlagTweak('SpringBoard',          ['DIMultiAppV2']),
     }
     tweaks.update(additional_tweaks)
     for tweak in additional_tweaks.values():

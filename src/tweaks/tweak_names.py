@@ -529,3 +529,30 @@ class TweakID(Enum):
     WidgetNearbyPlaces = auto()         # SBNearbyPlacesWidgetEnabled
     WidgetBatteryWidget = auto()        # SBBatteryWidgetEnabled
     WidgetSiriSuggestions = auto()      # SBSiriSuggestionsWidgetEnabled
+
+    # ── iOS 27 Complete Rewrite & Beta Enrollment ─────────────────────────────
+    iOS27BetaEnroll = auto()          # OTA: enroll in iOS 27 developer beta seed
+    iOS27DevFeatures = auto()         # Developer build feature flags (internal builds)
+    iOS27EligOverride = auto()        # Override iOS version eligibility checks for AI
+    iOS27NewVisualEngine = auto()     # New visual rendering engine (SwiftUI v5)
+    iOS27FluidMotion = auto()         # Fluid spring physics for all animations
+    iOS27AdaptiveColor = auto()       # Adaptive dynamic color temperature system
+    iOS27DISplitV2 = auto()           # Dynamic Island v2 — multi-app side-by-side
+    iOS27LockscreenV3 = auto()        # Lockscreen v3 — interactive live widgets
+    iOS27HomeV3 = auto()              # Home screen v3 — adaptive intelligent grid
+    iOS27CCv3 = auto()                # Control Center v3 — modular drag-and-drop
+    iOS27NotifV3 = auto()             # Notifications v3 — AI-grouped summaries
+    iOS27SpotlightAI = auto()         # Spotlight v3 with full Apple Intelligence
+    iOS27WallpaperEngine = auto()     # AI wallpaper generation & depth engine
+    iOS27IntelligentTyping = auto()   # Neural keyboard with predictive completion
+    iOS27ContextEngine = auto()       # Context-awareness engine (cross-app memory)
+    iOS27OnDeviceAI = auto()          # Enhanced on-device AI (Private Compute v2)
+    iOS27NeuralCamera = auto()        # Neural camera pipeline v3 (ProCamera)
+    iOS27ProDisplay = auto()          # Pro display — peak brightness & HDR3
+    iOS27AlwaysOnV2 = auto()          # Always-On Display v2 — ambient color clock
+    iOS27LiveTranslate = auto()       # Real-time translation inline in any app
+    iOS27FocusV3 = auto()             # Focus mode v3 — intelligent auto-scheduling
+    iOS27ShareSheetV3 = auto()        # Share Sheet v3 — redesigned with AI actions
+    iOS27MultiWindow = auto()         # Multi-window support on iPhone (split view)
+    iOS27CarPlayV3 = auto()           # CarPlay v3 — AI route + voice integration
+    iOS27AirDropV3 = auto()           # AirDrop v3 — NameDrop Enhanced + spatial
