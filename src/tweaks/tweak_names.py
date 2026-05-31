@@ -137,6 +137,29 @@ class TweakID(Enum):
     CellularHDVoice = auto()         # HDVoiceEnabled
     CellularLTE = auto()             # LTEEnabled
 
+    # Safari & networking  (com.apple.mobilesafari managed preferences)
+    SafariWebInspector = auto()      # WebKitDeveloperExtrasEnabled
+    SafariAllowHTTP = auto()         # AllowHTTP
+    SafariBlockPopups = auto()       # BlockPopups
+    SafariDoNotTrack = auto()        # DNTEnabled
+    SafariFullURL = auto()           # ShowFullURL
+    SafariFraudWarning = auto()      # WarnAboutFraudulentWebsites
+    SafariJavaScript = auto()        # WebKitJavaScriptEnabled
+    SafariSearchSuggest = auto()     # SuppressSearchSuggestions (inverted)
+    SafariHTTP3 = auto()             # WebKitNetworkHTTP3Enabled
+    SafariPrivateRelay = auto()      # iCloudPrivateRelayEnabled
+    SafariDoH = auto()               # WebKitDNSOverHTTPSEnabled
+    SafariECH = auto()               # WebKitEncryptedClientHelloEnabled
+
+    # 6G & advanced cellular  (com.apple.coretelephony managed preferences)
+    Cell6GEnabled = auto()           # 6GEnabled  (future-facing, IMT-2030)
+    CellmmWave = auto()              # mmWaveEnabled  (5G FR2 / mmWave bands)
+    CellCarrierAgg = auto()          # CarrierAggregationEnabled
+    CellStandalone5G = auto()        # Standalone5GEnabled  (SA vs NSA NR)
+    CellNRDualConnectivity = auto()  # NRDualConnectivityEnabled
+    CellAdvancedMIMO = auto()        # AdvancedMIMOEnabled  (Massive MIMO)
+    CellLowLatencyMode = auto()      # LowLatencyModeEnabled  (URLLC slicing)
+
     # risky
     DisableOTAFile = auto()
     CustomResolution = auto()

@@ -30,5 +30,8 @@ class FileLocation(Enum):
     # Cellular & Modem
     coreTelephony = "/var/Managed Preferences/mobile/com.apple.coretelephony.plist"
 
+    # Safari & Networking
+    safari = "/var/Managed Preferences/mobile/com.apple.mobilesafari.plist"
+
     # Risky Options
     ota = "/var/Managed Preferences/mobile/com.apple.MobileAsset.plist"

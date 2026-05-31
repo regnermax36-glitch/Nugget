@@ -538,6 +538,100 @@ def load_cellular():
     }
     tweaks.update(additional_tweaks)
 
+def load_safari_net():
+    if TweakID.SafariWebInspector in tweaks:
+        return
+    # All keys target com.apple.mobilesafari managed preferences.
+    # Safari/WebKit reads these at launch via MobileGestalt / NSUserDefaults.
+    additional_tweaks = {
+        # Web Inspector / remote debug (used by every iOS dev via Xcode)
+        TweakID.SafariWebInspector: BasicPlistTweak(
+            FileLocation.safari, key="WebKitDeveloperExtrasEnabled"
+        ),
+        # Allow navigation to plain HTTP URLs without upgrading to HTTPS
+        # (Apple MDM profile key, documented in Profile Manager)
+        TweakID.SafariAllowHTTP: BasicPlistTweak(
+            FileLocation.safari, key="AllowHTTP"
+        ),
+        # Pop-up window blocker (documented Apple MDM restriction key)
+        TweakID.SafariBlockPopups: BasicPlistTweak(
+            FileLocation.safari, key="BlockPopups"
+        ),
+        # Do Not Track request header sent with every HTTP request
+        TweakID.SafariDoNotTrack: BasicPlistTweak(
+            FileLocation.safari, key="DNTEnabled"
+        ),
+        # Show full URL (scheme + host) in the smart search field
+        TweakID.SafariFullURL: BasicPlistTweak(
+            FileLocation.safari, key="ShowFullURL"
+        ),
+        # Fraudulent-site / phishing warning (Apple MDM documented key)
+        TweakID.SafariFraudWarning: BasicPlistTweak(
+            FileLocation.safari, key="WarnAboutFraudulentWebsites"
+        ),
+        # JavaScript engine toggle (Apple MDM restriction key)
+        TweakID.SafariJavaScript: BasicPlistTweak(
+            FileLocation.safari, key="WebKitJavaScriptEnabled"
+        ),
+        # Suppress search/URL-bar suggestions (inverted: True = suppressed)
+        TweakID.SafariSearchSuggest: BasicPlistTweak(
+            FileLocation.safari, key="SuppressSearchSuggestions"
+        ),
+        # HTTP/3 (QUIC) — WebKit network process reads this preference
+        TweakID.SafariHTTP3: BasicPlistTweak(
+            FileLocation.safari, key="WebKitNetworkHTTP3Enabled"
+        ),
+        # iCloud Private Relay (Safari relay proxy toggle)
+        TweakID.SafariPrivateRelay: BasicPlistTweak(
+            FileLocation.safari, key="iCloudPrivateRelayEnabled"
+        ),
+        # DNS-over-HTTPS resolver (WebKit reads this from Safari preferences)
+        TweakID.SafariDoH: BasicPlistTweak(
+            FileLocation.safari, key="WebKitDNSOverHTTPSEnabled"
+        ),
+        # Encrypted Client Hello — TLS 1.3 ECH draft (WebKit 616+)
+        TweakID.SafariECH: BasicPlistTweak(
+            FileLocation.safari, key="WebKitEncryptedClientHelloEnabled"
+        ),
+    }
+    tweaks.update(additional_tweaks)
+
+def load_6g_advanced():
+    if TweakID.Cell6GEnabled in tweaks:
+        return
+    # All keys target com.apple.coretelephony managed preferences.
+    additional_tweaks = {
+        # 6G NR (IMT-2030) — future modem capability gate
+        TweakID.Cell6GEnabled: BasicPlistTweak(
+            FileLocation.coreTelephony, key="6GEnabled"
+        ),
+        # 5G FR2 mmWave bands (sub-terahertz short-range high-throughput)
+        TweakID.CellmmWave: BasicPlistTweak(
+            FileLocation.coreTelephony, key="mmWaveEnabled"
+        ),
+        # Carrier aggregation — bond multiple LTE/NR bands simultaneously
+        TweakID.CellCarrierAgg: BasicPlistTweak(
+            FileLocation.coreTelephony, key="CarrierAggregationEnabled"
+        ),
+        # 5G Standalone mode (SA-NR) vs Non-Standalone (NSA/EN-DC)
+        TweakID.CellStandalone5G: BasicPlistTweak(
+            FileLocation.coreTelephony, key="Standalone5GEnabled"
+        ),
+        # NR Dual Connectivity (simultaneous NR + LTE data paths)
+        TweakID.CellNRDualConnectivity: BasicPlistTweak(
+            FileLocation.coreTelephony, key="NRDualConnectivityEnabled"
+        ),
+        # Massive MIMO spatial multiplexing (antenna beam-forming)
+        TweakID.CellAdvancedMIMO: BasicPlistTweak(
+            FileLocation.coreTelephony, key="AdvancedMIMOEnabled"
+        ),
+        # URLLC ultra-reliable low-latency slice request
+        TweakID.CellLowLatencyMode: BasicPlistTweak(
+            FileLocation.coreTelephony, key="LowLatencyModeEnabled"
+        ),
+    }
+    tweaks.update(additional_tweaks)
+
 def load_risky():
     if TweakID.CustomResolution in tweaks:
         return
@@ -598,3 +692,5 @@ def load_all_tweaks(version: str):
     load_sound_studio()
     load_homescreen_dock()
     load_cellular()
+    load_safari_net()
+    load_6g_advanced()

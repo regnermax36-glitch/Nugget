@@ -7,7 +7,7 @@ from src.qt.mainwindow_ui import Ui_Nugget
 import src.gui.pages as Pages
 from PySide6.QtWidgets import QToolButton
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QCursor
+from PySide6.QtGui import QCursor, QIcon
 
 from src.controllers.web_request_handler import is_update_available
 from src.controllers.translator import Translator
@@ -78,23 +78,41 @@ class MainWindow(QtWidgets.QMainWindow):
             Page.Settings: Pages.Settings(window=self, ui=self.ui),
             Page.SoundStudio: Pages.SoundStudio(),
             Page.SiriTwo: Pages.SiriTwo(),
+            Page.SafariNet: Pages.SafariNet(),
+            Page.SixG: Pages.SixG(),
         }
         # Add dynamically-built pages to the stacked widget
         self.ui.pages.addWidget(self.pages[Page.SoundStudio])
         self.ui.pages.addWidget(self.pages[Page.SiriTwo])
+        self.ui.pages.addWidget(self.pages[Page.SafariNet])
+        self.ui.pages.addWidget(self.pages[Page.SixG])
+
+        # Icons for the new sidebar buttons
+        _ico_toggles = QIcon(":/icon/toggles.svg")
+        _ico_phone   = QIcon(":/icon/phone.svg")
+        _ico_globe   = QIcon(":/icon/globe.svg")
+        _ico_wifi    = QIcon(":/icon/wifi.svg")
 
         # Create sidebar buttons for the new pages
-        self._soundStudioBtn = self._make_sidebar_btn("    Sound Studio")
-        self._siriTwoBtn = self._make_sidebar_btn("    Home Screen & Cell.")
+        self._soundStudioBtn = self._make_sidebar_btn("    Sound Studio", _ico_toggles)
+        self._siriTwoBtn     = self._make_sidebar_btn("    Home Screen & Cell.", _ico_phone)
+        self._safariNetBtn   = self._make_sidebar_btn("    Safari & Network", _ico_globe)
+        self._sixGBtn        = self._make_sidebar_btn("    6G & Advanced Cell.", _ico_wifi)
         self._soundStudioBtn.hide()
         self._siriTwoBtn.hide()
+        self._safariNetBtn.hide()
+        self._sixGBtn.hide()
         # Insert before the apply button divider (sidebarDiv2)
         sidebar_layout = self.ui.sidebarDiv2.parent().layout()
         div2_index = sidebar_layout.indexOf(self.ui.sidebarDiv2)
-        sidebar_layout.insertWidget(div2_index, self._soundStudioBtn)
+        sidebar_layout.insertWidget(div2_index,     self._soundStudioBtn)
         sidebar_layout.insertWidget(div2_index + 1, self._siriTwoBtn)
+        sidebar_layout.insertWidget(div2_index + 2, self._safariNetBtn)
+        sidebar_layout.insertWidget(div2_index + 3, self._sixGBtn)
         self._soundStudioBtn.clicked.connect(self._on_soundStudioBtn_clicked)
         self._siriTwoBtn.clicked.connect(self._on_siriTwoBtn_clicked)
+        self._safariNetBtn.clicked.connect(self._on_safariNetBtn_clicked)
+        self._sixGBtn.clicked.connect(self._on_sixGBtn_clicked)
 
         # Check for an update
         if is_update_available(App_Version, App_Build):
@@ -138,9 +156,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.chooseGestaltBtn.clicked.connect(self.on_chooseGestaltBtn_clicked)
 
 
-    def _make_sidebar_btn(self, text: str) -> QToolButton:
+    def _make_sidebar_btn(self, text: str, icon: QIcon = None) -> QToolButton:
         btn = QToolButton(self.ui.sidebar)
         btn.setText(text)
+        if icon:
+            btn.setIcon(icon)
         btn.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         btn.setCheckable(True)
         btn.setAutoExclusive(True)
@@ -222,6 +242,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.applyPageBtn.hide()
             self._soundStudioBtn.hide()
             self._siriTwoBtn.hide()
+            self._safariNetBtn.hide()
+            self._sixGBtn.hide()
             self.ui.jjtechBtn.hide()
             self.ui.duyBtn.show()
 
@@ -255,6 +277,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.applyPageBtn.show()
             self._soundStudioBtn.show()
             self._siriTwoBtn.show()
+            self._safariNetBtn.show()
+            self._sixGBtn.show()
 
             self.ui.gestaltPageContent.setDisabled(False)
             self.ui.featureFlagsPageContent.setDisabled(False)
@@ -572,6 +596,14 @@ class MainWindow(QtWidgets.QMainWindow):
     def _on_siriTwoBtn_clicked(self):
         self.pages[Page.SiriTwo].load()
         self.ui.pages.setCurrentWidget(self.pages[Page.SiriTwo])
+
+    def _on_safariNetBtn_clicked(self):
+        self.pages[Page.SafariNet].load()
+        self.ui.pages.setCurrentWidget(self.pages[Page.SafariNet])
+
+    def _on_sixGBtn_clicked(self):
+        self.pages[Page.SixG].load()
+        self.ui.pages.setCurrentWidget(self.pages[Page.SixG])
 
     def on_applyPageBtn_clicked(self):
         self.ui.pages.setCurrentIndex(Page.Apply.value)

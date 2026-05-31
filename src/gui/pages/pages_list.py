@@ -21,6 +21,8 @@ class Page(Enum):
     Settings = 15
     SoundStudio = 16
     SiriTwo = 17
+    SafariNet = 18
+    SixG = 19
 
     def getPageName(self) -> str:
         name_map = [
@@ -41,7 +43,9 @@ class Page(Enum):
             "Apply",
             "Settings",
             "Sound Studio",
-            "Siri 2.0 + iOS 26/27 UI",
+            "Home Screen & Cellular",
+            "Safari & Networking",
+            "6G & Advanced Cellular",
         ]
         return name_map[self.value]
 

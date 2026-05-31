@@ -13,4 +13,6 @@ from .tools.passcode import PasscodePage as Passcode
 from .tools.risky import RiskyPage as Risky
 from .tools.sound_studio import SoundStudioPage as SoundStudio
 from .tools.siri_two import SiriTwoPage as SiriTwo
+from .tools.safari_net import SafariNetPage as SafariNet
+from .tools.sixg_cellular import SixGPage as SixG
 from .main.settings import SettingsPage as Settings
