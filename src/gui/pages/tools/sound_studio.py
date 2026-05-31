@@ -161,6 +161,7 @@ class SoundStudioPage(Page, QWidget):
         btn_layout = QHBoxLayout(btn_container)
         btn_layout.setContentsMargins(0, 0, 0, 0)
         btn_layout.setSpacing(0)
+        row_layout.addWidget(btn_container)
 
         self.layout_main.addWidget(row_widget)
         return btn_layout
