@@ -33,5 +33,9 @@ class FileLocation(Enum):
     mediaRemote = "/var/Managed Preferences/mobile/com.apple.mediaremote.plist"
     coreTelephony = "/var/Managed Preferences/mobile/com.apple.coretelephony.plist"
 
+    # Siri 2.0
+    siri = "/var/Managed Preferences/mobile/com.apple.siri.plist"
+    siriAssistant = "/var/Managed Preferences/mobile/com.apple.assistant.plist"
+
     # Risky Options
     ota = "/var/Managed Preferences/mobile/com.apple.MobileAsset.plist"

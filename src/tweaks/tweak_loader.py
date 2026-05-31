@@ -421,30 +421,32 @@ def load_liquidglass():
 def load_siri_two():
     if TweakID.Siri2NewUI in tweaks:
         return
+    # All use BasicPlistTweak → Managed Preferences paths so sparserestore
+    # is used (the original apply method), not BookRestore.
     additional_tweaks = {
-        TweakID.Siri2NewUI: FeatureFlagTweak(
-            flag_category="Siri",
-            flag_names=["SiriNewConversationalUI", "SiriVisualRefresh2026"]
+        TweakID.Siri2NewUI: AdvancedPlistTweak(
+            FileLocation.siri,
+            {"SiriNewConversationalUI": True, "SiriVisualRefresh2026": True}
         ),
-        TweakID.Siri2VoiceDesign: FeatureFlagTweak(
-            flag_category="Siri",
-            flag_names=["SiriVoiceDesign2", "SiriNeuralVoiceQuality"]
+        TweakID.Siri2VoiceDesign: AdvancedPlistTweak(
+            FileLocation.siri,
+            {"SiriVoiceDesign2": True, "SiriNeuralVoiceQuality": True}
         ),
-        TweakID.Siri2MeshBackground: FeatureFlagTweak(
-            flag_category="SiriUI",
-            flag_names=["SiriMeshAnimatedBackground", "SiriAmbientBackground"]
+        TweakID.Siri2MeshBackground: AdvancedPlistTweak(
+            FileLocation.siriAssistant,
+            {"SiriMeshAnimatedBackground": True, "SiriAmbientBackground": True}
         ),
-        TweakID.Siri2GlassOrb: FeatureFlagTweak(
-            flag_category="SiriUI",
-            flag_names=["SiriGlassOrbDesign", "SiriSolariumOrb"]
+        TweakID.Siri2GlassOrb: AdvancedPlistTweak(
+            FileLocation.siriAssistant,
+            {"SiriGlassOrbDesign": True, "SiriSolariumOrb": True}
         ),
-        TweakID.Siri2OnDeviceExtended: FeatureFlagTweak(
-            flag_category="Siri",
-            flag_names=["SiriOnDeviceExtendedContext", "SiriLocalInferenceExtended"]
+        TweakID.Siri2OnDeviceExtended: AdvancedPlistTweak(
+            FileLocation.siri,
+            {"SiriOnDeviceExtendedContext": True, "SiriLocalInferenceExtended": True}
         ),
-        TweakID.Siri2ProactiveContext: FeatureFlagTweak(
-            flag_category="Siri",
-            flag_names=["SiriProactiveContextEngine", "SiriScreenAwarenessV2"]
+        TweakID.Siri2ProactiveContext: AdvancedPlistTweak(
+            FileLocation.siri,
+            {"SiriProactiveContextEngine": True, "SiriScreenAwarenessV2": True}
         ),
     }
     tweaks.update(additional_tweaks)
@@ -525,26 +527,28 @@ def load_sound_studio():
 def load_ios2627_layout():
     if TweakID.iOS26FloatingSheetUI in tweaks:
         return
+    # All use BasicPlistTweak → Managed Preferences paths so sparserestore
+    # is used (the original apply method), not BookRestore.
     additional_tweaks = {
-        TweakID.iOS26FloatingSheetUI: FeatureFlagTweak(
-            flag_category="UIKit",
-            flag_names=["UIFloatingSheetPresentation", "UIAdaptiveSheetCornerRadius"]
+        TweakID.iOS26FloatingSheetUI: AdvancedPlistTweak(
+            FileLocation.uikit,
+            {"UIFloatingSheetPresentation": True, "UIAdaptiveSheetCornerRadius": True}
         ),
-        TweakID.iOS26CompactTabBar: FeatureFlagTweak(
-            flag_category="SpringBoard",
-            flag_names=["SBCompactTabBarLayout", "SBTabBarSolarium"]
+        TweakID.iOS26CompactTabBar: AdvancedPlistTweak(
+            FileLocation.springboard,
+            {"SBCompactTabBarLayout": True, "SBTabBarSolarium": True}
         ),
-        TweakID.iOS27FluidTransitions: FeatureFlagTweak(
-            flag_category="UIKit",
-            flag_names=["UIFluidNavigationTransitions", "UIZoomTransitionV2"]
+        TweakID.iOS27FluidTransitions: AdvancedPlistTweak(
+            FileLocation.uikit,
+            {"UIFluidNavigationTransitions": True, "UIZoomTransitionV2": True}
         ),
-        TweakID.iOS27AdaptiveSidebar: FeatureFlagTweak(
-            flag_category="UIKit",
-            flag_names=["UIAdaptiveSidebarLayout", "UISidebarCollapsible"]
+        TweakID.iOS27AdaptiveSidebar: AdvancedPlistTweak(
+            FileLocation.uikit,
+            {"UIAdaptiveSidebarLayout": True, "UISidebarCollapsible": True}
         ),
-        TweakID.iOS27SwipeNavigation: FeatureFlagTweak(
-            flag_category="SpringBoard",
-            flag_names=["SBSwipeNavigationV2", "SBGestureNavEnhanced"]
+        TweakID.iOS27SwipeNavigation: AdvancedPlistTweak(
+            FileLocation.springboard,
+            {"SBSwipeNavigationV2": True, "SBGestureNavEnhanced": True}
         ),
     }
     tweaks.update(additional_tweaks)
