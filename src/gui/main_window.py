@@ -5,6 +5,9 @@ from typing import Optional
 
 from src.qt.mainwindow_ui import Ui_Nugget
 import src.gui.pages as Pages
+from PySide6.QtWidgets import QToolButton
+from PySide6.QtCore import QSize
+from PySide6.QtGui import QCursor
 
 from src.controllers.web_request_handler import is_update_available
 from src.controllers.translator import Translator
@@ -72,8 +75,26 @@ class MainWindow(QtWidgets.QMainWindow):
             Page.Templates: Pages.Templates(window=self, ui=self.ui),
             Page.Passcode: Pages.Passcode(window=self, ui=self.ui),
             Page.RiskyTweaks: Pages.Risky(ui=self.ui),
-            Page.Settings: Pages.Settings(window=self, ui=self.ui)
+            Page.Settings: Pages.Settings(window=self, ui=self.ui),
+            Page.SoundStudio: Pages.SoundStudio(),
+            Page.SiriTwo: Pages.SiriTwo(),
         }
+        # Add dynamically-built pages to the stacked widget
+        self.ui.pages.addWidget(self.pages[Page.SoundStudio])
+        self.ui.pages.addWidget(self.pages[Page.SiriTwo])
+
+        # Create sidebar buttons for the new pages
+        self._soundStudioBtn = self._make_sidebar_btn("    Sound Studio")
+        self._siriTwoBtn = self._make_sidebar_btn("    Siri 2.0 / iOS 26-27")
+        self._soundStudioBtn.hide()
+        self._siriTwoBtn.hide()
+        # Insert before the apply button divider (sidebarDiv2)
+        sidebar_layout = self.ui.sidebarDiv2.parent().layout()
+        div2_index = sidebar_layout.indexOf(self.ui.sidebarDiv2)
+        sidebar_layout.insertWidget(div2_index, self._soundStudioBtn)
+        sidebar_layout.insertWidget(div2_index + 1, self._siriTwoBtn)
+        self._soundStudioBtn.clicked.connect(self._on_soundStudioBtn_clicked)
+        self._siriTwoBtn.clicked.connect(self._on_siriTwoBtn_clicked)
 
         # Check for an update
         if is_update_available(App_Version, App_Build):
@@ -116,6 +137,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.removeTweaksBtn.clicked.connect(self.on_removeTweaksBtn_clicked)
         self.ui.chooseGestaltBtn.clicked.connect(self.on_chooseGestaltBtn_clicked)
 
+
+    def _make_sidebar_btn(self, text: str) -> QToolButton:
+        btn = QToolButton(self.ui.sidebar)
+        btn.setText(text)
+        btn.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        btn.setCheckable(True)
+        btn.setAutoExclusive(True)
+        btn.setToolButtonStyle(QtCore.Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        btn.setProperty("cls", "sidebarBtn")
+        sp = btn.sizePolicy()
+        sp.setHorizontalPolicy(sp.Policy.Expanding)
+        btn.setSizePolicy(sp)
+        btn.setMinimumHeight(35)
+        return btn
 
     ## GENERAL INTERFACE FUNCTIONS
     def updateInterfaceForNewDevice(self):
@@ -185,6 +220,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.ui.sidebarDiv2.hide()
             self.ui.applyPageBtn.hide()
+            self._soundStudioBtn.hide()
+            self._siriTwoBtn.hide()
             self.ui.jjtechBtn.hide()
             self.ui.duyBtn.show()
 
@@ -216,6 +253,8 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.ui.sidebarDiv2.show()
             self.ui.applyPageBtn.show()
+            self._soundStudioBtn.show()
+            self._siriTwoBtn.show()
 
             self.ui.gestaltPageContent.setDisabled(False)
             self.ui.featureFlagsPageContent.setDisabled(False)
@@ -525,6 +564,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def on_miscOptionsBtn_clicked(self):
         self.ui.pages.setCurrentIndex(Page.MiscOptions.value)
+
+    def _on_soundStudioBtn_clicked(self):
+        self.pages[Page.SoundStudio].load()
+        self.ui.pages.setCurrentWidget(self.pages[Page.SoundStudio])
+
+    def _on_siriTwoBtn_clicked(self):
+        self.pages[Page.SiriTwo].load()
+        self.ui.pages.setCurrentWidget(self.pages[Page.SiriTwo])
 
     def on_applyPageBtn_clicked(self):
         self.ui.pages.setCurrentIndex(Page.Apply.value)

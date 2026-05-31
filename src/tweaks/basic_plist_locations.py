@@ -27,5 +27,11 @@ class FileLocation(Enum):
     disabledDaemons = "/var/db/com.apple.xpc.launchd/disabled.plist"
     screentime = "/var/mobile/Library/Preferences/ScreenTimeAgent.plist"
 
+    # Sound Studio
+    avfoundation = "/var/Managed Preferences/mobile/com.apple.avfoundation.plist"
+    coreaudio = "/var/Managed Preferences/mobile/com.apple.coreaudio.plist"
+    mediaRemote = "/var/Managed Preferences/mobile/com.apple.mediaremote.plist"
+    coreTelephony = "/var/Managed Preferences/mobile/com.apple.coretelephony.plist"
+
     # Risky Options
     ota = "/var/Managed Preferences/mobile/com.apple.MobileAsset.plist"

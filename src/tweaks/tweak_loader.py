@@ -418,6 +418,137 @@ def load_liquidglass():
     }
     tweaks.update(additional_tweaks)
 
+def load_siri_two():
+    if TweakID.Siri2NewUI in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.Siri2NewUI: FeatureFlagTweak(
+            flag_category="Siri",
+            flag_names=["SiriNewConversationalUI", "SiriVisualRefresh2026"]
+        ),
+        TweakID.Siri2VoiceDesign: FeatureFlagTweak(
+            flag_category="Siri",
+            flag_names=["SiriVoiceDesign2", "SiriNeuralVoiceQuality"]
+        ),
+        TweakID.Siri2MeshBackground: FeatureFlagTweak(
+            flag_category="SiriUI",
+            flag_names=["SiriMeshAnimatedBackground", "SiriAmbientBackground"]
+        ),
+        TweakID.Siri2GlassOrb: FeatureFlagTweak(
+            flag_category="SiriUI",
+            flag_names=["SiriGlassOrbDesign", "SiriSolariumOrb"]
+        ),
+        TweakID.Siri2OnDeviceExtended: FeatureFlagTweak(
+            flag_category="Siri",
+            flag_names=["SiriOnDeviceExtendedContext", "SiriLocalInferenceExtended"]
+        ),
+        TweakID.Siri2ProactiveContext: FeatureFlagTweak(
+            flag_category="Siri",
+            flag_names=["SiriProactiveContextEngine", "SiriScreenAwarenessV2"]
+        ),
+    }
+    tweaks.update(additional_tweaks)
+
+def load_sound_studio():
+    if TweakID.SoundKeyboardFeedback in tweaks:
+        return
+    additional_tweaks = {
+        # Keyboard click sounds
+        TweakID.SoundKeyboardFeedback: BasicPlistTweak(
+            FileLocation.uikit,
+            key="UIKeyboardSoundFeedback",
+            value=True
+        ),
+        # Screenshot shutter sound disable
+        TweakID.SoundScreenshotDisable: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBCaptureControllerScreenCaptureSoundDisabled"
+        ),
+        # Charge connected sound
+        TweakID.SoundChargeAlert: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBChargingReminderSoundEnabled"
+        ),
+        # Slow charge alert sound
+        TweakID.SoundSlowChargeAlert: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBSlowChargeAlertSoundEnabled"
+        ),
+        # Low battery voice announcement
+        TweakID.SoundLowBatteryVoice: BasicPlistTweak(
+            FileLocation.globalPreferences,
+            key="SBLowBatteryVoiceAnnouncementEnabled"
+        ),
+        # Ringer + haptic sync on silent
+        TweakID.SoundRingerHapticSync: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBRingerAudioVibrateSync"
+        ),
+        # Force spatial audio for media
+        TweakID.SoundSpatialAudioForce: BasicPlistTweak(
+            FileLocation.avfoundation,
+            key="AVForceSpatialAudioEnabled"
+        ),
+        # Enhanced call voice processing
+        TweakID.SoundCallVoiceEnhance: BasicPlistTweak(
+            FileLocation.coreTelephony,
+            key="CTEnhancedVoiceProcessingEnabled"
+        ),
+        # System UI sound effects (taps, alerts)
+        TweakID.SoundSystemUIEffects: BasicPlistTweak(
+            FileLocation.globalPreferences,
+            key="com.apple.sound.uisounds.enable"
+        ),
+        # Volume change HUD sound
+        TweakID.SoundVolumeHUD: BasicPlistTweak(
+            FileLocation.springboard,
+            key="SBVolumeHUDSoundEnabled"
+        ),
+        # Bluetooth connect/disconnect chime
+        TweakID.SoundBTConnectionChime: BasicPlistTweak(
+            FileLocation.globalPreferences,
+            key="SBBluetoothConnectionChimeEnabled"
+        ),
+        # Duck other apps during media playback
+        TweakID.SoundDuckOthers: BasicPlistTweak(
+            FileLocation.avfoundation,
+            key="AVAudioSessionDuckOthersOnPlayback"
+        ),
+        # Media playback acoustic analysis
+        TweakID.SoundMediaPlaybackAnalysis: BasicPlistTweak(
+            FileLocation.avfoundation,
+            key="AVMediaPlaybackHeadphoneAnalysisEnabled"
+        ),
+    }
+    tweaks.update(additional_tweaks)
+
+def load_ios2627_layout():
+    if TweakID.iOS26FloatingSheetUI in tweaks:
+        return
+    additional_tweaks = {
+        TweakID.iOS26FloatingSheetUI: FeatureFlagTweak(
+            flag_category="UIKit",
+            flag_names=["UIFloatingSheetPresentation", "UIAdaptiveSheetCornerRadius"]
+        ),
+        TweakID.iOS26CompactTabBar: FeatureFlagTweak(
+            flag_category="SpringBoard",
+            flag_names=["SBCompactTabBarLayout", "SBTabBarSolarium"]
+        ),
+        TweakID.iOS27FluidTransitions: FeatureFlagTweak(
+            flag_category="UIKit",
+            flag_names=["UIFluidNavigationTransitions", "UIZoomTransitionV2"]
+        ),
+        TweakID.iOS27AdaptiveSidebar: FeatureFlagTweak(
+            flag_category="UIKit",
+            flag_names=["UIAdaptiveSidebarLayout", "UISidebarCollapsible"]
+        ),
+        TweakID.iOS27SwipeNavigation: FeatureFlagTweak(
+            flag_category="SpringBoard",
+            flag_names=["SBSwipeNavigationV2", "SBGestureNavEnhanced"]
+        ),
+    }
+    tweaks.update(additional_tweaks)
+
 def load_risky():
     if TweakID.CustomResolution in tweaks:
         return
@@ -475,3 +606,6 @@ def load_all_tweaks(version: str):
     load_internal()
     load_daemons()
     load_risky()
+    load_siri_two()
+    load_sound_studio()
+    load_ios2627_layout()

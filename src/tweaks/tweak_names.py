@@ -111,6 +111,36 @@ class TweakID(Enum):
     DisableOuterRefraction = auto()
     DisableSolariumHDR = auto()
 
+    # Siri 2.0 (WWDC 2026)
+    Siri2NewUI = auto()
+    Siri2VoiceDesign = auto()
+    Siri2MeshBackground = auto()
+    Siri2GlassOrb = auto()
+    Siri2OnDeviceExtended = auto()
+    Siri2ProactiveContext = auto()
+
+    # Sound Studio
+    SoundKeyboardFeedback = auto()
+    SoundScreenshotDisable = auto()
+    SoundChargeAlert = auto()
+    SoundSlowChargeAlert = auto()
+    SoundLowBatteryVoice = auto()
+    SoundRingerHapticSync = auto()
+    SoundSpatialAudioForce = auto()
+    SoundCallVoiceEnhance = auto()
+    SoundSystemUIEffects = auto()
+    SoundVolumeHUD = auto()
+    SoundBTConnectionChime = auto()
+    SoundDuckOthers = auto()
+    SoundMediaPlaybackAnalysis = auto()
+
+    # iOS 26 / 27 layout
+    iOS26FloatingSheetUI = auto()
+    iOS26CompactTabBar = auto()
+    iOS27FluidTransitions = auto()
+    iOS27AdaptiveSidebar = auto()
+    iOS27SwipeNavigation = auto()
+
     # risky
     DisableOTAFile = auto()
     CustomResolution = auto()

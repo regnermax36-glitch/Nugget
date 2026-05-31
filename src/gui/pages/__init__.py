@@ -11,4 +11,6 @@ from .tools.daemons import DaemonsPage as Daemons
 from .tools.templates import TemplatesPage as Templates
 from .tools.passcode import PasscodePage as Passcode
 from .tools.risky import RiskyPage as Risky
+from .tools.sound_studio import SoundStudioPage as SoundStudio
+from .tools.siri_two import SiriTwoPage as SiriTwo
 from .main.settings import SettingsPage as Settings
