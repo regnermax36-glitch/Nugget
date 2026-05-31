@@ -76,6 +76,18 @@ class AdvancedPlistTweak(BasicPlistTweak):
     ):
         super().__init__(file_location=file_location, key=None, value=keyValues, owner=owner, group=group, is_risky=is_risky)
 
+    def set_value(self, new_value: any, toggle_enabled: bool = True):
+        if isinstance(new_value, bool):
+            # bool from radio buttons: flip all dict entries instead of replacing the dict
+            for key in self.value:
+                self.value[key] = new_value
+            if toggle_enabled:
+                self.enabled = True
+        else:
+            self.value = new_value
+            if toggle_enabled:
+                self.enabled = True
+
     def set_multiple_values(self, keys: list[str], value: any):
         for key in keys:
             self.value[key] = value
